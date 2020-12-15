@@ -4,10 +4,10 @@
 
       <div class="coffee-logo d-flex flex-row align-items-center">
         <img src="../../../../public/img/auth/coffee-icon.png" alt="">
-        <p class="header-coffee">Coffee Shop</p>
+        <p class="coffee-shop">Coffee Shop</p>
       </div>
 
-      <h1 class="header-nav d-block">{{label}}</h1>
+      <h1 class="header-nav d-block">{{label}}Sign Up</h1>
     </nav>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
   height: fit-content;
 }
 
-.header-coffee {
+.coffee-shop {
   font-family: Rubik;
   font-style: normal;
   font-weight: bold;

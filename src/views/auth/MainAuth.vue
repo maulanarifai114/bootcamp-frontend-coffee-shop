@@ -5,7 +5,7 @@
       <aside class="col-md-6 side-main">
         <Navbar></Navbar>
         <div class="main">
-          <router-view/>
+          <router-view></router-view>
         </div>
         <Footer></Footer>
       </aside>

@@ -1,23 +1,50 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import Landing from '../views/Landing.vue'
+
+// Auth (Sign Up, Login, Forgot)
+import MainAuth from '../views/auth/MainAuth.vue'
+import SignUp from '../views/auth/SignUp.vue'
+import Login from '../views/auth/Login.vue'
+import Forgot from '../views/auth/Forgot.vue'
+
+// Product
+
+// Profile
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Landing',
+    component: Landing
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/auth',
+    name: 'MainAuth',
+    component: MainAuth,
+    // redirect: '/auth/login',
+    children: [
+      {
+        path: '/signup',
+        name: 'SignUp',
+        component: SignUp
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: Login
+      },
+      {
+        path: '/forgot',
+        name: 'Forgot',
+        component: Forgot
+      }
+    ]
   }
+
 ]
 
 const router = new VueRouter({

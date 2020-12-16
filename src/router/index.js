@@ -9,9 +9,11 @@ import SignUp from '../views/auth/SignUp.vue'
 import Login from '../views/auth/Login.vue'
 import Forgot from '../views/auth/Forgot.vue'
 
-// Product
+// Customer
+import Customer from '../views/customer/MainCust.vue'
+import ProductDetail from '../views/customer/ProductDetail.vue'
 
-// Profile
+// Admin
 
 Vue.use(VueRouter)
 
@@ -41,6 +43,18 @@ const routes = [
         path: 'forgot',
         name: 'Forgot',
         component: Forgot
+      }
+    ]
+  },
+  {
+    path: '/cust',
+    name: 'Customer',
+    component: Customer,
+    children: [
+      {
+        path: 'product-d',
+        name: 'ProductDetail',
+        component: ProductDetail
       }
     ]
   }

@@ -1,9 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <aside class="col-6 side-image">
-        <img src="../../../public/img/auth/side-img-1.png" alt="">
-      </aside>
+      <aside class="col-6 side-image"></aside>
       <aside class="col-6 side-main">
         <router-view></router-view>
         <Footer></Footer>
@@ -28,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 
 .side-image {
-  // background-image: url('../../../public/img/auth/side-img-1.png');
+  background-image: url('../../../public/img/auth/side-img-1.png');
   background-size: cover;
   height: 1628px;
   padding: 0;

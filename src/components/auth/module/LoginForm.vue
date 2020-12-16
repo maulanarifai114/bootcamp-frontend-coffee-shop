@@ -9,7 +9,9 @@
     </form>
     <Button color="btn-white-auth" label="Login With Google" :nonActiveImg=0></Button>
     <TextMuted text="Don’t have an account?"></TextMuted>
-    <Button color="btn-brown btn-auth" label="Sign Up Here" :nonActiveImg=1></Button>
+    <router-link to="/auth/signup">
+      <Button color="btn-brown btn-auth" label="Sign Up Here" :nonActiveImg=1></Button>
+    </router-link>
   </div>
 </template>
 

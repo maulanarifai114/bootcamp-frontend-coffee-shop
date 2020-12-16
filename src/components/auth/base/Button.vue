@@ -1,7 +1,7 @@
 <template>
   <div>
     <button :class="color" class="w-100" type="submit">
-      <img src="../../../../public/img/auth/google.png" alt="" :class="nonActiveImg > 0 ? 'nonActiveImg' : ''">
+      <img src="../../../assets/auth/google.png" alt="" :class="nonActiveImg > 0 ? 'nonActiveImg' : ''">
       {{label}}
     </button>
   </div>

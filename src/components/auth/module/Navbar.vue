@@ -3,7 +3,7 @@
     <nav class="navbar-auth d-flex flex-row justify-content-between align-items-center">
 
       <div class="coffee-logo d-flex flex-row align-items-center">
-        <img src="../../../../public/img/auth/coffee-icon.png" alt="">
+        <img src="../../../assets/auth/coffee-icon.png" alt="">
         <p class="coffee-shop">Coffee Shop</p>
       </div>
 

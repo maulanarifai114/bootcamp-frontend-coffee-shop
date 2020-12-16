@@ -5,16 +5,16 @@
 
         <aside class="col-6 d-flex flex-column justify-content-center">
           <div class="coffee-logo d-flex flex-row align-items-center">
-            <img src="../../../../public/img/auth/coffee-icon.png" alt="">
+            <img src="../../../assets/auth/coffee-icon.png" alt="">
             <p class="coffee-shop">Coffee Shop</p>
           </div>
           <p class="p-footer">
             Coffee Shop is a store that sells some good meals, and especially coffee. We provide high quality beans
           </p>
           <div class="socmed">
-            <img src="../../../../public/img/auth/fb.svg" alt="fb">
-            <img src="../../../../public/img/auth/tw.svg" alt="tw">
-            <img src="../../../../public/img/auth/ig.svg" alt="ig">
+            <img src="../../../assets/auth/fb.svg" alt="fb">
+            <img src="../../../assets/auth/tw.svg" alt="tw">
+            <img src="../../../assets/auth/ig.svg" alt="ig">
           </div>
           <p class="copyright">©2020CoffeeStore</p>
         </aside>

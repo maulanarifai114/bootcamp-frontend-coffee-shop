@@ -25,7 +25,7 @@ const routes = [
     path: '/auth',
     name: 'MainAuth',
     component: MainAuth,
-    // redirect: '/auth/signup',
+    redirect: '/auth/signup',
     children: [
       {
         path: 'signup',

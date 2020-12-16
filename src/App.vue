@@ -54,39 +54,63 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 
+.btn-auth {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  height: 75px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  margin: 0 0 26px 0;
+}
+
+.btn-auth:focus {
+  outline: none;
+}
+
+.btn-auth:hover {
+  opacity: .8;
+}
+
 .btn-brown {
-  background: #6A4029
+  background: #6A4029!important;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px 0  rgba(106, 64, 41, 0.4);
 }
 
 .btn-yellow {
-  background: #FFBA33;
+  background: #FFBA33!important;
+  color: #6A4029;
+  box-shadow: 0 6px 20px 0  rgba(255, 187, 51, 0.4);
 }
 
-.placeholder {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 24px;
-  color: #9F9F9F;
-}
-
-.label {
-  font-family: Rubik;
+.btn-white-auth {
+  background: #ffffff!important;
+  font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
-  line-height: 24px;
-  color: #4F5665;
+  font-size: 17px;
+  line-height: 25px;
+  height: 75px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  margin: 0 0 62px 0;
+  color: #000000;
+  box-shadow: 0 6px 20px 0 rgba(196, 196, 196, 0.67)
 }
 
-.text-muted-auth {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 30px;
-  color: #9F9F9F;
+.btn-white-auth:focus {
+  outline: none;
+}
+
+.btn-white-auth:hover {
+  opacity: .8;
 }
 
 </style>

@@ -25,20 +25,20 @@ const routes = [
     path: '/auth',
     name: 'MainAuth',
     component: MainAuth,
-    // redirect: '/auth/login',
+    // redirect: '/auth/signup',
     children: [
       {
-        path: '/signup',
+        path: 'signup',
         name: 'SignUp',
         component: SignUp
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'Login',
         component: Login
       },
       {
-        path: '/forgot',
+        path: 'forgot',
         name: 'Forgot',
         component: Forgot
       }

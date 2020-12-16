@@ -7,7 +7,7 @@
         <p class="coffee-shop">Coffee Shop</p>
       </div>
 
-      <h1 class="header-nav d-block">{{label}}Sign Up</h1>
+      <h1 class="header-nav d-block">{{label}}</h1>
     </nav>
   </div>
 </template>

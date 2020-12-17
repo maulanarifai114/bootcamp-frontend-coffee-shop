@@ -2,14 +2,14 @@
   <div class="box w-100 d-flex flex-column">
     <h4>Choose a Size</h4>
     <div class="d-flex justify-content-between flex-row btn-group-toggle" >
-      <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size.includes('r')? 'selected':'unselected'">
-        <input type="checkbox" name="size" id="r" v-model="size" value="r" class="d-none"> R
+      <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size === 'r' ? 'selected':'unselected'">
+        <input type="radio" name="size" id="r" v-model="size" value="r" class="d-none"> R
       </label>
-      <label class="btn d-flex align-items-center justify-content-center" for="l" :class="size.includes('l')? 'selected':'unselected'">
-        <input type="checkbox" name="size" id="l" v-model="size" value="l" class="d-none"> L
+      <label class="btn d-flex align-items-center justify-content-center" for="l" :class="size === 'l' ? 'selected':'unselected'">
+        <input type="radio" name="size" id="l" v-model="size" value="l" class="d-none"> L
       </label>
-      <label class="btn d-flex align-items-center justify-content-center" for="xl" :class="size.includes('xl')? 'selected':'unselected'">
-        <input type="checkbox" name="size" id="xl" v-model="size" value="xl" class="d-none"> XL
+      <label class="btn d-flex align-items-center justify-content-center" for="xl" :class="size === 'xl' ? 'selected':'unselected'">
+        <input type="radio" name="size" id="xl" v-model="size" value="xl" class="d-none"> XL
       </label>
     </div>
   </div>
@@ -25,8 +25,7 @@ export default {
   },
   data () {
     return {
-      size: [],
-      check: []
+      size: ''
     }
   }
 }
@@ -50,10 +49,15 @@ export default {
   text-align: center;
   border: none;
   border-radius: 50%;
+  transition: .3s;
 }
 
 .btn:focus {
   outline: none;
+}
+
+.btn:hover {
+  opacity: .8;
 }
 
 .box {

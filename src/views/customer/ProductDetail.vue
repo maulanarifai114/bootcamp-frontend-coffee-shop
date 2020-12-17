@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container big-box">
     <!-- Category -->
     <p class="head-category pt-5">Favorite & Promo <span class="detail"> > Cold Brew</span></p>
     <main class="row">
-      <!-- Side Delivery and Time -->
+      <!-- Delivery and Time -->
       <aside class="col-6 d-flex flex-column align-items-center">
         <div class="img-wrap">
           <img src="../../assets/cust/cold-brew.png" alt="product">
@@ -12,7 +12,7 @@
           <Delivetime></Delivetime>
         </div>
       </aside>
-      <!-- Side Description and Price -->
+      <!-- Description, Price, Amount -->
       <aside class="col-6 d-flex flex-column align-items-center">
         <TitleProduct></TitleProduct>
         <AmountPrice></AmountPrice>
@@ -20,12 +20,14 @@
         <Button color="btn-yellow btn-detail" label="Ask a Staff"></Button>
       </aside>
     </main>
-
     <main class="row pt-5">
-      <div class="col-4">
+      <!-- Size Product -->
+      <aside class="col-4">
         <SizeProduct></SizeProduct>
-      </div>
+      </aside>
+      <!-- Checkout -->
       <div class="col-8">
+        <Checkout></Checkout>
       </div>
     </main>
   </div>
@@ -36,6 +38,7 @@ import Delivetime from '../../components/cust/module/DeliveTime'
 import TitleProduct from '../../components/cust/module/TitleProduct'
 import AmountPrice from '../../components/cust/module/AmountPrice'
 import SizeProduct from '../../components/cust/module/SizeProduct'
+import Checkout from '../../components/cust/module/Checkout'
 import Button from '../../components/cust/base/Button'
 
 export default {
@@ -45,12 +48,21 @@ export default {
     TitleProduct,
     AmountPrice,
     SizeProduct,
+    Checkout,
     Button
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.big-box {
+  // margin: 0 0 480px 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 480px;
+}
 
 .head-category {
   font-family: Rubik;

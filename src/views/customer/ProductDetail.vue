@@ -23,6 +23,7 @@
 
     <main class="row pt-5">
       <div class="col-4">
+        <SizeProduct></SizeProduct>
       </div>
       <div class="col-8">
       </div>
@@ -34,6 +35,7 @@
 import Delivetime from '../../components/cust/module/DeliveTime'
 import TitleProduct from '../../components/cust/module/TitleProduct'
 import AmountPrice from '../../components/cust/module/AmountPrice'
+import SizeProduct from '../../components/cust/module/SizeProduct'
 import Button from '../../components/cust/base/Button'
 
 export default {
@@ -42,6 +44,7 @@ export default {
     Delivetime,
     TitleProduct,
     AmountPrice,
+    SizeProduct,
     Button
   }
 }

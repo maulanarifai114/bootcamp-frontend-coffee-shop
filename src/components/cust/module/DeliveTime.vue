@@ -3,25 +3,25 @@
     <div class="del-time">
       <h4>Delivery and Time</h4>
       <div class="d-flex mb-5">
-        <div class="btn-group-toggle" data-toggle="buttons">
-          <label class="btn mr-3" for="dine" :class="deliver.includes('dine')? 'selected':'unselected'">
+        <div class="btn-group-toggle">
+          <label class="btn mr-3" for="dine" :class="deliver === 'dine'? 'selected':'unselected'">
             <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine"> Dine In
           </label>
-          <label class="btn mr-3" for="door" :class="deliver.includes('door')? 'selected':'unselected'">
+          <label class="btn mr-3" for="door" :class="deliver === 'door'? 'selected':'unselected'">
             <input type="radio" name="deliver" id="door" v-model="deliver" value="door"> Door Delivery
           </label>
-          <label class="btn mr-3" for="pick" :class="deliver.includes('pick')? 'selected':'unselected'">
+          <label class="btn mr-3" for="pick" :class="deliver === 'pick'? 'selected':'unselected'">
             <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick"> Pick Up
           </label>
         </div>
       </div>
       <div class="d-flex align-items-center mb-5">
         <div class="label-tag mr-now">Now</div>
-        <div class="btn-group-toggle" data-toggle="buttons">
-          <label class="btn mr-3" for="yes" :class="now.includes('yes')? 'selected':'unselected'">
+        <div class="btn-group-toggle">
+          <label class="btn mr-3" for="yes" :class="now === 'yes'? 'selected':'unselected'">
             <input type="radio" name="now" id="yes" v-model="now" value="yes"> Yes
           </label>
-          <label class="btn mr-3" for="no" :class="now.includes('no')? 'selected':'unselected'">
+          <label class="btn mr-3" for="no" :class="now === 'no'? 'selected':'unselected'">
             <input type="radio" name="now" id="no" v-model="now" value="no"> No
           </label>
         </div>
@@ -44,8 +44,17 @@ export default {
   },
   data () {
     return {
-      deliver: [],
-      now: []
+      deliver: '',
+      now: ''
+    }
+  },
+  mounted () {
+    this.default()
+  },
+  methods: {
+    default () {
+      this.deliver = 'dine'
+      this.now = 'yes'
     }
   }
 }

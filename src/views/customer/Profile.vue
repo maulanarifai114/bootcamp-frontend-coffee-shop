@@ -15,19 +15,22 @@
               <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42"></Button>
               <Button label="Edit Password" color="btn-profile-white mb-34"></Button>
               <div class="flex-grow-1">
-                <div class="save">
+                <div v-if="editMode > 0">
                   <h3>Do you want to save the change?</h3>
                   <Button label="Save Change" color="btn-brown btn-profile-2"></Button>
-                  <Button label="Cancel" color="btn-yellow btn-profile-2"></Button>
+                  <Button label="Cancel" color="btn-yellow btn-profile-2" @trigger="changeEditMode"></Button>
                 </div>
               </div>
               <Button label="Log out" color="btn-profile-white "></Button>
             </div>
           </aside>
           <aside class="col-8 d-flex flex-column">
-            <div class="side-right flex-grow-1">
-              <Button label="Add" color="btn-brown btn-profile-1"></Button>
-              <Button label="Add2" color="btn-yellow btn-profile-2"></Button>
+            <div class="side-right flex-grow-1 position-relative">
+              <button class="edit d-flex align-items-center justify-content-center position-absolute" @click.prevent="changeEditMode">
+                <img src="../../assets/cust/edit.svg" alt="">
+              </button>
+              <h5>Contacts</h5>
+              <InputProfile id="email" label="Email Address :" type="email" value="zulaikha17@gmail.com" :editmode="editMode" />
             </div>
             <div></div>
           </aside>
@@ -39,16 +42,64 @@
 
 <script>
 import Button from '../../components/cust/base/Button'
+import InputProfile from '../../components/cust/base/InputProfile'
 
 export default {
   name: 'Profile',
   components: {
-    Button
+    Button,
+    InputProfile
+  },
+  data () {
+    return {
+      editMode: 0,
+      icon: '<img src="../../assets/cust/edit.svg" alt="">'
+    }
+  },
+  methods: {
+    changeEditMode () {
+      if (this.editMode === 0) {
+        this.editMode++
+      } else if (this.editMode > 0) {
+        this.editMode--
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.edit {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: #6A4029;
+  top: 15px;
+  right: 15px;
+  border: none;
+  outline: none;
+  transition: .3s;
+  padding: 0;
+}
+
+.edit:focus {
+  outline: none;
+}
+
+.edit:hover {
+  opacity: .8;
+}
+
+h5 {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 37px;
+  color: #4F5665;
+  margin: 0 0 21px 0;
+}
+
 .box {
   padding: 60px 0 0 0;
   height: 1185px;

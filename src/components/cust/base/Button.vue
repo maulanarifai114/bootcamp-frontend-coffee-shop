@@ -1,6 +1,6 @@
 <template>
   <div class="w-100">
-    <button :class="color" type="button">
+    <button :class="color" type="button" @click.prevent="$emit('trigger')">
       {{label}}
     </button>
   </div>
@@ -9,10 +9,7 @@
 <script>
 export default {
   name: 'ButtonAuth',
-  props: {
-    color: String,
-    label: String
-  }
+  props: ['color', 'label']
 }
 </script>
 

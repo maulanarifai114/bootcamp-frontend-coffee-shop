@@ -76,6 +76,30 @@ border-spacing: 0;
   opacity: .8;
 }
 
+.btn-detail {
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0em;
+  height: 85px;
+  width: 100%;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  margin: 0 0 22px 0;
+}
+
+.btn-detail:focus {
+  outline: none;
+}
+
+.btn-detail:hover {
+  opacity: .8;
+}
+
 .btn-brown {
   background: #6A4029!important;
   color: #FFFFFF;

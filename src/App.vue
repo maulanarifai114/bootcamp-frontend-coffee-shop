@@ -137,4 +137,84 @@ border-spacing: 0;
   opacity: .8;
 }
 
+.btn-profile-1 {
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 44px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  margin: 0 0 11px 0;
+  box-shadow: none;
+}
+
+.btn-profile-1:focus {
+  outline: none;
+}
+
+.btn-profile-1:hover {
+  opacity: .8;
+}
+
+.btn-profile-2 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 60px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  margin: 0 0 22px 0;
+}
+
+.btn-profile-2:focus {
+  outline: none;
+}
+
+.btn-profile-2:hover {
+  opacity: .8;
+}
+
+.btn-profile-white {
+  background-color: white!important;
+  border-radius: 20px;
+  border: 1px solid #9F9F9F!important;
+  color: #6A4029;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 60px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.btn-profile-white:focus {
+  outline: none;
+}
+
+.btn-profile-white:hover {
+  opacity: .8;
+}
+
+.mb-34 {
+  margin: 0 0 34px 0;
+}
+
+.mb-42 {
+  margin: 0 0 42px 0;
+}
 </style>

@@ -12,6 +12,7 @@ import Forgot from '../views/auth/Forgot.vue'
 // Customer
 import Customer from '../views/customer/MainCust.vue'
 import ProductDetail from '../views/customer/ProductDetail.vue'
+import Profile from '../views/customer/Profile.vue'
 
 // Admin
 
@@ -55,6 +56,11 @@ const routes = [
         path: 'product-d',
         name: 'ProductDetail',
         component: ProductDetail
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile
       }
     ]
   }

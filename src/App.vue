@@ -54,6 +54,12 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .btn-auth {
   font-family: Rubik;
   font-style: normal;
@@ -208,6 +214,39 @@ border-spacing: 0;
 
 .btn-profile-white:hover {
   opacity: .8;
+}
+
+.btn-admin-1 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 88px;
+  width: 100%;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  margin: 0 0 18px 0;
+}
+
+.btn-admin-1:focus {
+  outline: none;
+}
+
+.btn-admin-1:hover {
+  opacity: .8;
+}
+
+.btn-navy {
+  background: #0B132A;
+  color: white;
+}
+
+.btn-yellow-admin {
+  background: #FFBA33;
+  color: #6A4029;
 }
 
 .mb-34 {

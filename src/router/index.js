@@ -15,6 +15,8 @@ import ProductDetail from '../views/customer/ProductDetail.vue'
 import Profile from '../views/customer/Profile.vue'
 
 // Admin
+import Admin from '../views/admin/MainAdmin.vue'
+import NewProduct from '../views/admin/NewProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -61,6 +63,18 @@ const routes = [
         path: 'profile',
         name: 'Profile',
         component: Profile
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    children: [
+      {
+        path: 'add-product',
+        name: 'NewProduct',
+        component: NewProduct
       }
     ]
   }

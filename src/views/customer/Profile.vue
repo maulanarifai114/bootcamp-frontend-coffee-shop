@@ -30,7 +30,32 @@
                 <img src="../../assets/cust/edit.svg" alt="">
               </button>
               <h5>Contacts</h5>
-              <InputProfile id="email" label="Email Address :" type="email" value="zulaikha17@gmail.com" :editmode="editMode" />
+              <div class="row">
+                <div class="col-6">
+                  <InputProfile id="email" label="Email Address :" type="email" value="aaa" :editmode="editMode" />
+                  <br><br>
+                  <InputProfile id="deliver" label="Delivery address :" type="text" :editmode="editMode" />
+                </div>
+                <div class="col-1"></div>
+                <div class="col-5">
+                  <InputProfile id="phone" label="Mobile number :" type="text" :editmode="editMode" />
+                </div>
+              </div>
+              <br><br>
+              <h5>Details</h5>
+              <div class="row">
+                <div class="col-6">
+                  <InputProfile id="display" label="Display Name:" type="text" :editmode="editMode" />
+                  <br>
+                  <InputProfile id="first" label="First Name :" type="text" :editmode="editMode" />
+                  <br>
+                  <InputProfile id="last" label="Last Name :" type="text" :editmode="editMode" />
+                </div>
+                <div class="col-1"></div>
+                <div class="col-5">
+                  <InputProfile id="date" label="DD/MM/YY" type="date" :editmode="editMode" placeholder="dd/mm/yyyy" />
+                </div>
+              </div>
             </div>
             <div></div>
           </aside>

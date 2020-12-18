@@ -32,28 +32,28 @@
               <h5>Contacts</h5>
               <div class="row">
                 <div class="col-6">
-                  <InputProfile id="email" label="Email Address :" type="email" value="aaa" :editmode="editMode" />
+                  <InputProfile id="email" label="Email Address :" type="email" :value="this.$store.state.email" :editmode="this.$store.state.editmode" />
                   <br><br>
-                  <InputProfile id="deliver" label="Delivery address :" type="text" :editmode="editMode" />
+                  <InputProfile id="deliver" label="Delivery address :" type="text" :editmode="this.$store.state.editmode" />
                 </div>
                 <div class="col-1"></div>
                 <div class="col-5">
-                  <InputProfile id="phone" label="Mobile number :" type="text" :editmode="editMode" />
+                  <InputProfile id="phone" label="Mobile number :" type="text" :editmode="this.$store.state.editmode" />
                 </div>
               </div>
               <br><br>
               <h5>Details</h5>
               <div class="row">
                 <div class="col-6">
-                  <InputProfile id="display" label="Display Name:" type="text" :editmode="editMode" />
+                  <InputProfile id="display" label="Display Name:" type="text" :editmode="this.$store.state.editmode" />
                   <br>
-                  <InputProfile id="first" label="First Name :" type="text" :editmode="editMode" />
+                  <InputProfile id="first" label="First Name :" type="text" :editmode="this.$store.state.editmode" />
                   <br>
-                  <InputProfile id="last" label="Last Name :" type="text" :editmode="editMode" />
+                  <InputProfile id="last" label="Last Name :" type="text" :editmode="this.$store.state.editmode" />
                 </div>
                 <div class="col-1"></div>
                 <div class="col-5">
-                  <InputProfile id="date" label="DD/MM/YY" type="date" :editmode="editMode" placeholder="dd/mm/yyyy" />
+                  <InputProfile id="date" label="DD/MM/YY" type="date" :editmode="this.$store.state.editmode" placeholder="dd/mm/yyyy" />
                 </div>
               </div>
             </div>
@@ -83,11 +83,7 @@ export default {
   },
   methods: {
     changeEditMode () {
-      if (this.editMode === 0) {
-        this.editMode++
-      } else if (this.editMode > 0) {
-        this.editMode--
-      }
+      this.$store.commit('changeEditMode')
     }
   }
 }

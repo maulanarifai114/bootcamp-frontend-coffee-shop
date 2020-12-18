@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import Promo from '../../../components/module/Product/promoCust'
-import Products from '../../../components/module/Product/productsCust'
+import Promo from '../../../components/module/Product/promoAdm'
+import Products from '../../../components/module/Product/productsAdm'
 export default {
-  name: 'ProductCust',
+  name: 'ProductAdm',
   components: {
     Promo,
     Products

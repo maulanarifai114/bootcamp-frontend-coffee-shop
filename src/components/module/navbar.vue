@@ -1,42 +1,42 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#"> <img src="../../assets/img/coffee 1.png" alt="">Coffee Shop</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav option-box">
-      <li class="nav-item option">
-        <a class="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item option">
-        <a class="nav-link" href="#">Products</a>
-      </li>
-      <li class="nav-item option">
-        <a class="nav-link" href="#">Your Cart</a>
-      </li>
-      <li class="nav-item option">
-        <a class="nav-link" href="#">History</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto option-box2" >
-        <li class="nav-item d-flex option2">
-            <div class="collapse fade" id="searchForm">
-                <input id="search" type="search" class="form-control border-0 bg-light" placeholder="search" />
-            </div>
-            <a class="nav-link ml-auto" href="#searchForm" data-target="#searchForm" data-toggle="collapse" >
-                <img src="../../assets/img/Vector.png" alt="">
-            </a>
-        </li>
-        <li class="nav-item d-flex option2">
-            <img src="../../assets/img/chat (1) 1.png" alt="" style="" @click.prevent="" type="button">
-        </li>
-        <li class="nav-item d-flex option2" @click.prevent="" type="button">
-            <div class="user-photo"></div>
-        </li>
-    </ul>
-  </div>
-</nav>
+        <a class="navbar-brand" href="#"> <img src="../../assets/img/coffee 1.png" alt="">Coffee Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav option-box">
+                <li class="nav-item option">
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
+                </li>
+                <li class="nav-item option">
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
+                </li>
+                <li class="nav-item option">
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Your Cart</a></router-link>
+                </li>
+                <li class="nav-item option">
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">History</a></router-link>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto option-box2" >
+                <li class="nav-item d-flex option2">
+                    <div class="collapse fade" id="searchForm">
+                        <input id="search" type="search" class="form-control border-0 bg-light" placeholder="search" />
+                    </div>
+                    <a class="nav-link ml-auto" href="#searchForm" data-target="#searchForm" data-toggle="collapse" >
+                        <img src="../../assets/img/Vector.png" alt="">
+                    </a>
+                </li>
+                <li class="nav-item d-flex option2">
+                    <img src="../../assets/img/chat (1) 1.png" alt="" style="" @click.prevent="" type="button">
+                </li>
+                <li class="nav-item d-flex option2" @click.prevent="" type="button">
+                    <div class="user-photo"></div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </template>
 
 <script>

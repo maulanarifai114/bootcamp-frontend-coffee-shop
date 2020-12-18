@@ -4,7 +4,7 @@
             <div class="col-sm-3 favourite" @click.prevent="" type="button">
                 <div class="product-box">
                     <div class="product-img overflow-hidden">
-                        <img src="../../../assets/img/robert-bye-95vx5QVl9x4-unsplash 2.png" alt="">
+                        <img src="https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg" alt="">
                     </div>
                     <p class="product-name">Veggie Tomato Mix</p>
                     <p class="product-price">IDR 34.000</p>
@@ -30,8 +30,8 @@ export default {
     border-radius: 30px;
     background-color: white;
     border: 2px solid #ececec;
-    margin-top: 35%;
-    margin-bottom: 15%;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 .product-img {
     border-radius: 50%;
@@ -40,7 +40,7 @@ export default {
     margin-top: -35%;
 }
 .product-img img {
-    width: 100%;
+    height: 100%;
 }
 .product-name{
     text-align: center;

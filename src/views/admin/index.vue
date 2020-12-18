@@ -12,7 +12,7 @@
 import Navbar from '../../components/module/navbar'
 import Footer from '../../components/module/footer'
 export default {
-  name: 'Customer',
+  name: 'Admin',
   components: {
     Navbar,
     Footer

@@ -11,7 +11,11 @@
               </div>
               <h2>Zulaikha</h2>
               <h4 class="mb-4">zulaikha17@gmail.com</h4>
-              <Button label="Choose photo" color="btn-yellow btn-profile-1"></Button>
+              <!-- <Button label="Choose photo" color="btn-yellow btn-profile-1"></Button> -->
+              <label for="choose" class="btn-yellow btn-profile-1 d-flex justify-content-center align-items-center">
+                Choose photo
+              </label>
+              <input type="file" id="choose" placeholder="Choose Photo" class="d-none">
               <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42"></Button>
               <Button label="Edit Password" color="btn-profile-white mb-34"></Button>
               <div class="flex-grow-1">
@@ -56,6 +60,21 @@
                   <InputProfile id="date" label="DD/MM/YY" type="date" :editmode="this.$store.state.editmode" placeholder="dd/mm/yyyy" />
                 </div>
               </div>
+              <br><br>
+              <div class="row ">
+                <div class="col-6 ">
+                  <label class="container d-flex justify-content-center align-items-center">
+                    <input type="radio" name="gender" value="male" :checked="changeGender">
+                    <p :class="this.$store.state.gender === 'male' ? 'gender-active' : 'gender-nonactive'">Male</p>
+                  </label>
+                </div>
+                <div class="col-6 ">
+                  <label class="container d-flex justify-content-center align-items-center">
+                    <input type="radio" name="gender" value="female" :checked="changeGender">
+                    <p :class="this.$store.state.gender === 'female' ? 'gender-active' : 'gender-nonactive'">Female</p>
+                  </label>
+                </div>
+              </div>
             </div>
             <div></div>
           </aside>
@@ -87,12 +106,36 @@ export default {
     },
     changeStaticMode () {
       this.$store.commit('changeStaticMode')
+    },
+    changeGender (payload) {
+      this.$store.commit('changeGender(payload)')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.gender-active {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #6A4029;
+  margin: 0 0 0 10px;
+}
+
+.gender-nonactive {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #9F9F9F;
+  margin: 0 0 0 10px;
+}
+
 .edit {
   height: 50px;
   width: 50px;

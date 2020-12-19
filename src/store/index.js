@@ -9,9 +9,10 @@ export default new Vuex.Store({
     nameproduct: '',
     product: 0,
 
-    // Start Profile
+    // Customer Profile
     editmode: 0,
-    email: 'zalikha@gmail.com'
+    email: 'zalikha@gmail.com',
+    gender: ''
   },
   mutations: {
     changeEditMode (state) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     addProduct (state, payload) {
       state.nameproduct = payload.name
+    },
+    changeGender (state, payload) {
+      state.gender = payload
     }
   },
   actions: {

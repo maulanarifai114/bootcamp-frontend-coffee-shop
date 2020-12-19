@@ -63,6 +63,7 @@ const routes = [
     path: '/cust',
     name: 'Customer',
     component: Customer,
+    redirect: '/cust/product',
     children: [
       {
         path: 'product-d',

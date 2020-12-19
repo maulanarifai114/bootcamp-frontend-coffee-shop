@@ -4,16 +4,16 @@
     <p class="head-category pt-5">Favorite & Promo <span class="detail"> > Cold Brew</span></p>
     <main class="row">
       <!-- Delivery and Time -->
-      <aside class="col-6 d-flex flex-column align-items-center">
+      <aside class="col-xl-6 col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="img-wrap">
           <img src="../../assets/cust/cold-brew.png" alt="product">
         </div>
-        <div class="align-self-start">
+        <div class="align-self-center align-self-xl-start">
           <Delivetime></Delivetime>
         </div>
       </aside>
       <!-- Description, Price, Amount -->
-      <aside class="col-6 d-flex flex-column align-items-center">
+      <aside class="col-xl-6 col-12 d-flex flex-column align-items-center">
         <TitleProduct></TitleProduct>
         <AmountPrice></AmountPrice>
         <Button color="btn-brown btn-detail" label="Add to cart"></Button>
@@ -22,11 +22,11 @@
     </main>
     <main class="row pt-5">
       <!-- Size Product -->
-      <aside class="col-4">
+      <aside class="col-xl-4 col-12 mb-3">
         <SizeProduct></SizeProduct>
       </aside>
       <!-- Checkout -->
-      <div class="col-8">
+      <div class="col-xl-8 col-12 mb-3">
         <Checkout></Checkout>
       </div>
     </main>
@@ -57,11 +57,11 @@ export default {
 <style lang="scss" scoped>
 
 .big-box {
-  // margin: 0 0 480px 0;
+  // // margin: 0 0 480px 0;
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 480px;
+  margin-bottom: 32px;
 }
 
 .head-category {

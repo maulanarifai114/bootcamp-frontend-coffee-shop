@@ -103,4 +103,35 @@ export default {
   color: black;
 }
 
+@media (max-width: 767px) {
+  .box {
+    padding: 0 20px;
+  }
+
+  .img {
+    height: 50px;
+    width: 50px;
+  }
+
+  .header-checkout {
+    font-size: 16px;
+  }
+
+  .body-checkout {
+    font-size: 14px;
+  }
+
+  .checkout {
+    font-size: 16px;
+  }
+
+  .wrap-arrow {
+    height: 40px;
+    width: 40px;
+  }
+
+  .wrap-arrow img {
+    width: 20px;
+  }
+}
 </style>

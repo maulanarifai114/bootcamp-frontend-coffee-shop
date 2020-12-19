@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Landing from '../views/Landing.vue'
+// import Landing from '../views/Landing.vue'
+import Landing from '../views/Landing2.vue'
 
 // Auth (Sign Up, Login, Forgot)
 import MainAuth from '../views/auth/MainAuth.vue'
@@ -96,6 +97,7 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin,
+    redirect: '/admin/dashboard',
     children: [
       {
         path: 'add-product',

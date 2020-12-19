@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <aside class="col-6 side-image-2"></aside>
-      <aside class="col-6 side-main">
+      <aside class="col-lg-6 side-image-2 d-none d-lg-block"></aside>
+      <aside class="col-12 col-lg-6 side-main">
          <nav class="navbar-auth d-flex flex-row justify-content-center align-items-center">
       <div class="coffee-logo d-flex flex-row align-items-center">
         <img src="../../assets/auth/coffee-icon.png" alt="">
@@ -27,22 +27,19 @@
         </form>
       </div>
     </main>
-     <Footer></Footer>
       </aside>
     </div>
   </div>
 </template>
 
 <script>
-import Input from '../../components/auth/base/Input'
+import Input from '../../components/admin/base/Input'
 import Button from '../../components/auth/base/Button'
-import Footer from '../../components/auth/module/Footer'
 export default {
   name: 'Forgot',
   components: {
     Input,
-    Button,
-    Footer
+    Button
   },
   data () {
     return {
@@ -74,10 +71,10 @@ export default {
 
 .side-main {
   padding: 0;
+  margin: 0;
 }
 .checkbox-lg{
         margin-bottom: 30px;
-    margin-top: -10px;
     margin-left: 10px;
 }
 .checkbox-lg .custom-control-label::before,
@@ -138,6 +135,14 @@ h4 {
   line-height: 24px;
   color: #0B132A;
   margin: 0 0 0 15px;
+}
+@media only screen and (max-width: 762px) {
+
+}
+@media only screen and (max-width: 762px) {
+.side-image-2 {
+  display: none;
+}
 }
 
 </style>

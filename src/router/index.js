@@ -9,9 +9,14 @@ import SignUp from '../views/auth/SignUp.vue'
 import Login from '../views/auth/Login.vue'
 import Forgot from '../views/auth/Forgot.vue'
 
-// Product
+// Customer
+import Customer from '../views/customer/MainCust.vue'
+import ProductDetail from '../views/customer/ProductDetail.vue'
+import Profile from '../views/customer/Profile.vue'
 
-// Profile
+// Admin
+import Admin from '../views/admin/MainAdmin.vue'
+import NewProduct from '../views/admin/NewProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +46,35 @@ const routes = [
         path: 'forgot',
         name: 'Forgot',
         component: Forgot
+      }
+    ]
+  },
+  {
+    path: '/cust',
+    name: 'Customer',
+    component: Customer,
+    children: [
+      {
+        path: 'product-d',
+        name: 'ProductDetail',
+        component: ProductDetail
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    children: [
+      {
+        path: 'add-product',
+        name: 'NewProduct',
+        component: NewProduct
       }
     ]
   }

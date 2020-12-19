@@ -54,6 +54,12 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .btn-auth {
   font-family: Rubik;
   font-style: normal;
@@ -73,6 +79,30 @@ border-spacing: 0;
 }
 
 .btn-auth:hover {
+  opacity: .8;
+}
+
+.btn-detail {
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0em;
+  height: 85px;
+  width: 100%;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  margin: 0 0 22px 0;
+}
+
+.btn-detail:focus {
+  outline: none;
+}
+
+.btn-detail:hover {
   opacity: .8;
 }
 
@@ -113,4 +143,144 @@ border-spacing: 0;
   opacity: .8;
 }
 
+.btn-profile-1 {
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 44px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  margin: 0 0 11px 0;
+  box-shadow: none;
+}
+
+.btn-profile-1:focus {
+  outline: none;
+}
+
+.btn-profile-1:hover {
+  opacity: .8;
+}
+
+.btn-profile-2 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 60px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  margin: 0 0 22px 0;
+}
+
+.btn-profile-2:focus {
+  outline: none;
+}
+
+.btn-profile-2:hover {
+  opacity: .8;
+}
+
+.btn-profile-white {
+  background-color: white!important;
+  border-radius: 20px;
+  border: 1px solid #9F9F9F!important;
+  color: #6A4029;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 60px;
+  width: 100%;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.btn-profile-white:focus {
+  outline: none;
+}
+
+.btn-profile-white:hover {
+  opacity: .8;
+}
+
+.btn-admin-1 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 88px;
+  width: 100%;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  margin: 0 0 18px 0;
+}
+
+.btn-admin-1:focus {
+  outline: none;
+}
+
+.btn-admin-1:hover {
+  opacity: .8;
+}
+
+.btn-admin-3 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 72px;
+  width: 160px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.btn-admin-3:focus {
+  outline: none;
+}
+
+.btn-admin-3:hover {
+  opacity: .8;
+}
+
+.btn-cancel {
+  background: rgba(186, 186, 186, 0.35);
+  color: #4F5665;
+}
+
+.btn-navy {
+  background: #0B132A;
+  color: white;
+}
+
+.btn-yellow-admin {
+  background: #FFBA33;
+  color: #6A4029;
+}
+
+.mb-34 {
+  margin: 0 0 34px 0;
+}
+
+.mb-42 {
+  margin: 0 0 42px 0;
+}
 </style>

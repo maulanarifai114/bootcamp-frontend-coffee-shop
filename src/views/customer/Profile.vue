@@ -15,10 +15,10 @@
               <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42"></Button>
               <Button label="Edit Password" color="btn-profile-white mb-34"></Button>
               <div class="flex-grow-1">
-                <div v-if="editMode > 0">
+                <div v-if="this.$store.state.editmode > 0">
                   <h3>Do you want to save the change?</h3>
                   <Button label="Save Change" color="btn-brown btn-profile-2"></Button>
-                  <Button label="Cancel" color="btn-yellow btn-profile-2" @trigger="changeEditMode"></Button>
+                  <Button label="Cancel" color="btn-yellow btn-profile-2" @trigger="changeStaticMode"></Button>
                 </div>
               </div>
               <Button label="Log out" color="btn-profile-white "></Button>
@@ -84,6 +84,9 @@ export default {
   methods: {
     changeEditMode () {
       this.$store.commit('changeEditMode')
+    },
+    changeStaticMode () {
+      this.$store.commit('changeStaticMode')
     }
   }
 }

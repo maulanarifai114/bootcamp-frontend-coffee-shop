@@ -17,7 +17,10 @@ export default new Vuex.Store({
     changeEditMode (state) {
       if (state.editmode === 0) {
         state.editmode++
-      } else if (state.editmode > 0) {
+      }
+    },
+    changeStaticMode (state) {
+      if (state.editmode === 1) {
         state.editmode--
       }
     },

@@ -8,9 +8,10 @@
       <!-- Delivery and Time -->
       <aside class="col-6 d-flex flex-column align-items-center">
         <div class="img-wrap">
-          <img src="../../assets/cust/cold-brew.png" alt="product" />
+          <img :src="avatar" alt="product" height="300px"/>
         </div>
-        <button class="edit"><i class="fas fa-pencil-alt"></i></button>
+        <label class="edit" for="file-input" style="cursor: pointer"><i class="fas fa-pencil-alt" style="margin-top:18px"></i></label>
+        <input class="d-none" id="file-input" type="file" @change="getImage"/>
         <div class="align-self-start">
           <div class="del-time">
             <h4>Delivery and Time</h4>
@@ -197,7 +198,19 @@ export default {
     return {
       category: 'add',
       size: [],
-      deliver: []
+      deliver: [],
+      avatar: 'https://5.imimg.com/data5/DC/TD/MY-14296065/coffee-anise-cinnamon-spices-photo-wallpaper-2-copy-500x500.jpg'
+    }
+  },
+  methods: {
+    getImage (e) {
+    //   console.log(e.target.files[0])
+      var image = e.target.files[0]
+      var reader = new FileReader()
+      reader.readAsDataURL(image)
+      reader.onload = e => {
+        this.avatar = e.target.result
+      }
     }
   }
 }
@@ -341,7 +354,7 @@ select::placeholder {
 .img-wrap {
   height: 300px;
   width: 300px;
-  border-radius: 50%;
+  border-radius: 100%;
   overflow: hidden;
   margin: 0 0 102px 0;
 }

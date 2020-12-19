@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Navbar from '../../components/module/navbar'
+import Navbar from '../../components/module/navbarCust'
 import Footer from '../../components/module/footer'
 export default {
   name: 'Customer',

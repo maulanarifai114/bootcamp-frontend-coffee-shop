@@ -2,27 +2,29 @@
     <div class="content">
         <Navbar/>
         <div class="container-fluid">
-            <router-view/>
+            <Content/>
         </div>
         <Footer/>
     </div>
 </template>
 
 <script>
-import Navbar from '../../components/module/navbarAdm'
-import Footer from '../../components/module/footer'
+import Navbar from '../../../components/module/Home/navbarAdmHome'
+import Footer from '../../../components/module/footer'
+import Content from '../../../components/module/Home/content'
 export default {
-  name: 'Admin',
+  name: 'Customer',
   components: {
     Navbar,
-    Footer
+    Footer,
+    Content
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .content {
-  background-color:  #ececec;
+  background-color:white;
 }
 .container-fluid {
   width: 100%;

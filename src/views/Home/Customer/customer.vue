@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import Navbar from '../../components/module/navbarAdm'
-import Footer from '../../components/module/footer'
+import Navbar from '../../../components/module/Home/navbarCustHome'
+import Footer from '../../../components/module/footer'
 export default {
-  name: 'Admin',
+  name: 'Customer',
   components: {
     Navbar,
     Footer
@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  background-color:  #ececec;
+  background-color:white;
 }
 .container-fluid {
   width: 100%;

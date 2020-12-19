@@ -2,7 +2,7 @@
   <div>
     <select :id="id" class="w-100 " @change="$emit('change', $event.target.value)">
       <option :value="value" disabled selected class="disabled">{{label}}</option>
-      <option value="fav">Favorite & Promo</option>
+      <!-- <option value="fav">Favorite & Promo</option> -->
       <option value="coffee">Coffee</option>
       <option value="noncoffee">Non Coffee</option>
       <option value="foods">Foods</option>

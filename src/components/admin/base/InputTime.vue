@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select :id="id" class="w-100 " >
+    <select :id="id" class="w-100 " @change="$emit('change', $event.target.value)">
       <option :value="value" disabled selected class="disabled">{{label}}</option>
       <option value="00">00:00</option>
       <option value="01">01:00</option>

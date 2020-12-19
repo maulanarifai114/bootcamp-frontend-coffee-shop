@@ -15,6 +15,7 @@
         <form @submit.prevent="">
           <Input id="email" type="email" placeholder="Enter your email adress"/>
           <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1></Button>
+          <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1></Button>
         </form>
       </div>
     </main>

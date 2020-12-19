@@ -1,10 +1,11 @@
 <template>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <div class="todo" style="text-align:right" type= button>Select All</div>
+            <div class="todo" style="text-align:right" type= button @click.prevent="selectAll">Select All</div>
+            <div class="todo" style="text-align:right" type= button @click.prevent="unselectAll">Unselect All</div>
             <div class="deletebox" style="text-align:right" type= button>Delete</div>
             <div class="row">
-            <div class="col-sm product">
+            <div class="col-sm product" v-for="(product, i) in products" :key="i">
                 <div class="history-box">
                     <div class="image">
                         <img src="../../../assets/img/nathan-dumlao-zTZRZV86GhE-unsplash 1.png" alt="">
@@ -14,46 +15,7 @@
                         <p class="price">120000</p>
                         <p class="description">Delivered</p>
                     </div>
-                    <input type="checkbox" id="delete" :value=1 v-model="deleteProducts">
-                </div>
-            </div>
-            <div class="col-sm product">
-                <div class="history-box">
-                    <div class="image">
-                        <img src="../../../assets/img/nathan-dumlao-zTZRZV86GhE-unsplash 1.png" alt="">
-                    </div>
-                    <div class="product-info">
-                        <p class="name">Veggie</p>
-                        <p class="price">120000</p>
-                        <p class="description">Delivered</p>
-                    </div>
-                    <input type="checkbox" id="delete" :value=1 v-model="deleteProducts">
-                </div>
-            </div>
-            <div class="col-sm product">
-                <div class="history-box">
-                    <div class="image">
-                        <img src="../../../assets/img/nathan-dumlao-zTZRZV86GhE-unsplash 1.png" alt="">
-                    </div>
-                    <div class="product-info">
-                        <p class="name">Veggie</p>
-                        <p class="price">120000</p>
-                        <p class="description">Delivered</p>
-                    </div>
-                    <input type="checkbox" id="delete" :value=1 v-model="deleteProducts">
-                </div>
-            </div>
-            <div class="col-sm product">
-                <div class="history-box">
-                    <div class="image">
-                        <img src="../../../assets/img/nathan-dumlao-zTZRZV86GhE-unsplash 1.png" alt="">
-                    </div>
-                    <div class="product-info">
-                        <p class="name">Veggie</p>
-                        <p class="price">120000</p>
-                        <p class="description">Delivered</p>
-                    </div>
-                    <input type="checkbox" id="delete" :value=1 v-model="deleteProducts">
+                    <input type="checkbox" id="delete" :value=product.id v-model="deleteProducts">
                 </div>
             </div>
         </div>
@@ -67,11 +29,36 @@ export default {
   name: 'HistoryCust',
   data () {
     return {
-      deleteProducts: [] // Must be an array reference!
+      deleteProducts: [],
+      products: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        },
+        {
+          id: 3
+        },
+        {
+          id: 4
+        },
+        {
+          id: 5
+        },
+        {
+          id: 6
+        }
+      ]
     }
   },
-  computed: {
-
+  methods: {
+    selectAll () {
+      this.deleteProducts = this.products.map((product) => product.id)
+    },
+    unselectAll () {
+      this.deleteProducts = []
+    }
   }
 }
 </script>

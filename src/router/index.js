@@ -8,12 +8,12 @@ import MainAuth from '../views/auth/MainAuth.vue'
 import SignUp from '../views/auth/SignUp.vue'
 import Login from '../views/auth/Login.vue'
 import Forgot from '../views/auth/Forgot.vue'
-
+import newPassword from '../views/auth/newPassword.vue'
 // Customer
 import Customer from '../views/customer/MainCust.vue'
 import ProductDetail from '../views/customer/ProductDetail.vue'
 import Profile from '../views/customer/Profile.vue'
-
+import editPassword from '../views/customer/editPassword.vue'
 // Admin
 import Admin from '../views/admin/MainAdmin.vue'
 import NewProduct from '../views/admin/NewProduct.vue'
@@ -46,6 +46,11 @@ const routes = [
         path: 'forgot',
         name: 'Forgot',
         component: Forgot
+      },
+      {
+        path: 'new-password',
+        name: 'newPassword',
+        component: newPassword
       }
     ]
   },
@@ -63,6 +68,11 @@ const routes = [
         path: 'profile',
         name: 'Profile',
         component: Profile
+      },
+      {
+        path: 'edit-password',
+        name: 'editPassword',
+        component: editPassword
       }
     ]
   },

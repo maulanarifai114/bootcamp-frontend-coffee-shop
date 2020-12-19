@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100">
+  <div class="mx-auto">
     <button :class="color" type="button" @click.prevent="$emit('trigger')">
       {{label}}
     </button>

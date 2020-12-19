@@ -2,7 +2,7 @@
   <div class="container">
     <br><br><br><br>
     <aside class="row wrapper">
-      <section class="col-5">
+      <section class="col-12 col-lg-5">
         <div class="photo d-flex justify-content-center align-items-center rounded-circle mb-5">
           <img src="../../assets/admin/default.png" alt="">
         </div>
@@ -30,8 +30,8 @@
           </label>
         </div>
       </section>
-      <section class="col-1"></section>
-      <section class="col-6">
+      <section class="col-12 col-lg-1"></section>
+      <section class="col-12 col-lg-6">
         <Input @input="inputValue" id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text"/>
         <br><br>
         <Input @input="inputValue" id="price" label="Price" placeholder="Type the price" type="number"/>
@@ -74,10 +74,10 @@
         <h5 class="label-size">Input delivery methods :</h5>
         <h6 class="text-muted">Click methods you want to use for this product</h6>
         <br>
-        <div class=" d-flex justify-content-center">
-          <Button color="btn-yellow-admin btn-admin-3" label="Home Delivery"></Button>
-          <Button color="btn-yellow-admin btn-admin-3" label="Dine in"></Button>
-          <Button color="btn-cancel btn-admin-3" label="Take Away"></Button>
+        <div class=" d-flex justify-content-between flex-column flex-lg-row ">
+          <Button color="btn-yellow-admin btn-admin-3 mb-3" label="Home Delivery"></Button>
+          <Button color="btn-yellow-admin btn-admin-3 mb-3" label="Dine in"></Button>
+          <Button color="btn-cancel btn-admin-3 mb-3" label="Take Away"></Button>
         </div>
         <br><br><br><br>
         <Button color="btn-brown btn-admin-1" label="Save Product"></Button>
@@ -265,4 +265,10 @@ export default {
   color:  #6A4029;
 }
 
+@media (max-width: 350px) {
+  .photo {
+    width: 100%;
+    height: 100vw;
+  }
+}
 </style>

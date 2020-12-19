@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  background-color:  #ececec;
+  background-color:  #ffffff;
 }
 .container-fluid {
   width: 100%;

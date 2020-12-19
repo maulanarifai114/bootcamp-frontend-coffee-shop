@@ -35,5 +35,6 @@ export default {
     flex-direction: row;
     background-color: #F8F8F8;
     padding-top: 5%;
+
 }
 </style>

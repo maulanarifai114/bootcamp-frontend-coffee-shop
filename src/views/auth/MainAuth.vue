@@ -1,11 +1,16 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <aside class="col-6" :class="this.$route.path === '/auth/forgot' ? 'side-image-2':'side-image-1' "></aside>
-      <aside class="col-6 side-main">
+    <div class="row d-flex justify-content-center">
+      <aside class="col-lg-6 d-none d-xl-block" :class="this.$route.path === '/auth/forgot' ? 'side-image-2':'side-image-1' "></aside>
+      <aside class="col-12 col-xl-6 side-main">
         <router-view></router-view>
-        <Footer></Footer>
+        <div class="d-none d-sm-block" >
+          <Footer></Footer>
+        </div>
       </aside>
+      <div class="footer d-sm-none">
+        <Footer></Footer>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +47,16 @@ export default {
 
 .side-main {
   padding: 0;
+}
+
+.footer {
+  padding: 0;
+}
+
+@media (max-width: 575px) {
+  .side-main {
+    padding: 0 20px;
+  }
 }
 
 </style>

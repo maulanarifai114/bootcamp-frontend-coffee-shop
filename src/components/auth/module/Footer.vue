@@ -3,7 +3,7 @@
     <div class="col-12">
       <main class="row">
 
-        <aside class="col-6 d-flex flex-column justify-content-center">
+        <aside class="col-12 col-sm-6 d-flex flex-column justify-content-center">
           <div class="coffee-logo d-flex flex-row align-items-center">
             <img src="../../../assets/auth/coffee-icon.png" alt="">
             <p class="coffee-shop">Coffee Shop</p>
@@ -19,7 +19,7 @@
           <p class="copyright">©2020CoffeeStore</p>
         </aside>
 
-        <aside class="col-6 d-flex flex-column justify-content-center">
+        <aside class="col-12 col-sm-6 d-flex flex-column justify-content-center">
           <div class="group-footer">
             <p class="title-footer">Product</p>
             <div class="row">
@@ -124,6 +124,12 @@ export default {
 aside {
   height: 511px;
   padding: 0 30px 0 50px
+}
+
+@media (max-width: 575px) {
+  .footer-auth {
+    height: fit-content;
+  }
 }
 // End Footer
 </style>

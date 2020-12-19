@@ -4,7 +4,7 @@
       <h1>User Profile</h1>
       <main class="box-user w-100 d-flex flex-row">
         <div class="row flex-grow-1">
-          <aside class="col-4 d-flex flex-column">
+          <aside class="col-lg-4 col-12 d-flex flex-column mb-5">
             <div class="side-left mx-auto flex-grow-1 d-flex flex-column align-items-center">
               <div class="img mb-4">
                 <img src="../../assets/cust/profile.png" alt="" class="w-100">
@@ -28,7 +28,7 @@
               <Button label="Log out" color="btn-profile-white "></Button>
             </div>
           </aside>
-          <aside class="col-8 d-flex flex-column">
+          <aside class="col-lg-8 col-12 d-flex flex-column">
             <div class="side-right flex-grow-1 position-relative">
               <button class="edit d-flex align-items-center justify-content-center position-absolute" @click.prevent="changeEditMode">
                 <img src="../../assets/cust/edit.svg" alt="">
@@ -243,4 +243,14 @@ h4 {
   overflow: hidden;
 }
 
+@media (max-width: 991px) {
+  .box-user {
+    height: fit-content;
+  }
+
+  .box {
+    height: fit-content;
+    padding: 60px 0;
+  }
+}
 </style>

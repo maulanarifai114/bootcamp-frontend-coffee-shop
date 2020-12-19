@@ -204,12 +204,28 @@ export default {
   },
   methods: {
     getImage (e) {
-    //   console.log(e.target.files[0])
+      console.log(e.target.files[0].size)
       var image = e.target.files[0]
       var reader = new FileReader()
-      reader.readAsDataURL(image)
-      reader.onload = e => {
-        this.avatar = e.target.result
+      if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
+        this.$swal.fire({
+          title: 'Warning!',
+          text: 'Only .png, .jpg and .jpeg format allowed!',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+      } else if (image.size >= 4388608) {
+        this.$swal.fire({
+          title: 'Warning!',
+          text: 'Image size is too large, it must be under 4MB',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+      } else {
+        reader.readAsDataURL(image)
+        reader.onload = e => {
+          this.avatar = e.target.result
+        }
       }
     }
   }

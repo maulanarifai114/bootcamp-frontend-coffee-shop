@@ -155,4 +155,21 @@ h1 {
     color: #FFFFFF;
     text-shadow: 0px 4px 4px 0px #000000 80%;
 }
+@media screen and (max-width: 767px) {
+    .summary {
+        height: auto;
+        width: 100%;
+    }
+    .container {
+        flex-direction: column;
+    }
+    .left-col {
+        width: 100%;
+    }
+    .col-right {
+        width: 100%;
+        margin: 0;
+        margin-top: 5%;
+    }
+}
 </style>

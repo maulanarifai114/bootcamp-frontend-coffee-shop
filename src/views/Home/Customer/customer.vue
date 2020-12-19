@@ -2,7 +2,7 @@
     <div class="content">
         <Navbar/>
         <div class="container-fluid">
-            <router-view/>
+            <Content/>
         </div>
         <Footer/>
     </div>
@@ -11,11 +11,13 @@
 <script>
 import Navbar from '../../../components/module/Home/navbarCustHome'
 import Footer from '../../../components/module/footer'
+import Content from '../../../components/module/Home/content'
 export default {
   name: 'Customer',
   components: {
     Navbar,
-    Footer
+    Footer,
+    Content
   }
 }
 </script>

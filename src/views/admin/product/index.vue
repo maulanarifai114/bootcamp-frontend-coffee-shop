@@ -38,5 +38,13 @@ export default {
 .rightside {
     width: 100%;
 }
+@media screen and (max-width: 1043px) {
+    .content {
+        flex-direction: column;
+    }
+    .leftside {
+        width: 100%;
+    }
+}
 
 </style>

@@ -250,4 +250,18 @@ p {
     padding-top: 5%;
     padding-bottom: 5%;
 }
+@media screen and (max-width: 767px) {
+    .content {
+        flex-direction: column;
+        width: 100%;
+    }
+    .leftside {
+        width: 100%;
+    }
+    .rightside {
+        width: 100%;
+        margin: 0;
+        margin-top: 10%;
+    }
+}
 </style>

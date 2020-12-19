@@ -10,7 +10,7 @@
         <div class="img-wrap">
           <img src="../../assets/cust/cold-brew.png" alt="product" />
         </div>
-        <button class="trash"><i class="far fa-trash-alt"></i></button>
+        <button class="edit"><i class="fas fa-pencil-alt"></i></button>
         <div class="align-self-start">
           <div class="del-time">
             <h4>Delivery and Time</h4>
@@ -204,7 +204,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.trash {
+.edit {
   position: absolute;
   top: 230px;
   left: 65%;
@@ -218,7 +218,7 @@ export default {
   color: white;
 }
 
-.trash:focus {
+.edit:focus {
   outline: none;
 }
 

@@ -108,7 +108,7 @@ export default {
       this.$store.commit('changeStaticMode')
     },
     changeGender (payload) {
-      this.$store.commit('changeGender(payload)')
+      this.$store.commit('changeGender')
     }
   }
 }

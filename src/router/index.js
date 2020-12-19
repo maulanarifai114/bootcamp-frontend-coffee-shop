@@ -17,6 +17,8 @@ import Profile from '../views/customer/Profile.vue'
 // Admin
 import Admin from '../views/admin/MainAdmin.vue'
 import NewProduct from '../views/admin/NewProduct.vue'
+import DetailProduct from '../views/admin/DetailProduct.vue'
+import EditProduct from '../views/admin/EditProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -75,6 +77,16 @@ const routes = [
         path: 'add-product',
         name: 'NewProduct',
         component: NewProduct
+      },
+      {
+        path: 'detail-product',
+        name: 'DetailProduct',
+        component: DetailProduct
+      },
+      {
+        path: 'edit-product',
+        name: 'EditProduct',
+        component: EditProduct
       }
     ]
   }

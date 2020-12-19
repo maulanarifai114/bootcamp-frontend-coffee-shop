@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // Admin Add New Product
+    nameproduct: '',
     product: 0,
 
     // Start Profile
@@ -18,6 +20,9 @@ export default new Vuex.Store({
       } else if (state.editmode > 0) {
         state.editmode--
       }
+    },
+    addProduct (state, payload) {
+      state.nameproduct = payload.name
     }
   },
   actions: {

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column">
     <label :for="id" class="label">{{label}}</label>
-    <input :type="type" :id="id" :placeholder="placeholder" class="placeholder input" required maxlength="max">
+    <input @input="$emit('input', $event.target.value)" :type="type" :id="id" :placeholder="placeholder" class="placeholder input" required maxlength="max">
   </div>
 </template>
 

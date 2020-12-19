@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <p class="head-category pt-5">Favorite & Promo <span class="detail"> > Add New Product</span></p>
+    <br><br><br><br>
     <aside class="row wrapper">
       <section class="col-5">
         <div class="photo d-flex justify-content-center align-items-center rounded-circle mb-5">
@@ -12,7 +12,7 @@
         <!-- Category -->
         <div class=" d-flex flex-column ">
           <h5 class="label">Input category :</h5>
-          <InputCat id="cat" label="Select category" value="category"></InputCat>
+          <InputCat id="cat" label="Select category" value="category" @change="lihatVal"></InputCat>
         </div>
         <br><br>
         <!-- Delivery Hour -->
@@ -32,16 +32,16 @@
       </section>
       <section class="col-1"></section>
       <section class="col-6">
-        <Input id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text"/>
+        <Input @input="inputValue" id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text"/>
         <br><br>
-        <Input id="price" label="Price" placeholder="Type the price" type="number"/>
+        <Input @input="inputValue" id="price" label="Price" placeholder="Type the price" type="number"/>
         <br><br>
         <Input id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text"/>
         <br><br>
         <h5 class="label-size">Input product size :</h5>
         <h6 class="text-muted">Click size you want to use for this product</h6>
         <!-- R L XL -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" >
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === 'coffee' || category === 'noncoffee' || category === 'fav' || category === 'add'">
           <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size1 === 'r' ? 'selected':'unselected'">
             <input type="radio" name="size1" id="r" v-model="size1" value="r" class="d-none"> R
           </label>
@@ -52,8 +52,9 @@
             <input type="radio" name="size1" id="xl" v-model="size1" value="xl" class="d-none"> XL
           </label>
         </div>
+        <br v-if="category === 'fav' || category === 'add'">
         <!-- Gram -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" >
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === 'foods' || category === 'fav' || category === 'add'" @>
           <label class="btn btn-gram d-flex align-items-center justify-content-center" for="250" :class="size2 === '250' ? 'selected':'unselected'">
             <input type="radio" name="size2" id="250" v-model="size2" value="250" class="d-none"> 250g
           </label>
@@ -64,6 +65,24 @@
             <input type="radio" name="size2" id="500" v-model="size2" value="500" class="d-none"> 500g
           </label>
         </div>
+        <br>
+        <div v-if="category !== ''">
+          <Button color="btn-brown btn-admin-3" label="Reset Size" @trigger="reset"></Button>
+        </div>
+        <br><br><br>
+        <!-- Delivery Method -->
+        <h5 class="label-size">Input delivery methods :</h5>
+        <h6 class="text-muted">Click methods you want to use for this product</h6>
+        <br>
+        <div class=" d-flex justify-content-center">
+          <Button color="btn-yellow-admin btn-admin-3" label="Home Delivery"></Button>
+          <Button color="btn-yellow-admin btn-admin-3" label="Dine in"></Button>
+          <Button color="btn-cancel btn-admin-3" label="Take Away"></Button>
+        </div>
+        <br><br><br><br>
+        <Button color="btn-brown btn-admin-1" label="Save Product"></Button>
+        <br>
+        <Button color="btn-cancel btn-admin-1" label="Cancel"></Button>
       </section>
     </aside>
   </div>
@@ -87,7 +106,22 @@ export default {
     return {
       size1: '',
       size2: '',
-      category: ''
+      category: '',
+      time: ''
+    }
+  },
+  methods: {
+    inputValue (e) {
+      console.log(e)
+    },
+    lihatVal (e) {
+      const category = e
+      this.category = category
+      console.log('this.cat', this.category)
+    },
+    reset () {
+      this.size1 = ''
+      this.size2 = ''
     }
   }
 }

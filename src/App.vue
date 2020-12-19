@@ -239,6 +239,33 @@ input::-webkit-inner-spin-button {
   opacity: .8;
 }
 
+.btn-admin-3 {
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: .3s;
+  height: 72px;
+  width: 160px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.btn-admin-3:focus {
+  outline: none;
+}
+
+.btn-admin-3:hover {
+  opacity: .8;
+}
+
+.btn-cancel {
+  background: rgba(186, 186, 186, 0.35);
+  color: #4F5665;
+}
+
 .btn-navy {
   background: #0B132A;
   color: white;

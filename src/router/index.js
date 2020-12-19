@@ -10,13 +10,21 @@ import Login from '../views/auth/Login.vue'
 import Forgot from '../views/auth/Forgot.vue'
 
 // Customer
-import Customer from '../views/customer/MainCust.vue'
+// import Customer from '../views/customer/MainCust.vue'\
+import Customer from '../views/main/index.vue'
 import ProductDetail from '../views/customer/ProductDetail.vue'
 import Profile from '../views/customer/Profile.vue'
 
 // Admin
-import Admin from '../views/admin/MainAdmin.vue'
+// import Admin from '../views/admin/MainAdmin.vue'
+import Admin from '../views/admin/index.vue'
 import NewProduct from '../views/admin/NewProduct.vue'
+import Product from '../views/main/product/product.vue'
+import Cart from '../views/main/cart/cart.vue'
+import History from '../views/main/History/history.vue'
+import ManageOrder from '../views/admin/manage order/manageorder.vue'
+import ProductAdmin from '../views/admin/product/index.vue'
+import Dashboard from '../views/admin/dashboard/dashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +71,21 @@ const routes = [
         path: 'profile',
         name: 'Profile',
         component: Profile
+      },
+      {
+        path: 'product',
+        name: 'Product',
+        component: Product
+      },
+      {
+        path: 'cart',
+        name: 'Cart',
+        component: Cart
+      },
+      {
+        path: 'history',
+        name: 'History',
+        component: History
       }
     ]
   },
@@ -75,6 +98,21 @@ const routes = [
         path: 'add-product',
         name: 'NewProduct',
         component: NewProduct
+      },
+      {
+        path: 'manage-order',
+        name: 'ManageOrder',
+        component: ManageOrder
+      },
+      {
+        path: 'product',
+        name: 'ProductAdmin',
+        component: ProductAdmin
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard
       }
     ]
   }

@@ -28,6 +28,8 @@ import ProductAdmin from '../views/admin/product/index.vue'
 import Dashboard from '../views/admin/dashboard/dashboard.vue'
 import HomeAdm from '../views/Home/Admin/admin.vue'
 import HomeCust from '../views/Home/Customer/customer.vue'
+import DetailProduct from '../views/admin/DetailProduct.vue'
+import EditProduct from '../views/admin/EditProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -118,6 +120,16 @@ const routes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: Dashboard
+      },
+      {
+        path: 'detail-product',
+        name: 'DetailProduct',
+        component: DetailProduct
+      },
+      {
+        path: 'edit-product',
+        name: 'EditProduct',
+        component: EditProduct
       }
     ]
   },

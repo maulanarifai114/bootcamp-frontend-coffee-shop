@@ -12,10 +12,10 @@
       <h1>Forgot your password?</h1>
       <h4>Don’t worry, we got your back!</h4>
       <div class="group-form">
-        <form @submit.prevent="">
-          <Input id="email" type="email" placeholder="Enter your email adress"/>
-          <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1></Button>
-          <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1></Button>
+        <form>
+          <Input id="email" type="email" placeholder="Enter your email adress" @keypress="checkEmail" />
+          <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1 @click="sendLink"></Button>
+          <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1 @click="sendLink"></Button>
         </form>
       </div>
     </main>
@@ -26,12 +26,42 @@
 <script>
 import Input from '../../components/auth/base/Input'
 import Button from '../../components/auth/base/Button'
+import axios from 'axios'
 
 export default {
   name: 'Forgot',
   components: {
     Input,
     Button
+  },
+  data () {
+    return {
+      email: ''
+    }
+  },
+  methods: {
+    checkEmail (e) {
+      const inputEmail = e.target.value
+      console.log('email', inputEmail)
+      if (inputEmail.length >= 1) {
+        this.email = inputEmail
+      } else if (inputEmail.length < 1) {
+        this.email = ''
+      }
+    },
+    sendLink () {
+      const email = this.email
+      if (email.length < 1) {
+        return alert('Fill the blank email')
+      }
+      axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, email)
+        .then((res) => {
+          return alert('Check your email now')
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    }
   }
 }
 </script>

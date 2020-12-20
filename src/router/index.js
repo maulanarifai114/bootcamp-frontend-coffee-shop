@@ -65,7 +65,7 @@ const routes = [
         meta: { requiresVisitor: true }
       },
       {
-        path: 'new-password',
+        path: 'new-password/:token',
         name: 'newPassword',
         component: newPassword,
         meta: { requiresVisitor: true }

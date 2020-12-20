@@ -13,7 +13,7 @@
       <h4>Don’t worry, we got your back!</h4>
       <div class="group-form">
         <form>
-          <Input id="email" type="email" placeholder="Enter your email adress" @keypress="checkEmail" />
+          <Input id="email" type="email" placeholder="Enter your email adress" @keyup="checkEmail" />
           <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1 @click="sendLink"></Button>
           <!-- <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1 @click="sendLink"></Button> -->
         </form>
@@ -50,16 +50,17 @@ export default {
       }
     },
     sendLink () {
-      const email = this.email
-      if (email.length < 1) {
+      // const email = this.email
+      if (this.email.length < 1) {
         return alert('Fill the blank email')
       }
-      axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, email)
+      axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, { email: this.email })
         .then((res) => {
           return alert('Check your email now')
         })
         .catch((err) => {
           console.log(err.response.data)
+          return alert('Check your email now')
         })
     }
   }

@@ -18,7 +18,7 @@
   <input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
   <label class="custom-control-label" for="showPassword">Show Password</label>
 </div>
-          <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg=1 @click="changePassword"></Button>
+          <Button color="btn-yellow btn-auth" label="Login Now" :nonActiveImg=1 @click="changePassword"></Button>
         </form>
       </div>
     </main>
@@ -29,7 +29,7 @@
 <script>
 import Input from '../../components/auth/base/Input'
 import Button from '../../components/auth/base/Button'
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'Forgot',
@@ -62,12 +62,32 @@ export default {
       this.repeatpass = e.target.value
     },
     changePassword () {
-      if (this.newpass === this.repeatpass) {
-        console.log('lanjut')
-        console.log(`${this.$route.params}`)
-        // axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params}`)
+      if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+        return alert('Password is to short')
+      } else if (this.newpass === this.repeatpass) {
+        if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+          console.log('new', this.newpass, 'repeat', this.repeatpass)
+          return alert('Password is to short')
+        } else if (this.newpass.length >= 8 && this.repeatpass.length >= 8) {
+          console.log('lanjut')
+          const user = {
+            password: this.newpass,
+            repeat_password: this.repeatpass
+          }
+          axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params.token}`, user)
+            .then((res) => {
+              console.log(res.data.messages)
+              alert(res.data.messages)
+              this.$router.push('/auth/login')
+            })
+            .catch((err) => {
+              console.log(err.response.data.messages)
+              alert(err.response.data.messages)
+            })
+        }
       } else {
         console.log('error')
+        alert('Password not have same character')
       }
     }
   }

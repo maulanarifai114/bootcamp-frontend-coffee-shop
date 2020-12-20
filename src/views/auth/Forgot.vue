@@ -15,7 +15,7 @@
         <form>
           <Input id="email" type="email" placeholder="Enter your email adress" @keypress="checkEmail" />
           <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1 @click="sendLink"></Button>
-          <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1 @click="sendLink"></Button>
+          <!-- <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1 @click="sendLink"></Button> -->
         </form>
       </div>
     </main>

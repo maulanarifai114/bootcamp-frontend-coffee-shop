@@ -16,15 +16,21 @@
 <script>
 export default {
   name: 'AmountPrice',
-
+  props: [
+    'prices',
+    'stock'
+  ],
   data () {
     return {
-      amount: 0,
-      price: 30000
+      amount: 0
+      // price: 0
     }
   },
   methods: {
     plusAmount () {
+      if (this.amount >= this.stock) {
+        return
+      }
       this.amount++
     },
     minusAmount () {
@@ -35,7 +41,7 @@ export default {
   },
   computed: {
     currentPrice () {
-      const price = this.price
+      const price = this.prices
       const amount = this.amount
       const current = price * amount
       return current.toLocaleString('id-ID')

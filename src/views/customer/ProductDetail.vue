@@ -6,16 +6,16 @@
       <!-- Delivery and Time -->
       <aside class="col-xl-6 col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="img-wrap">
-          <img src="../../assets/cust/cold-brew.png" alt="product">
+          <img :src="products.images" alt="product">
         </div>
         <div class="align-self-center align-self-xl-start">
-          <Delivetime></Delivetime>
+          <Delivetime :dine="products.is_dine_in" :door="products.is_home_delivery" :pick="products.is_pick_up"></Delivetime>
         </div>
       </aside>
       <!-- Description, Price, Amount -->
       <aside class="col-xl-6 col-12 d-flex flex-column align-items-center">
-        <TitleProduct></TitleProduct>
-        <AmountPrice></AmountPrice>
+        <TitleProduct :title="products.name" :description="products.description"></TitleProduct>
+        <AmountPrice :prices="products.price" :stock="products.stock"></AmountPrice>
         <Button color="btn-brown btn-detail" label="Add to cart"></Button>
         <Button color="btn-yellow btn-detail" label="Ask a Staff"></Button>
       </aside>
@@ -40,7 +40,7 @@ import AmountPrice from '../../components/cust/module/AmountPrice'
 import SizeProduct from '../../components/cust/module/SizeProduct'
 import Checkout from '../../components/cust/module/Checkout'
 import Button from '../../components/cust/base/Button'
-
+import axios from 'axios'
 export default {
   name: 'ProductDetail',
   components: {
@@ -50,7 +50,31 @@ export default {
     SizeProduct,
     Checkout,
     Button
+  },
+  mounted: function () {
+    this.ProductDetail()
+  },
+  data () {
+    return {
+      products: {}
+    }
+  },
+  methods: {
+    ProductDetail () {
+      axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
+        .then((result) => {
+          // handle success
+          this.products = result.data.result[0]
+          console.log(this.products)
+        //   console.log(result.data)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    }
   }
+
 }
 </script>
 

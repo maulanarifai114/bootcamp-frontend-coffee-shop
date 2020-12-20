@@ -5,13 +5,13 @@
       <div class="d-flex mb-5">
         <div class="btn-group-toggle">
           <label class="btn mr-3" for="dine" :class="deliver === 'dine'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine"> Dine In
+            <input type="radio" name="deliver" id="dine" v-model="deliver" :value="dine === true ? 'dine' : ''"> Dine In
           </label>
           <label class="btn mr-3" for="door" :class="deliver === 'door'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="door" v-model="deliver" value="door"> Door Delivery
+            <input type="radio" name="deliver" id="door" v-model="deliver" :value="door === true ? 'door' : ''"> Door Delivery
           </label>
           <label class="btn mr-3" for="pick" :class="deliver === 'pick'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick"> Pick Up
+            <input type="radio" name="deliver" id="pick" v-model="deliver" :value="pick === true ? 'pick' : ''"> Pick Up
           </label>
         </div>
       </div>
@@ -42,6 +42,11 @@ export default {
   components: {
     Input
   },
+  props: [
+    'dine',
+    'door',
+    'pick'
+  ],
   data () {
     return {
       deliver: '',
@@ -53,7 +58,7 @@ export default {
   },
   methods: {
     default () {
-      this.deliver = 'dine'
+      // this.deliver = 'dine'
       this.now = 'yes'
     }
   }

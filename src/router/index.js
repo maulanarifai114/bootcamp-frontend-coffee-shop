@@ -182,26 +182,26 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!store.getters.isLogin) {
-//       next({
-//         path: '/auth/login'
-//       })
-//     } else {
-//       next()
-//     }
-//   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-//     if (store.getters.isLogin) {
-//       next({
-//         path: '/'
-//       })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next() // make sure to always call next()!
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!localStorage.getItem('token')) {
+      next({
+        path: '/auth/login'
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+    if (localStorage.getItem('token')) {
+      next({
+        path: '/cust/product'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // make sure to always call next()!
+  }
+})
 
 export default router

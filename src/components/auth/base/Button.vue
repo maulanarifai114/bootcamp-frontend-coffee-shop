@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :class="color" class="w-100" type="submit" @click.prevent="$emit('click')">
+    <button :class="color" class="w-100" type="submit" @click="$emit('click')">
       <img src="../../../assets/auth/google.png" alt="" :class="nonActiveImg > 0 ? 'nonActiveImg' : ''">
       {{label}}
     </button>

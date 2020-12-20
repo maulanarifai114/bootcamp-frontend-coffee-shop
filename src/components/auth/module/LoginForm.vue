@@ -1,18 +1,50 @@
 <template>
   <div class="group-form">
     <form @submit.prevent="">
-      <Inputed id="email" type="email" placeholder="Enter your email adress" label="Email Adress :" @keyup="checkEmail" />
-      <p class=" text-danger mb-5" v-if="messages === 'user not found'">You have not registered yet</p>
-      <Inputed id="password" type="password" placeholder="Enter your password" label="Password :" @keyup="checkPassword" />
-      <p class=" text-danger mb-5" v-if="messages === 'Wrong Password'">Password wrong</p>
-      <router-link to="/auth/forgot" class="forgot">Forgot Password?</router-link>
+      <Inputed
+        id="email"
+        type="email"
+        placeholder="Enter your email adress"
+        label="Email Adress :"
+        @keyup="checkEmail"
+      />
+      <p class="text-danger mb-5" v-if="messages === 'user not found'">
+        You have not registered yet
+      </p>
+      <Inputed
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+        label="Password :"
+        @keyup="checkPassword"
+      />
+      <p class="text-danger mb-5" v-if="messages === 'Wrong Password'">
+        Password wrong
+      </p>
+      <router-link to="/auth/forgot" class="forgot"
+        >Forgot Password?</router-link
+      >
       <div class="mb-5"></div>
-      <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg="1" @click="login"></Button>
+      <Button
+        color="btn-yellow btn-auth"
+        label="Login"
+        :nonActiveImg="1"
+        @click="login"
+      ></Button>
     </form>
-    <Button color="btn-white-auth" label="Login With Google" :nonActiveImg="0"></Button>
+    <Button
+      color="btn-white-auth"
+      label="Login With Google"
+      :nonActiveImg="0"
+    ></Button>
     <TextMuted text="Don’t have an account?"></TextMuted>
     <!-- <router-link to="/auth/signup"> -->
-    <Button color="btn-brown btn-auth" label="Sign Up Here" :nonActiveImg="1" @click="goSignUp"></Button>
+    <Button
+      color="btn-brown btn-auth"
+      label="Sign Up Here"
+      :nonActiveImg="1"
+      @click="goSignUp"
+    ></Button>
     <!-- </router-link> -->
   </div>
 </template>
@@ -74,7 +106,8 @@ export default {
       } else if (user.password.length < 1) {
         return alert('Fill the blank password')
       }
-      axios.post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
+      axios
+        .post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
         .then((res) => {
           alert(res.data.messages)
           this.messages = res.data.messages
@@ -82,6 +115,7 @@ export default {
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('id', res.data.data.id)
           localStorage.setItem('role_id', res.data.data.role_id)
+          this.$router.push('/cust/product')
         })
         .catch((err) => {
           this.messages = err.response.data.messages
@@ -104,11 +138,11 @@ export default {
   font-size: 20px;
   line-height: 24px;
   text-decoration-line: underline;
-  color: #6A4029;
-  transition: .3s;
+  color: #6a4029;
+  transition: 0.3s;
 }
 
 .forgot:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 </style>

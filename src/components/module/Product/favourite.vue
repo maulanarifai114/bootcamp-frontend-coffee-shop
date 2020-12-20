@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getProducts () {
-      axios.get(`http://54.227.187.8:5000/api/products?page=${this.currentPages}&limit=${this.perPage}&category=1&sort=desc`)
+      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=1&sort=desc`)
         .then((result) => {
           // handle success
           this.products = result.data.result

@@ -44,26 +44,31 @@ const routes = [
     name: 'MainAuth',
     component: MainAuth,
     redirect: '/auth/signup',
+    meta: { requiresVisitor: true },
     children: [
       {
         path: 'signup',
         name: 'SignUp',
-        component: SignUp
+        component: SignUp,
+        meta: { requiresVisitor: true }
       },
       {
         path: 'login',
         name: 'Login',
-        component: Login
+        component: Login,
+        meta: { requiresVisitor: true }
       },
       {
         path: 'forgot',
         name: 'Forgot',
-        component: Forgot
+        component: Forgot,
+        meta: { requiresVisitor: true }
       },
       {
         path: 'new-password',
         name: 'newPassword',
-        component: newPassword
+        component: newPassword,
+        meta: { requiresVisitor: true }
       }
     ]
   },
@@ -72,36 +77,43 @@ const routes = [
     name: 'Customer',
     component: Customer,
     redirect: '/cust/product',
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'product-d',
         name: 'ProductDetail',
-        component: ProductDetail
+        component: ProductDetail,
+        meta: { requiresAuth: true }
       },
       {
         path: 'profile',
         name: 'Profile',
-        component: Profile
+        component: Profile,
+        meta: { requiresAuth: true }
       },
       {
         path: 'product',
         name: 'Product',
-        component: Product
+        component: Product,
+        meta: { requiresAuth: true }
       },
       {
         path: 'cart',
         name: 'Cart',
-        component: Cart
+        component: Cart,
+        meta: { requiresAuth: true }
       },
       {
         path: 'history',
         name: 'History',
-        component: History
+        component: History,
+        meta: { requiresAuth: true }
       },
       {
         path: 'edit-password',
         name: 'editPassword',
-        component: editPassword
+        component: editPassword,
+        meta: { requiresAuth: true }
       }
     ]
   },
@@ -110,48 +122,57 @@ const routes = [
     name: 'Admin',
     component: Admin,
     redirect: '/admin/dashboard',
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'add-product',
         name: 'NewProduct',
-        component: NewProduct
+        component: NewProduct,
+        meta: { requiresAuth: true }
       },
       {
         path: 'manage-order',
         name: 'ManageOrder',
-        component: ManageOrder
+        component: ManageOrder,
+        meta: { requiresAuth: true }
       },
       {
         path: 'product',
         name: 'ProductAdmin',
-        component: ProductAdmin
+        component: ProductAdmin,
+        meta: { requiresAuth: true }
       },
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        meta: { requiresAuth: true }
       },
       {
         path: 'detail-product',
         name: 'DetailProduct',
-        component: DetailProduct
+        component: DetailProduct,
+        meta: { requiresAuth: true }
       },
       {
         path: 'edit-product',
         name: 'EditProduct',
-        component: EditProduct
+        component: EditProduct,
+        meta: { requiresAuth: true }
       }
     ]
   },
   {
     path: '/admin/home',
     name: 'HomeAdm',
-    component: HomeAdm
+    component: HomeAdm,
+    meta: { requiresAuth: true }
   },
   {
     path: '/cust/home',
     name: 'HomeCust',
-    component: HomeCust
+    component: HomeCust,
+    meta: { requiresAuth: true }
   }
 ]
 
@@ -160,5 +181,27 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!store.getters.isLogin) {
+//       next({
+//         path: '/auth/login'
+//       })
+//     } else {
+//       next()
+//     }
+//   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+//     if (store.getters.isLogin) {
+//       next({
+//         path: '/'
+//       })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next() // make sure to always call next()!
+//   }
+// })
 
 export default router

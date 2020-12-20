@@ -5,12 +5,12 @@
       <Inputed id="password" type="password" placeholder="Enter your password" label="Password :"/>
       <router-link to="/auth/forgot" class="forgot">Forgot Password?</router-link>
       <div class="mb-5"></div>
-      <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg=1></Button>
+      <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg="1"></Button>
     </form>
-    <Button color="btn-white-auth" label="Login With Google" :nonActiveImg=0></Button>
+    <Button color="btn-white-auth" label="Login With Google" :nonActiveImg="0"></Button>
     <TextMuted text="Don’t have an account?"></TextMuted>
     <router-link to="/auth/signup">
-      <Button color="btn-brown btn-auth" label="Sign Up Here" :nonActiveImg=1></Button>
+      <Button color="btn-brown btn-auth" label="Sign Up Here" :nonActiveImg="1"></Button>
     </router-link>
   </div>
 </template>

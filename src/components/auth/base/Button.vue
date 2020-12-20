@@ -14,7 +14,7 @@ export default {
     color: String,
     label: String,
     nonActiveImg: {
-      type: Boolean
+      type: Number
     }
   }
 }

@@ -21,11 +21,18 @@
             </ul>
             <ul class="navbar-nav ml-auto option-box2" >
                 <li class="nav-item d-flex option2">
+                    <div class="login" type = button @click.prevent="goLogin">Login</div>
+                    <!-- <button class="login" @click.prevent="this.$route.push('/auth/login')">Login</button> -->
+                </li>
+                <li class="nav-item d-flex option2">
+                    <button class="signup" @click.prevent="goSignUp">Sign Up</button>
+                </li>
+                <!-- <li class="nav-item d-flex option2">
                     <div class="login" type = button>Login</div>
                 </li>
                 <li class="nav-item d-flex option2">
                     <button class="signup">Sign Up</button>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>
@@ -33,7 +40,15 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    goSignUp () {
+      this.$router.push('/auth/signup')
+    },
+    goLogin () {
+      this.$router.push('/auth/login')
+    }
+  }
 
 }
 </script>

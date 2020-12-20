@@ -34,8 +34,8 @@ export default {
     margin-top: 2%;
 }
 .tab-detail {
-  height: 600px;
-  overflow: auto;
+  height: max-content !important;
+  overflow: visible !important;
 }
 .tab-title-class {
   font-family: Rubik;

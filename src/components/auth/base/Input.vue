@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column">
     <label :for="id" class="label">{{label}}</label>
-    <input :type="type" :id="id" :placeholder="placeholder" class="placeholder input" required>
+    <input :type="type" :id="id" :placeholder="placeholder" class="placeholder input" @input="$emit('input', $event)" @focus="$emit('focus', $event)" @keyup="$emit('keyup', $event)" required>
   </div>
 </template>
 
@@ -20,6 +20,13 @@ export default {
   border-radius: 20px;
   padding: 0 30px;
   margin: 0 0 32px 0;
+
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  // line-height: 24px;
+  color: #353535;
 }
 
 .input:focus {

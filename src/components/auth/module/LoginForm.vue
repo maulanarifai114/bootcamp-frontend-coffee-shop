@@ -3,6 +3,7 @@
     <form @submit.prevent="">
       <Inputed id="email" type="email" placeholder="Enter your email adress" label="Email Adress :"/>
       <Inputed id="password" type="password" placeholder="Enter your password" label="Password :"/>
+      <p class=" text-danger">Password wrong</p>
       <router-link to="/auth/forgot" class="forgot">Forgot Password?</router-link>
       <div class="mb-5"></div>
       <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg="1"></Button>

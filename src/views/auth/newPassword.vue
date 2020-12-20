@@ -30,6 +30,7 @@
 import Input from '../../components/auth/base/Input'
 import Button from '../../components/auth/base/Button'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Forgot',
@@ -63,11 +64,21 @@ export default {
     },
     changePassword () {
       if (this.newpass.length < 8 && this.repeatpass.length < 8) {
-        return alert('Password is to short')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Password is to short'
+          // text: 'Use minimal 8 character'
+        })
+        // return alert('Password is to short')
       } else if (this.newpass === this.repeatpass) {
         if (this.newpass.length < 8 && this.repeatpass.length < 8) {
           console.log('new', this.newpass, 'repeat', this.repeatpass)
-          return alert('Password is to short')
+          return Swal.fire({
+            icon: 'error',
+            title: 'Password is to short'
+            // text: 'Use minimal 8 character'
+          })
+          // return alert('Password is to short')
         } else if (this.newpass.length >= 8 && this.repeatpass.length >= 8) {
           console.log('lanjut')
           const user = {
@@ -77,17 +88,32 @@ export default {
           axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params.token}`, user)
             .then((res) => {
               console.log(res.data.messages)
-              alert(res.data.messages)
+              Swal.fire({
+                icon: 'success',
+                title: res.data.messages
+                // text: 'Use minimal 8 character'
+              })
+              // alert(res.data.messages)
               this.$router.push('/auth/login')
             })
             .catch((err) => {
               console.log(err.response.data.messages)
-              alert(err.response.data.messages)
+              Swal.fire({
+                icon: 'error',
+                title: err.response.data.messages
+                // text: 'Use minimal 8 character'
+              })
+              // alert(err.response.data.messages)
             })
         }
       } else {
         console.log('error')
-        alert('Password not have same character')
+        Swal.fire({
+          icon: 'error',
+          title: 'Password not have same character'
+          // text: 'Use minimal 8 character'
+        })
+        // alert('Password not have same character')
       }
     }
   }

@@ -8,9 +8,6 @@
         label="Email Adress :"
         @keyup="checkEmail"
       />
-      <p class="text-danger mb-5" v-if="messages === 'user not found'">
-        You have not registered yet
-      </p>
       <Inputed
         id="password"
         type="password"
@@ -18,9 +15,6 @@
         label="Password :"
         @keyup="checkPassword"
       />
-      <p class="text-danger mb-5" v-if="messages === 'Wrong Password'">
-        Password wrong
-      </p>
       <router-link to="/auth/forgot" class="forgot"
         >Forgot Password?</router-link
       >
@@ -54,6 +48,7 @@ import Button from '../base/Button'
 import Inputed from '../base/Input'
 import TextMuted from '../base/TextMuted'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'LoginForm',
@@ -100,17 +95,28 @@ export default {
       }
       console.log(user)
       if (user.email.length < 1) {
-        return alert('Fill the blank email')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Fill the blank email'
+        })
       } else if (!user.email.includes('@')) {
-        return alert('You must insert your email')
+        return Swal.fire({
+          icon: 'error',
+          title: 'You must insert your email'
+        })
       } else if (user.password.length < 1) {
-        return alert('Fill the blank password')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Fill the blank password'
+        })
       }
       axios
         .post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
         .then((res) => {
-          alert(res.data.messages)
-          this.messages = res.data.messages
+          Swal.fire({
+            icon: 'success',
+            title: 'Success Login'
+          })
           console.log(res.data.data)
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('id', res.data.data.id)
@@ -118,6 +124,10 @@ export default {
           this.$router.push('/cust/product')
         })
         .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: err.response.data.messages
+          })
           this.messages = err.response.data.messages
           console.log('message', this.messages)
         })

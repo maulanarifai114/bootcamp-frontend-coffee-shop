@@ -2,9 +2,9 @@
   <div class="group-form">
     <form @submit.prevent="">
       <Inputed id="email" type="email" placeholder="Enter your email adress" label="Email Adress :" @keyup="checkEmail" />
-      <p class=" text-danger" v-if="!email.includes('@')">Please enter your email</p>
+      <!-- <p class=" text-danger" v-if="!email.includes('@')">Please enter your email</p> -->
       <Inputed id="password" type="password" placeholder="Enter your password" label="Password :"  @keyup="checkPassword" />
-      <p class=" text-danger" v-if="pass.length < 8">Password is to short</p>
+      <!-- <p class=" text-danger" v-if="pass.length < 8">Password is to short</p> -->
       <Inputed id="phone" type="number" placeholder="Enter your phone number" label="Phone Number :" @keyup="checkNum" />
       <div class="mb-3"></div>
       <Button color="btn-yellow btn-auth" label="Sign Up" :nonActiveImg="1" @click="register" ></Button>
@@ -22,6 +22,7 @@ import Button from '../base/Button'
 import Inputed from '../base/Input'
 import TextMuted from '../base/TextMuted'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'SignUpForm',
@@ -80,19 +81,35 @@ export default {
       }
       console.log(user)
       if (user.email.length < 1) {
-        return alert('Fill the blank email')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Fill the blank email!'
+        })
       } else if (user.password.length < 8) {
-        return alert('Your password is too short')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Your password is too short!',
+          text: 'Use minimal 8 character'
+        })
       } else if (Number.isNaN(user.phone_number)) {
-        return alert('Fill the blank phone number')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Fill the blank phone number!'
+        })
       }
       axios.post(`${process.env.VUE_APP_BASE_URL}auth/signup`, user)
         .then((res) => {
-          alert(res.data.messages)
+          Swal.fire({
+            icon: 'success',
+            title: res.data.messages
+          })
           this.$router.push('/auth/login')
         })
         .catch((err) => {
-          alert(err.response.data.messages)
+          Swal.fire({
+            icon: 'error',
+            title: err.response.data.messages
+          })
         })
     }
   }

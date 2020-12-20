@@ -27,6 +27,7 @@
 import Input from '../../components/auth/base/Input'
 import Button from '../../components/auth/base/Button'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Forgot',
@@ -50,17 +51,38 @@ export default {
       }
     },
     sendLink () {
-      // const email = this.email
       if (this.email.length < 1) {
-        return alert('Fill the blank email')
+        return Swal.fire({
+          icon: 'error',
+          title: 'Error send email'
+          // text: 'Use minimal 8 character'
+        })
+        // return alert('Fill the blank email')
+      } else if (!this.email.includes('@')) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Error send email'
+          // text: 'Use minimal 8 character'
+        })
+        // return alert('Fill the blank email')
       }
       axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, { email: this.email })
         .then((res) => {
-          return alert('Check your email now')
+          Swal.fire({
+            icon: 'success',
+            title: 'Check your email now'
+          // text: 'Use minimal 8 character'
+          })
+          // return alert('Check your email now')
         })
         .catch((err) => {
           console.log(err.response.data)
-          return alert('Check your email now')
+          Swal.fire({
+            icon: 'error',
+            title: 'Error send email'
+            // text: 'Use minimal 8 character'
+          })
+          // return alert('Check your email now')
         })
     }
   }

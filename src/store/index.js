@@ -13,7 +13,12 @@ export default new Vuex.Store({
     // Customer Profile
     editmode: 0,
     email: 'zalikha@gmail.com',
-    gender: ''
+    gender: '',
+
+    // Add to cart
+    checkoutdine: [],
+    checkoutdoor: [],
+    checkoutpick: []
   },
   mutations: {
     changeEditMode (state) {
@@ -31,6 +36,9 @@ export default new Vuex.Store({
     },
     changeGender (state, payload) {
       state.gender = payload
+    },
+    addCheckout (state, payload) {
+      state.checkout.push(payload)
     }
   },
   actions: {

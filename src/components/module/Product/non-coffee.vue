@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-sm d-flex justify-content-center favourite" @click.prevent="" type="button" v-for="data in products" :key="data.id">
+            <div class="col-sm d-flex justify-content-center favourite" @click.prevent="detailProducts(data.id)" type="button" v-for="data in products" :key="data.id">
                 <div class="product-box">
                     <div class="product-img overflow-hidden">
                         <img :src="data.images" alt="">
@@ -54,6 +54,9 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    detailProducts (val) {
+      this.$router.push({ path: 'product-d', query: { id: val } })
     }
   }
 }

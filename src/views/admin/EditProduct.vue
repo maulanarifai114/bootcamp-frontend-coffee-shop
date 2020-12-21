@@ -96,8 +96,7 @@
               <div class="align-items-center">
                 <select id="end" class="w-100">
                   <option value="end" disabled selected class="disabled"
-                    >Select end hour</option
-                  >
+                    >Select end hour</option>
                   <option value="00">00:00</option>
                   <option value="01">01:00</option>
                   <option value="02">02:00</option>

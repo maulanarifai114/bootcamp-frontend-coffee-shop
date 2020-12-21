@@ -4,10 +4,13 @@
     <aside class="row wrapper">
       <section class="col-12 col-lg-5">
         <div class="photo d-flex justify-content-center align-items-center rounded-circle mb-5">
-          <img src="../../assets/admin/default.png" alt="">
+          <img :src="avatar" alt="" height="300px">
         </div>
         <Button color="btn-navy btn-admin-1" label="Take a picture"></Button>
-        <Button color="btn-yellow-admin btn-admin-1" label="Choose from gallery"></Button>
+        <label style="cursor:pointer;" for="uploadImage" class="btn-yellow btn-admin-1 d-flex justify-content-center align-items-center">
+                Choose from gallery
+              </label>
+        <input class="d-none" id="uploadImage" type="file" @change="getImage"/>
         <br><br>
         <!-- Category -->
         <div class=" d-flex flex-column ">
@@ -19,30 +22,30 @@
         <!-- Delivery Hour -->
         <div class=" d-flex flex-column ">
           <h5 class="label">Delivery Hour :</h5>
-          <InputTime id="start" label="Select start hour" value="start"></InputTime>
-          <InputTime id="end" label="Select end hour" value="end"></InputTime>
+          <InputTime id="start" label="Select start hour" value="start" @change="startDelivery"></InputTime>
+          <InputTime id="end" label="Select end hour" value="end" @change="endDelivery"></InputTime>
         </div>
         <br><br>
         <!-- Input Stock -->
         <div class=" d-flex flex-column ">
           <h5 class="label">Input stock :</h5>
           <label for="stock">
-            <input type="number" id="stock" class="time w-100" placeholder="Input Stock">
+            <input v-model="stock" type="number" id="stock" class="time w-100" placeholder="Input Stock">
           </label>
         </div>
       </section>
       <section class="col-12 col-lg-1"></section>
       <section class="col-12 col-lg-6">
-        <Input @input="inputValue" id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text"/>
+        <Input v-model="name" id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text"/>
         <br><br>
-        <Input @input="inputValue" id="price" label="Price" placeholder="Type the price" type="number"/>
+        <Input v-model="price" id="price" label="Price" placeholder="Type the price" type="number"/>
         <br><br>
-        <Input id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text"/>
+        <Input v-model="description" id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text"/>
         <br><br>
         <h5 class="label-size">Input product size :</h5>
         <h6 class="text-muted">Click size you want to use for this product</h6>
         <!-- R L XL -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === 'coffee' || category === 'noncoffee' || category === 'fav' || category === 'add'">
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '2' || category === '3' || category === '1' || category === '5'">
           <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size1 === 'r' ? 'selected':'unselected'">
             <input type="radio" name="size1" id="r" v-model="size1" value="r" class="d-none"> R
           </label>
@@ -53,9 +56,9 @@
             <input type="radio" name="size1" id="xl" v-model="size1" value="xl" class="d-none"> XL
           </label>
         </div>
-        <br v-if="category === 'fav' || category === 'add'">
+        <br v-if="category === '1' || category === '5'">
         <!-- Gram -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === 'foods' || category === 'fav' || category === 'add'" @>
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '4' || category === '1' || category === '5'" @>
           <label class="btn btn-gram d-flex align-items-center justify-content-center" for="250" :class="size2 === '250' ? 'selected':'unselected'">
             <input type="radio" name="size2" id="250" v-model="size2" value="250" class="d-none"> 250g
           </label>
@@ -76,12 +79,24 @@
         <h6 class="text-muted">Click methods you want to use for this product</h6>
         <br>
         <div class=" d-flex justify-content-between flex-column flex-lg-row ">
-          <Button color="btn-yellow-admin btn-admin-3 mb-3" label="Home Delivery"></Button>
-          <Button color="btn-yellow-admin btn-admin-3 mb-3" label="Dine in"></Button>
-          <Button color="btn-cancel btn-admin-3 mb-3" label="Take Away"></Button>
+              <label class="btn-admin-3 mr-3 d-flex justify-content-center align-items-center" for="dine" :class="deliver.includes('dine') ? 'btn-yellow-admin' : 'btn-cancel'" >
+              <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine" class="d-none">
+              Dine In
+              </label>
+
+              <label class="btn-admin-3 mr-3 d-flex justify-content-center align-items-center" for="door" :class="deliver.includes('door') ? 'btn-yellow-admin' : 'btn-cancel'">
+              <input type="radio" name="deliver" id="door" v-model="deliver" value="door" class="d-none">
+              Delivery Home
+              </label>
+
+              <label class="btn-admin-3 mr-3 d-flex justify-content-center align-items-center" for="pick" :class="deliver.includes('pick') ? 'btn-yellow-admin' : 'btn-cancel'" >
+                <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick" class="d-none">
+              Pick Up
+              </label>
         </div>
         <br><br><br><br>
-        <Button color="btn-brown btn-admin-1" label="Save Product"></Button>
+        <button  @click="inputForm()" color="btn-brown btn-admin-1">save</button>
+        <Button @click="inputForm" color="btn-brown btn-admin-1" label="Save Product"></Button>
         <br>
         <Button color="btn-cancel btn-admin-1" label="Cancel"></Button>
       </section>
@@ -94,7 +109,7 @@ import Button from '../../components/admin/base/Button'
 import Input from '../../components/admin/base/Input'
 import InputTime from '../../components/admin/base/InputTime'
 import InputCat from '../../components/admin/base/InputCat'
-
+import axios from 'axios'
 export default {
   name: 'NewProduct',
   components: {
@@ -107,18 +122,83 @@ export default {
     return {
       size1: '',
       size2: '',
+      deliver: '',
+      avatar: 'https://lh3.googleusercontent.com/EbXw8rOdYxOGdXEFjgNP8lh-YAuUxwhOAe2jhrz3sgqvPeMac6a6tHvT35V6YMbyNvkZL4R_a2hcYBrtfUhLvhf-N2X3OB9cvH4uMw=w1064-v0',
       category: '',
-      time: ''
+      start: '',
+      end: '',
+      stock: '',
+      name: '',
+      price: '',
+      description: '',
+      size: [{ size1: '', size2: '' }]
     }
   },
   methods: {
-    inputValue (e) {
-      console.log(e)
+    inputName (e) {
+      return e
     },
     lihatVal (e) {
       const category = e
       this.category = category
-      console.log('this.cat', this.category)
+    },
+    startDelivery (e) {
+      const start = e
+      this.start = start
+    },
+    endDelivery (e) {
+      const end = e
+      this.end = end
+    },
+    getImage (e) {
+      console.log(e.target.files[0].size)
+      var image = e.target.files[0]
+      var reader = new FileReader()
+      if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
+        this.$swal.fire({
+          title: 'Warning!',
+          text: 'Only .png, .jpg and .jpeg format allowed!',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+      } else if (image.size >= 4388608) {
+        this.$swal.fire({
+          title: 'Warning!',
+          text: 'Image size is too large, it must be under 4MB',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+      } else {
+        reader.readAsDataURL(image)
+        reader.onload = e => {
+          this.avatar = e.target.result
+        }
+      }
+    },
+    inputForm () {
+      var data = new FormData()
+      var inputGambar = document.getElementById('uploadImage')
+      var dataFile = inputGambar.files[0]
+
+      // Tambahkan data ke Form Data
+      // data.append('deliver', this.deliver)
+      // data.append('image', this.category)
+      // data.append('start_delivery', this.start)
+      // data.append('end_delivery', this.end)
+      // data.append('stock', this.stock)
+      // data.append('name', this.name)
+      // data.append('price', this.price)
+      // data.append('description', this.description)
+      // data.append('size', this.size)
+      data.append('image', dataFile)
+
+      axios.post(`${process.env.VUE_APP_BASE_URL}/api/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     },
     reset () {
       this.size1 = ''
@@ -238,7 +318,9 @@ export default {
   background: rgba(186, 186, 186, 0.35);
   cursor: pointer;
   transition: .3s;
-  margin: 0 auto
+  margin: 0 auto;
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 .photo:hover {

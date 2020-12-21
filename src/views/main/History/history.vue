@@ -3,62 +3,78 @@
         <div class="container">
             <div class="todo" style="text-align:right" type= button @click.prevent="selectAll">Select All</div>
             <div class="todo" style="text-align:right" type= button @click.prevent="unselectAll">Unselect All</div>
-            <div class="deletebox" style="text-align:right" type= button>Delete</div>
+            <div class="deletebox" style="text-align:right" type= button @click.prevent="deleteCustHistory()">Delete</div>
             <div class="row">
-            <div class="col-sm product" v-for="(product, i) in products" :key="i">
+            <div class="col-sm product" v-for="history in getHistory" :key="history.id">
                 <div class="history-box">
                     <div class="image">
-                        <img src="../../../assets/img/nathan-dumlao-zTZRZV86GhE-unsplash 1.png" alt="">
+                        <img :src= "history.products[0].images" alt="">
                     </div>
                     <div class="product-info">
-                        <p class="name">Veggie</p>
-                        <p class="price">120000</p>
+                        <p class="name">{{history.products[0].name}}</p>
+                        <p class="price">{{history.products[0].price}}</p>
                         <p class="description">Delivered</p>
                     </div>
-                    <input type="checkbox" id="delete" :value=product.id v-model="deleteProducts">
+                    <input type="checkbox" id="delete" :value= history.id v-model="deleteProducts">
                 </div>
             </div>
         </div>
-        <div>Selected: <strong>{{ deleteProducts}}</strong></div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import Swal from 'sweetalert2'
 export default {
   name: 'HistoryCust',
   data () {
     return {
-      deleteProducts: [],
-      products: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        },
-        {
-          id: 5
-        },
-        {
-          id: 6
-        }
-      ]
+      deleteProducts: []
     }
   },
   methods: {
+    ...mapActions({ getAllHistory: 'getAllHistory', deleteHistory: 'deleteHistory' }),
     selectAll () {
-      this.deleteProducts = this.products.map((product) => product.id)
+      this.deleteProducts = this.getHistory.map((history) => history.id)
+      console.log(this.deleteProducts)
     },
     unselectAll () {
       this.deleteProducts = []
+    },
+    deleteCustHistory () {
+      const payload = {
+        deleteProducts: this.deleteProducts
+      }
+      Swal.fire({
+        // title: 'Are You Sure?',
+        text: 'Are you sure you want to delete selected items?',
+        // icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6A4029',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(this.deleteProducts)
+          this.deleteHistory(payload)
+            .then((res) => {
+              Swal.fire(
+                'Deleted!',
+                'Your history product has been deleted'
+              )
+              this.$router.push('history')
+              this.deleteProducts = []
+            })
+        }
+      })
     }
+  },
+  computed: {
+    ...mapGetters(['getHistory'])
+  },
+  mounted () {
+    this.getAllHistory()
   }
 }
 </script>

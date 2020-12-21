@@ -18,7 +18,9 @@ export default new Vuex.Store({
     // Add to cart
     checkoutdine: [],
     checkoutdoor: [],
-    checkoutpick: []
+    checkoutpick: [],
+    // History Products
+    history: []
   },
   mutations: {
     changeEditMode (state) {
@@ -39,6 +41,9 @@ export default new Vuex.Store({
     },
     addCheckout (state, payload) {
       state.checkout.push(payload)
+    },
+    SET_HISTORY (state, payload) {
+      state.history = payload
     }
   },
   actions: {
@@ -70,6 +75,41 @@ export default new Vuex.Store({
         }
         return Promise.reject(error)
       })
+    },
+    getAllHistory (context) {
+      return new Promise((resolve, reject) => {
+        axios.get('http://54.227.187.8:5000/api/history', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+          .then((res) => {
+            console.log(res.data.data)
+            context.commit('SET_HISTORY', res.data.data)
+            resolve(res.data.data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    deleteHistory (context, { deleteProducts }) {
+      return new Promise((resolve, reject) => {
+        console.log('abcd')
+        console.log(deleteProducts)
+        axios.delete('http://54.227.187.8:5000/api/history/delete-history',
+          { data: { order_detail_ids: deleteProducts } }
+        )
+          .then((res) => {
+            console.log(deleteProducts)
+            resolve(res.data.data)
+          })
+          .catch((err) => {
+            console.log(err.response)
+            reject(err)
+          })
+      })
+    }
+  },
+  getters: {
+    getHistory (state) {
+      return state.history
     }
   },
   modules: {

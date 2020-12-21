@@ -51,8 +51,8 @@ export default {
   margin-top: 2%;
 }
 .tab-detail {
-  height: 600px;
-  overflow: auto;
+  min-height: 900px;
+  overflow: visible;
 }
 
 .tab-title-class {

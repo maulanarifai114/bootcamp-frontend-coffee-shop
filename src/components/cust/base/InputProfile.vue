@@ -2,7 +2,7 @@
   <div class=" d-flex flex-column ">
     <label :for="id">{{label}}</label>
     <input :type="type" :id="id" :value="value" :placeholder="placeholder" disabled v-if="editmode <= 0" class="disabled">
-    <input :type="type" :id="id" :value="value" :placeholder="placeholder" v-if="editmode > 0">
+    <input :type="type" :id="id" :value="value" :placeholder="placeholder" v-if="editmode> 0" @input="$emit('input', $event.target.value)">
   </div>
 </template>
 

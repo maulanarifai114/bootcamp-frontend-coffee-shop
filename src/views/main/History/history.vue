@@ -63,7 +63,7 @@ export default {
                 'Deleted!',
                 'Your history product has been deleted'
               )
-              this.$router.push('history')
+              this.getAllHistory()
               this.deleteProducts = []
             })
         }

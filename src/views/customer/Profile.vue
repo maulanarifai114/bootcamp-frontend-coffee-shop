@@ -7,21 +7,21 @@
           <aside class="col-lg-4 col-12 d-flex flex-column mb-5">
             <div class="side-left mx-auto flex-grow-1 d-flex flex-column align-items-center">
               <div class="img mb-4">
-                <img src="../../assets/cust/profile.png" alt="" class="w-100">
+                <img :src="getProfile.image" alt="">
               </div>
-              <h2>Zulaikha</h2>
-              <h4 class="mb-4">zulaikha17@gmail.com</h4>
+              <h2>{{getProfile.first_name}} {{getProfile.last_name}}</h2>
+              <h4 class="mb-4">{{getProfile.email}}</h4>
               <!-- <Button label="Choose photo" color="btn-yellow btn-profile-1"></Button> -->
               <label for="choose" class="btn-yellow btn-profile-1 d-flex justify-content-center align-items-center">
                 Choose photo
               </label>
-              <input type="file" id="choose" placeholder="Choose Photo" class="d-none">
-              <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42"></Button>
+              <input type="file" id="choose" placeholder="Choose Photo" ref="file" class="d-none" v-on:change="handleFileUpload()">
+              <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42" @trigger="deleteFileImage"></Button>
               <Button label="Edit Password" color="btn-profile-white mb-34"></Button>
               <div class="flex-grow-1">
                 <div v-if="this.$store.state.editmode > 0">
                   <h3>Do you want to save the change?</h3>
-                  <Button label="Save Change" color="btn-brown btn-profile-2"></Button>
+                  <Button label="Save Change" color="btn-brown btn-profile-2" @trigger="updateprofilecust"></Button>
                   <Button label="Cancel" color="btn-yellow btn-profile-2" @trigger="changeStaticMode"></Button>
                 </div>
               </div>
@@ -36,42 +36,42 @@
               <h5>Contacts</h5>
               <div class="row">
                 <div class="col-6">
-                  <InputProfile id="email" label="Email Address :" type="email" :value="this.$store.state.email" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="email" label="Email Address :" type="email" :placeholder="getProfile.email" :editmode="this.$store.state.editmode" v-model="getProfile.email"/>
                   <br><br>
-                  <InputProfile id="deliver" label="Delivery address :" type="text" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="deliver" label="Delivery address :" type="text" :placeholder="getProfile.address" :editmode="this.$store.state.editmode" v-model="getProfile.address" />
                 </div>
                 <div class="col-1"></div>
                 <div class="col-5">
-                  <InputProfile id="phone" label="Mobile number :" type="text" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="phone" label="Mobile number :" type="text"  :placeholder="getProfile.phone_number" :editmode="this.$store.state.editmode" v-model="getProfile.phone_number" />
                 </div>
               </div>
               <br><br>
               <h5>Details</h5>
               <div class="row">
                 <div class="col-6">
-                  <InputProfile id="display" label="Display Name:" type="text" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="display" label="Display Name:" type="text" :placeholder="getProfile.username" :editmode="this.$store.state.editmode" v-model="getProfile.username" />
                   <br>
-                  <InputProfile id="first" label="First Name :" type="text" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="first" label="First Name :" type="text"  :placeholder="getProfile.first_name" :editmode="this.$store.state.editmode" v-model="getProfile.first_name" />
                   <br>
-                  <InputProfile id="last" label="Last Name :" type="text" :editmode="this.$store.state.editmode" />
+                  <InputProfile id="last" label="Last Name :" type="text"  :placeholder="getProfile.last_name" :editmode="this.$store.state.editmode" v-model="getProfile.last_name" />
                 </div>
                 <div class="col-1"></div>
                 <div class="col-5">
-                  <InputProfile id="date" label="DD/MM/YY" type="date" :editmode="this.$store.state.editmode" placeholder="dd/mm/yyyy" />
+                  <InputProfile id="date" label="MM/DD/YY" type="date" :editmode="this.$store.state.editmode" placeholder="mm/dd/yyyy" v-model="getProfile.bod" />
                 </div>
               </div>
               <br><br>
               <div class="row ">
                 <div class="col-6 ">
                   <label class="container d-flex justify-content-center align-items-center">
-                    <input type="radio" name="gender" value="male" :checked="changeGender">
-                    <p :class="this.$store.state.gender === 'male' ? 'gender-active' : 'gender-nonactive'">Male</p>
+                    <input type="radio" name="gender" :checked="changeGender" :value="'male'" v-model="gender">
+                    <p :class="getProfile.gender === 'male' ? 'gender-active' : 'gender-nonactive'" >Male</p>
                   </label>
                 </div>
                 <div class="col-6 ">
-                  <label class="container d-flex justify-content-center align-items-center">
-                    <input type="radio" name="gender" value="female" :checked="changeGender">
-                    <p :class="this.$store.state.gender === 'female' ? 'gender-active' : 'gender-nonactive'">Female</p>
+                  <label class="container d-flex justify-content-center align-items-center" >
+                    <input type="radio" name="gender" :checked="changeGender" :value="'female'" v-model="gender">
+                    <p :class="getProfile.gender === 'female' ? 'gender-active' : 'gender-nonactive'">Female</p>
                   </label>
                 </div>
               </div>
@@ -85,8 +85,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import Button from '../../components/cust/base/Button'
 import InputProfile from '../../components/cust/base/InputProfile'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Profile',
@@ -97,10 +99,13 @@ export default {
   data () {
     return {
       editMode: 0,
-      icon: '<img src="../../assets/cust/edit.svg" alt="">'
+      icon: '<img src="../../assets/cust/edit.svg" alt="">',
+      image: '',
+      gender: ''
     }
   },
   methods: {
+    ...mapActions({ getCustProfile: 'getCustProfile', updateProfile: 'updateProfile', updateImage: 'updateImage', deleteImage: 'deleteImage' }),
     changeEditMode () {
       this.$store.commit('changeEditMode')
     },
@@ -109,7 +114,54 @@ export default {
     },
     changeGender (payload) {
       this.$store.commit('changeGender')
+    },
+    updateprofilecust () {
+      const payload = {
+        address: this.getProfile.address,
+        email: this.getProfile.email,
+        phone: this.getProfile.phone_number,
+        username: this.getProfile.username,
+        firstName: this.getProfile.first_name,
+        lastName: this.getProfile.last_name,
+        bod: this.getProfile.bod,
+        gender: this.gender
+      }
+      this.updateProfile(payload)
+        .then((res) => {
+          console.log(this.gender)
+          Swal.fire(
+            'Success!',
+            'Your profile has been updated'
+          )
+          this.getCustProfile()
+          this.address = ''
+        })
+    },
+    handleFileUpload () {
+      this.image = this.$refs.file.files[0]
+      console.log('>>>> 1st element in files array >>>> ', this.image)
+      const formData = new FormData()
+      formData.append('image', this.image)
+      console.log('>> formData >> ', formData)
+      this.$store.dispatch('updateImage', formData)
+    },
+    deleteFileImage () {
+      this.deleteImage()
+        .then((res) => {
+          Swal.fire(
+            'Success!',
+            'Your Image has been deleted'
+          )
+          this.getCustProfile()
+          this.address = ''
+        })
     }
+  },
+  computed: {
+    ...mapGetters(['getProfile'])
+  },
+  mounted () {
+    this.getCustProfile()
   }
 }
 </script>
@@ -241,6 +293,9 @@ h4 {
   border-radius: 50%;
   background-color: #c9c9c9;
   overflow: hidden;
+}
+.img img {
+  height: 100%;
 }
 
 @media (max-width: 991px) {

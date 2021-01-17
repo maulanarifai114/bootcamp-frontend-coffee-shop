@@ -1,10 +1,12 @@
 <template>
   <div class="box w-100 d-flex flex-row align-items-center">
-    <div class="img">
-      <img src="../../../assets/cust/cold-brew.png" alt="product" class="w-100">
+    <div class="container-img">
+      <div class="img">
+        <img :src="img" alt="product" class="w-100">
+      </div>
     </div>
     <div class="group-checkout d-flex flex-column">
-      <header class="header-checkout">Cold Brew</header>
+      <header class="header-checkout">{{name}}</header>
       <main class="body-checkout">
         <p>x1 (Reguler)</p>
         <p>x1 (Large)</p>
@@ -22,7 +24,13 @@
 
 <script>
 export default {
-  name: 'Checkout'
+  name: 'Checkout',
+  data () {
+    return {
+      name: this.$store.state.detailP.name,
+      img: this.$store.state.detailP.img
+    }
+  }
 }
 </script>
 
@@ -42,7 +50,7 @@ export default {
 .box {
   cursor: pointer;
   padding: 0 50px;
-  height: 168px;
+  height: 100%;
   background: #FFFFFF;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -60,10 +68,15 @@ export default {
   border-radius: 50%;
   overflow: hidden;
   margin: 0 33px 0 0;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .group-checkout {
-  width: 150px;
+  width: fit-content;
   height: 128px;
 }
 

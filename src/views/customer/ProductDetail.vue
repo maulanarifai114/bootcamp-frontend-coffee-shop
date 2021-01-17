@@ -1,12 +1,14 @@
 <template>
   <div class="container big-box">
     <!-- Category -->
-    <p class="head-category pt-5">Favorite & Promo <span class="detail"> > Cold Brew</span></p>
+    <p class="head-category pt-5 detail">{{this.$store.state.detailP.name}}</p>
     <main class="row">
       <!-- Delivery and Time -->
       <aside class="col-xl-6 col-12 d-flex flex-column align-items-center justify-content-center">
-        <div class="img-wrap">
-          <img src="../../assets/cust/cold-brew.png" alt="product">
+        <div class="container-img">
+          <div class="img-wrap">
+            <img :src="img" alt="product">
+          </div>
         </div>
         <div class="align-self-center align-self-xl-start">
           <Delivetime></Delivetime>
@@ -16,7 +18,7 @@
       <aside class="col-xl-6 col-12 d-flex flex-column align-items-center">
         <TitleProduct></TitleProduct>
         <AmountPrice></AmountPrice>
-        <Button color="btn-brown btn-detail" label="Add to cart"></Button>
+        <Button @trigger="addToCart" color="btn-brown btn-detail" label="Add to cart"></Button>
         <Button color="btn-yellow btn-detail" label="Ask a Staff"></Button>
       </aside>
     </main>
@@ -50,6 +52,47 @@ export default {
     SizeProduct,
     Checkout,
     Button
+  },
+  data () {
+    return {
+      name: this.$store.state.detailP.name,
+      img: this.$store.state.detailP.img
+    }
+  },
+  methods: {
+    helperCart (method, setCheckout, setQty, qtyNew, data) {
+      console.log(data)
+      console.log(qtyNew)
+      if (method.products.length === 0) {
+        this.$store.commit(setCheckout, data)
+      } else if (method.products.length > 0) {
+        const checkId = method.products.findIndex(item => item.product_id === data.product_id && item.size === data.size)
+        console.log(checkId)
+        if (checkId === -1) {
+          this.$store.commit(setCheckout, data)
+        } else {
+          this.$store.commit(setQty, { qtyNew, checkId })
+        }
+      }
+    },
+    addToCart () {
+      const productId = this.$store.state.detailP.id
+      const qty = this.$store.state.detailP.amount
+      const size = this.$store.state.sizeProduct
+      const deliverMethod = this.$store.state.detailP.deliver
+      const checkoutDineIn = this.$store.state.checkoutDineIn
+      const checkoutHomeDelivery = this.$store.state.checkoutHomeDelivery
+      const checkoutTakeAway = this.$store.state.checkoutTakeAway
+      const data = { product_id: productId, qty, size }
+      const qtyNew = data.qty
+      if (deliverMethod === 'dine in') {
+        this.helperCart(checkoutDineIn, 'SET_CHECKOUT_DINE_IN', 'SET_QTY_DINE_IN', qtyNew, data)
+      } else if (deliverMethod === 'home delivery') {
+        this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
+      } else if (deliverMethod === 'pick up') {
+        this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
+      }
+    }
   }
 }
 </script>
@@ -57,7 +100,6 @@ export default {
 <style lang="scss" scoped>
 
 .big-box {
-  // // margin: 0 0 480px 0;
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
@@ -91,6 +133,11 @@ export default {
   border-radius: 50%;
   overflow: hidden;
   margin: 0 0 102px 0;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 </style>

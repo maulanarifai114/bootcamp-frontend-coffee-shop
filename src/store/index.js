@@ -7,7 +7,34 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // Admin Add New Product
+    checkoutDineIn: {
+      products: [],
+      delivery_method: 'dine in',
+      delivery_time: ''
+    },
+    checkoutHomeDelivery: {
+      products: [],
+      delivery_method: 'home delivery',
+      delivery_time: ''
+    },
+    checkoutTakeAway: {
+      products: [],
+      delivery_method: 'pick up',
+      delivery_time: ''
+    },
+    detailP: {
+      id: 1,
+      img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
+      name: 'Cold Breww',
+      description: 'Cold Brew Is A Cold Coffee',
+      amount: 0,
+      price: 30000,
+      deliver: 'pick up',
+      now: 'yes',
+      date: '',
+      size: ['250', '300', '500']
+    },
+    sizeProduct: '',
     nameproduct: '',
     product: 0,
 
@@ -23,6 +50,47 @@ export default new Vuex.Store({
     profile: {}
   },
   mutations: {
+    SET_SIZE (state, payload) {
+      state.sizeProduct = payload
+    },
+    // Dine In
+    SET_CHECKOUT_DINE_IN (state, payload) {
+      state.checkoutDineIn.products.push(payload)
+    },
+    SET_QTY_DINE_IN (state, payload) {
+      state.checkoutDineIn.products[payload.checkId].qty += payload.qtyNew
+    },
+    // Home Delivery
+    SET_CHECKOUT_HOME_DEL (state, payload) {
+      state.checkoutHomeDelivery.products.push(payload)
+    },
+    SET_QTY_HOME_DEL (state, payload) {
+      state.checkoutHomeDelivery.products[payload.checkId].qty += payload.qtyNew
+    },
+    // Pick Up
+    SET_CHECKOUT_PICK_UP (state, payload) {
+      state.checkoutTakeAway.products.push(payload)
+    },
+    SET_QTY_PICK_UP (state, payload) {
+      state.checkoutTakeAway.products[payload.checkId].qty += payload.qtyNew
+    },
+    // Delivery
+    SET_DELIVERY (state, payload) {
+      state.detailP.deliver = payload.deliver
+      state.detailP.now = payload.now
+      state.detailP.date = payload.date
+      state.checkoutDineIn.delivery_time = payload.date
+      state.checkoutHomeDelivery.delivery_time = payload.date
+      state.checkoutTakeAway.delivery_time = payload.date
+    },
+    SET_AMOUNT_PLUS (state) {
+      state.detailP.amount++
+    },
+    SET_AMOUNT_MINUS (state) {
+      if (state.detailP.amount > 0) {
+        state.detailP.amount--
+      }
+    },
     changeEditMode (state) {
       if (state.editmode === 0) {
         state.editmode++
@@ -152,6 +220,12 @@ export default new Vuex.Store({
     },
     getProfile (state) {
       return state.profile
+    },
+    currentPrice (state) {
+      const price = state.detailP.price
+      const amount = state.detailP.amount
+      const current = price * amount
+      return current.toLocaleString('id-ID')
     }
   },
   modules: {

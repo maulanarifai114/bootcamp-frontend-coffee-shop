@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="mb-5">Cold Brew</h1>
+    <h1 class="mb-5">{{this.$store.state.detailP.name}}</h1>
     <p class="p-desc box-desc1 mb-0">
-      Cold brewing is a method of brewing that combines ground coffee and cool water and uses time instead of heat to extract the flavor. It is brewed in small batches and steeped for as long as 48 hours.
+      {{this.$store.state.detailP.description}}
     </p>
     <p class="p-desc box-desc2 align-self-start">
       Delivery only on <span>Monday to friday</span>  at <span>1 - 7 pm</span>

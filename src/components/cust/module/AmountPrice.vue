@@ -4,12 +4,12 @@
       <div class="input-group-prepend">
         <button class="btn" type="button" @click="minusAmount()">-</button>
       </div>
-      <input type="text" class="form-control" placeholder="0" disabled v-model="amount">
+      <input type="text" class="form-control" placeholder="0" disabled v-model="this.$store.state.detailP.amount">
       <div class="input-group-append">
         <button class="btn" type="button" @click="plusAmount()">+</button>
       </div>
     </div>
-    <p class="price">IDR {{currentPrice}}</p>
+    <p class="price">IDR {{price}}</p>
   </div>
 </template>
 
@@ -19,26 +19,20 @@ export default {
 
   data () {
     return {
-      amount: 0,
-      price: 30000
+
     }
   },
   methods: {
     plusAmount () {
-      this.amount++
+      this.$store.commit('SET_AMOUNT_PLUS')
     },
     minusAmount () {
-      if (this.amount > 0) {
-        this.amount--
-      }
+      this.$store.commit('SET_AMOUNT_MINUS')
     }
   },
   computed: {
-    currentPrice () {
-      const price = this.price
-      const amount = this.amount
-      const current = price * amount
-      return current.toLocaleString('id-ID')
+    price () {
+      return this.$store.getters.currentPrice
     }
   }
 }

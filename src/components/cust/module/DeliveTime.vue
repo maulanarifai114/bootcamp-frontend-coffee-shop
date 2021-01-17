@@ -4,14 +4,14 @@
       <h4>Delivery and Time</h4>
       <div class="d-flex mb-5">
         <div class="btn-group-toggle">
-          <label class="btn mr-3" for="dine" :class="deliver === 'dine'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine"> Dine In
+          <label class="btn mr-3" for="dine" :class="deliver === 'dine in'? 'selected':'unselected'">
+            <input disabled type="radio" name="deliver" id="dine" v-model="deliver" value="dine"> Dine In
           </label>
-          <label class="btn mr-3" for="door" :class="deliver === 'door'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="door" v-model="deliver" value="door"> Door Delivery
+          <label class="btn mr-3" for="door" :class="deliver === 'home delivery'? 'selected':'unselected'">
+            <input disabled type="radio" name="deliver" id="door" v-model="deliver" value="door"> Door Delivery
           </label>
-          <label class="btn mr-3" for="pick" :class="deliver === 'pick'? 'selected':'unselected'">
-            <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick"> Pick Up
+          <label class="btn mr-3" for="pick" :class="deliver === 'pick up'? 'selected':'unselected'">
+            <input disabled type="radio" name="deliver" id="pick" v-model="deliver" value="pick"> Pick Up
           </label>
         </div>
       </div>
@@ -22,13 +22,15 @@
             <input type="radio" name="now" id="yes" v-model="now" value="yes"> Yes
           </label>
           <label class="btn mr-3" for="no" :class="now === 'no'? 'selected':'unselected'">
-            <input type="radio" name="now" id="no" v-model="now" value="no"> No
+            No
+            <input v-if="deliver !== 'dine in'" type="radio" name="now" id="no" v-model="now" value="no">
+            <input v-else type="radio" name="now" id="no" v-model="now" value="no" disabled>
           </label>
         </div>
       </div>
       <div class="d-flex align-items-center mb-5">
         <div class="label-tag mr-set">Set time</div>
-        <Input id="time" type="text" placeholder="Enter time for reservation"/>
+        <Input id="time" :value="date"  type="datetime-local" @change="changeValue" placeholder="Enter time for reservation" :allow="allowed()"/>
       </div>
     </div>
   </div>
@@ -36,6 +38,7 @@
 
 <script>
 import Input from '../base/Input'
+import moment from 'moment'
 
 export default {
   name: 'DeliveTime',
@@ -44,18 +47,37 @@ export default {
   },
   data () {
     return {
-      deliver: '',
-      now: ''
+      deliver: this.$store.state.detailP.deliver,
+      now: 'yes',
+      date: '',
+      allow: 0
     }
-  },
-  mounted () {
-    this.default()
   },
   methods: {
-    default () {
-      this.deliver = 'dine'
-      this.now = 'yes'
+    changeValue (e) {
+      this.date = e
+    },
+    allowed () {
+      if (this.now === 'no') {
+        this.allow = 1
+        return this.allow
+      } else {
+        this.allow = 0
+        const datetime = moment().format()
+        const currentDate = datetime.split('+07:00')
+        this.date = currentDate[0]
+        return this.allow
+      }
     }
+  },
+  computed: {
+
+  },
+  beforeUpdate () {
+    const deliver = this.deliver
+    const now = this.now
+    const date = this.date
+    this.$store.commit('SET_DELIVERY', { deliver, now, date })
   }
 }
 </script>

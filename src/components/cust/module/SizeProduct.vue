@@ -1,15 +1,50 @@
 <template>
   <div class="box w-100 d-flex flex-column">
     <h4>Choose a Size</h4>
-    <div class="d-flex justify-content-between flex-row btn-group-toggle" >
-      <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size === 'r' ? 'selected':'unselected'">
-        <input type="radio" name="size" id="r" v-model="size" value="r" class="d-none"> R
+    <div v-if="availableSize.includes('R') || availableSize.includes('L') || availableSize.includes('XL')" class="d-flex justify-content-between flex-row btn-group-toggle" >
+      <!-- R -->
+      <label v-if="availableSize.includes('R')" class="btn d-flex align-items-center justify-content-center" for="R" :class="size === 'R' ? 'selected':'unselected'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="R" v-model="size" value="R" class="d-none"> R
       </label>
-      <label class="btn d-flex align-items-center justify-content-center" for="l" :class="size === 'l' ? 'selected':'unselected'">
-        <input type="radio" name="size" id="l" v-model="size" value="l" class="d-none"> L
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="R" :class="size === 'R' ? 'selected':'unavailable'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="R" v-model="size" value="R" class="d-none"> R
       </label>
-      <label class="btn d-flex align-items-center justify-content-center" for="xl" :class="size === 'xl' ? 'selected':'unselected'">
-        <input type="radio" name="size" id="xl" v-model="size" value="xl" class="d-none"> XL
+      <!-- L -->
+      <label v-if="availableSize.includes('L')" class="btn d-flex align-items-center justify-content-center" for="L" :class="size === 'L' ? 'selected':'unselected'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="L" v-model="size" value="L" class="d-none"> L
+      </label>
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="L" :class="size === 'L' ? 'selected':'unavailable'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="L" v-model="size" value="L" class="d-none"> L
+      </label>
+      <!-- Xl -->
+      <label v-if="availableSize.includes('XL')" class="btn d-flex align-items-center justify-content-center" for="XL" :class="size === 'XL' ? 'selected':'unselected'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="XL" v-model="size" value="XL" class="d-none"> XL
+      </label>
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="XL" :class="size === 'XL' ? 'selected':'unavailable'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="XL" v-model="size" value="XL" class="d-none"> XL
+      </label>
+    </div>
+    <div v-else class="d-flex justify-content-between flex-row btn-group-toggle" >
+      <!-- 250 -->
+      <label v-if="availableSize.includes('250')" class="btn d-flex align-items-center justify-content-center" for="250" :class="size === '250' ? 'selected gram':'unselected gram'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="250" v-model="size" value="250" class="d-none"> 250g
+      </label>
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="250" :class="size === '250' ? 'selected gram':'unavailable gram'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="250" v-model="size" value="250" class="d-none"> 250g
+      </label>
+      <!-- 300 -->
+      <label v-if="availableSize.includes('300')" class="btn d-flex align-items-center justify-content-center" for="300" :class="size === '300' ? 'selected gram':'unselected gram'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="300" v-model="size" value="300" class="d-none"> 300g
+      </label>
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="300" :class="size === '300' ? 'selected gram':'unavailable gram'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="300" v-model="size" value="300" class="d-none"> 300g
+      </label>
+      <!-- 500 -->
+      <label v-if="availableSize.includes('500')" class="btn d-flex align-items-center justify-content-center" for="500" :class="size === '500' ? 'selected gram':'unselected gram'">
+        <input @change="changeSize($event.target.value)" type="radio" name="size" id="500" v-model="size" value="500" class="d-none"> 500g
+      </label>
+      <label v-else class="btn d-flex align-items-center justify-content-center" for="500" :class="size === '500' ? 'selected gram':'unavailable gram'">
+        <input disabled @change="changeSize($event.target.value)" type="radio" name="size" id="500" v-model="size" value="500" class="d-none"> 500g
       </label>
     </div>
   </div>
@@ -25,8 +60,39 @@ export default {
   },
   data () {
     return {
-      size: ''
+      size: this.$store.state.sizeProduct,
+      availableSize: this.$store.state.detailP.size
     }
+  },
+  methods: {
+    changeSize (el) {
+      const value = el
+      this.$store.commit('SET_SIZE', value)
+    },
+    defaultSize () {
+      if (this.availableSize.includes('R')) {
+        this.$store.commit('SET_SIZE', 'R')
+        this.size = this.$store.state.sizeProduct
+      } else if (this.availableSize.includes('L')) {
+        this.$store.commit('SET_SIZE', 'L')
+        this.size = this.$store.state.sizeProduct
+      } else if (this.availableSize.includes('XL')) {
+        this.$store.commit('SET_SIZE', 'XL')
+        this.size = this
+      } else if (this.availableSize.includes('250')) {
+        this.$store.commit('SET_SIZE', '250')
+        this.size = this.$store.state.sizeProduct
+      } else if (this.availableSize.includes('300')) {
+        this.$store.commit('SET_SIZE', '300')
+        this.size = this.$store.state.sizeProduct
+      } else if (this.availableSize.includes('500')) {
+        this.$store.commit('SET_SIZE', '500')
+        this.size = this.$store.state.sizeProduct
+      }
+    }
+  },
+  created () {
+    this.defaultSize()
   }
 }
 </script>
@@ -62,7 +128,7 @@ export default {
 
 .box {
   padding: 22px 40px;
-  height: 168px;
+  height: fit-content;
   background: #FFFFFF;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -78,6 +144,10 @@ h4 {
   text-align: center;
   color: #000000;
   margin: 0 0 18px 0;
+}
+
+.gram {
+  font-size: 18px;
 }
 
 .selected {
@@ -96,5 +166,13 @@ h4 {
 
 .unselected:hover {
   color: #4F5665;
+}
+
+.unavailable {
+  background: rgb(40, 40, 40);
+  color: #414141;
+}
+.unavailable:hover {
+  color: #111;
 }
 </style>

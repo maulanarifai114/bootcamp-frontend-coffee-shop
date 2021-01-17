@@ -5,13 +5,13 @@
       <div class="d-flex mb-5">
         <div class="btn-group-toggle">
           <label class="btn mr-3" for="dine" :class="deliver === 'dine in'? 'selected':'unselected'">
-            <input disabled type="radio" name="deliver" id="dine" v-model="deliver" value="dine"> Dine In
+            <input disabled type="radio" name="deliver" id="dine" v-model="deliver"> Dine In
           </label>
           <label class="btn mr-3" for="door" :class="deliver === 'home delivery'? 'selected':'unselected'">
-            <input disabled type="radio" name="deliver" id="door" v-model="deliver" value="door"> Door Delivery
+            <input disabled type="radio" name="deliver" id="door" v-model="deliver"> Home Delivery
           </label>
           <label class="btn mr-3" for="pick" :class="deliver === 'pick up'? 'selected':'unselected'">
-            <input disabled type="radio" name="deliver" id="pick" v-model="deliver" value="pick"> Pick Up
+            <input disabled type="radio" name="deliver" id="pick" v-model="deliver"> Pick Up
           </label>
         </div>
       </div>
@@ -45,11 +45,11 @@ export default {
   components: {
     Input
   },
-  props: [
-    'dine',
-    'door',
-    'pick'
-  ],
+  // props: [
+  //   'dine',
+  //   'door',
+  //   'pick'
+  // ],
   data () {
     return {
       deliver: this.$store.state.detailP.deliver,

@@ -10,33 +10,6 @@
                     <p class="product-price">IDR {{data.price}}</p>
                 </div>
             </div>
-            <div class="col-sm d-flex justify-content-center favourite" @click.prevent="" type="button">
-                <div class="product-box">
-                    <div class="product-img overflow-hidden">
-                        <img src="https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg" alt="">
-                    </div>
-                    <p class="product-name">Veggie Tomato Mix</p>
-                    <p class="product-price">IDR 34.000</p>
-                </div>
-            </div>
-            <div class="col-sm d-flex justify-content-center favourite" @click.prevent="" type="button">
-                <div class="product-box">
-                    <div class="product-img overflow-hidden">
-                        <img src="https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg" alt="">
-                    </div>
-                    <p class="product-name">Veggie Tomato Mix</p>
-                    <p class="product-price">IDR 34.000</p>
-                </div>
-            </div>
-            <div class="col-sm d-flex justify-content-center favourite" @click.prevent="" type="button">
-                <div class="product-box">
-                    <div class="product-img overflow-hidden">
-                        <img src="https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg" alt="">
-                    </div>
-                    <p class="product-name">Veggie Tomato Mix</p>
-                    <p class="product-price">IDR 34.000</p>
-                </div>
-            </div>
         </div>
         <b-pagination
             v-model="currentPages"
@@ -70,7 +43,7 @@ export default {
   },
   methods: {
     getProducts () {
-      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=2&sort=desc`)
+      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=1&sort=desc`)
         .then((result) => {
           // handle success
           this.products = result.data.result
@@ -83,7 +56,11 @@ export default {
         })
     },
     detailProducts (val) {
-      this.$router.push({ path: 'product-d', query: { id: val } })
+      if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
+        this.$router.push(`/admin/edit-product?id=${val}`)
+      } else {
+        this.$router.push({ path: 'product-d', query: { id: val } })
+      }
     }
   }
 }

@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex flex-column">
     <label :for="id" class="label">{{label}}</label>
-    <input @input="$emit('input', $event.target.value)" :type="type" :id="id" :placeholder="placeholder" class="placeholder input" required maxlength="max">
+    <input @input="$emit('input', $event.target.value)" :value="value" :type="type" :id="id" :placeholder="placeholder" class="placeholder input" required maxlength="max">
   </div>
 </template>
 
 <script>
 export default {
   name: 'InputAuth',
-  props: ['id', 'type', 'placeholder', 'label', 'max']
+  props: ['id', 'type', 'placeholder', 'label', 'max', 'value']
 }
 </script>
 

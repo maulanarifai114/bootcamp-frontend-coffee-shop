@@ -6,158 +6,73 @@
     </p>
     <main class="row">
       <!-- Delivery and Time -->
-      <aside class="col-6 d-flex flex-column align-items-center">
+      <aside class="col-md-6 d-flex flex-column align-items-center">
         <div class="img-wrap">
-          <img :src="avatar" alt="product" height="300px"/>
+          <img :src="avatar || dataProduct.images" alt="product" height="300px"/>
         </div>
-        <label class="edit" for="file-input" style="cursor: pointer"><i class="fas fa-pencil-alt" style="margin-top:18px"></i></label>
-        <input class="d-none" id="file-input" type="file" @change="getImage"/>
+        <label class="edit" for="uploadImage" style="cursor: pointer"><i class="fas fa-pencil-alt" style="margin-top:18px"></i></label>
+        <input class="d-none" id="uploadImage" type="file" @change="getImage"/>
         <div class="align-self-start">
           <div class="del-time">
             <h4>Delivery and Time</h4>
             <div class="d-flex mb-5">
               <div class="btn-group-toggle">
-                <label
-                  class="btn mr-3"
-                  for="dine"
-                  :class="deliver.includes('dine') ? 'selected' : 'unselected'"
-                >
-                  <input
-                    type="checkbox"
-                    name="deliver"
-                    id="dine"
-                    v-model="deliver"
-                    value="dine"
-                  />
+                <label class="btn mr-3" for="dine" :class="deliver.includes('dine') ? 'selected' : 'unselected'" >
+                  <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine" />
                   Dine In
                 </label>
-                <label
-                  class="btn mr-3"
-                  for="door"
-                  :class="deliver.includes('door') ? 'selected' : 'unselected'"
-                >
-                  <input
-                    type="checkbox"
-                    name="deliver"
-                    id="door"
-                    v-model="deliver"
-                    value="door"
-                  />
+                <label class="btn mr-3" for="door" :class="deliver.includes('door') ? 'selected' : 'unselected'" >
+                  <input type="radio" name="deliver" id="door" v-model="deliver" value="door" />
                   Door Delivery
                 </label>
-                <label
-                  class="btn mr-3"
-                  for="pick"
-                  :class="deliver.includes('pick') ? 'selected' : 'unselected'"
-                >
-                  <input
-                    type="checkbox"
-                    name="deliver"
-                    id="pick"
-                    v-model="deliver"
-                    value="pick"
-                  />
+                <label class="btn mr-3" for="pick" :class="deliver.includes('pick') ? 'selected' : 'unselected'" >
+                  <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick" />
                   Pick Up
                 </label>
               </div>
             </div>
             <div :class="deliver.includes('door') ? '' : 'd-none'">
               <div class=" align-items-center mb-3">
-                <select id="start"  class="w-100">
-                  <option value="start" disabled selected class="disabled"
-                    >Select start hour</option
-                  >
-                  <option value="00">00:00</option>
-                  <option value="01">01:00</option>
-                  <option value="02">02:00</option>
-                  <option value="03">03:00</option>
-                  <option value="04">04:00</option>
-                  <option value="05">05:00</option>
-                  <option value="06">06:00</option>
-                  <option value="07">07:00</option>
-                  <option value="08">08:00</option>
-                  <option value="09">09:00</option>
-                  <option value="10">10:00</option>
-                  <option value="11">11:00</option>
-                  <option value="12">12:00</option>
-                  <option value="13">13:00</option>
-                  <option value="14">14:00</option>
-                  <option value="15">15:00</option>
-                  <option value="16">16:00</option>
-                  <option value="17">17:00</option>
-                  <option value="18">18:00</option>
-                  <option value="19">19:00</option>
-                  <option value="20">20:00</option>
-                  <option value="21">21:00</option>
-                  <option value="22">22:00</option>
-                  <option value="23">23:00</option>
-                </select>
+                <input type="datetime-local" v-model="start">
               </div>
               <div class="align-items-center">
-                <select id="end" class="w-100">
-                  <option value="end" disabled selected class="disabled"
-                    >Select end hour</option>
-                  <option value="00">00:00</option>
-                  <option value="01">01:00</option>
-                  <option value="02">02:00</option>
-                  <option value="03">03:00</option>
-                  <option value="04">04:00</option>
-                  <option value="05">05:00</option>
-                  <option value="06">06:00</option>
-                  <option value="07">07:00</option>
-                  <option value="08">08:00</option>
-                  <option value="09">09:00</option>
-                  <option value="10">10:00</option>
-                  <option value="11">11:00</option>
-                  <option value="12">12:00</option>
-                  <option value="13">13:00</option>
-                  <option value="14">14:00</option>
-                  <option value="15">15:00</option>
-                  <option value="16">16:00</option>
-                  <option value="17">17:00</option>
-                  <option value="18">18:00</option>
-                  <option value="19">19:00</option>
-                  <option value="20">20:00</option>
-                  <option value="21">21:00</option>
-                  <option value="22">22:00</option>
-                  <option value="23">23:00</option>
-                </select>
+               <input type="datetime-local" v-model="end">
               </div>
             </div>
           </div>
           <!-- Choose size -->
-          <div class="box w-100 d-flex flex-column mt-4">
+          <div class="box w-100 d-flex flex-column mt-4 mb-5">
           <h4>Choose a Size</h4>
           <!-- R L XL -->
-          <div class="d-flex justify-content-around flex-row btn-group-toggle" v-if="category === 'coffee'">
-            <label class="btn btn-size d-flex align-items-center justify-content-center" for="r" :class="size.includes('r') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="r" v-model="size" value="r" class="d-none"/>
+          <div class="d-flex justify-content-around flex-row btn-group-toggle" v-if="dataProduct.category_id === 1 || dataProduct.category_id === 2">
+            <label class="btn btn-size d-flex align-items-center justify-content-center" for="r" :class="allSize.includes('R') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="r" v-model="allSize" value="R" class="d-none"/>
               R
             </label>
 
-            <label class="btn btn-size d-flex align-items-center justify-content-center" for="l" :class="size.includes('l') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="l" v-model="size" value="l" class="d-none"/>
+            <label class="btn btn-size d-flex align-items-center justify-content-center" for="l" :class="allSize.includes('L') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="l" v-model="allSize" value="L" class="d-none"/>
               L
             </label>
-            <label class="btn btn-size d-flex align-items-center justify-content-center" for="xl" :class="size.includes('xl') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="xl" v-model="size" value="xl" class="d-none" />
+            <label class="btn btn-size d-flex align-items-center justify-content-center" for="xl" :class="allSize.includes('XL') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="xl" v-model="allSize" value="XL" class="d-none" />
               XL
             </label>
           </div>
 
           <!-- Gram -->
-          <div class="d-flex justify-content-around flex-row btn-group-toggle" v-if="category === 'fav' || category === 'add'">
-            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="250" :class="size.includes('250') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="250" v-model="size" value="250" class="d-none"/>
+          <div class="d-flex justify-content-around flex-row btn-group-toggle" v-if="dataProduct.category_id === 3">
+            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="250" :class="allSize.includes('250') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="250" v-model="allSize" value="250" class="d-none"/>
               250g
             </label>
 
-            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="300" :class="size.includes('300') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="300" v-model="size" value="300" class="d-none"/>
+            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="300" :class="allSize.includes('300') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="300" v-model="allSize" value="300" class="d-none"/>
               350g
             </label>
-            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="500" :class="size.includes('500') ? 'selectedSize' : 'unselectedSize'">
-              <input type="checkbox" name="size" id="500" v-model="size" value="500" class="d-none" />
+            <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="500" :class="allSize.includes('500') ? 'selectedSize' : 'unselectedSize'">
+              <input type="checkbox" id="500" v-model="allSize" value="500" class="d-none" />
               500g
             </label>
           </div>
@@ -166,16 +81,16 @@
         </div>
       </aside>
       <!-- Description, Price, Amount -->
-      <aside class="col-6 d-flex flex-column align-items-center">
-        <Input id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text" class="w-100"/>
+      <aside class="col-md-6 d-flex flex-column align-items-center">
+        <Input v-model="name" id="name" label="Name :" placeholder="Type product name min. 50 characters" :max="50" type="text" class="w-100" />
         <br><br>
-        <Input id="price" label="Price" placeholder="Type the price" type="number" class="w-100"/>
+        <Input v-model="price" id="price" label="Price" placeholder="Type the price" type="number" class="w-100"/>
         <br><br>
-        <Input id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text" class="w-100"/>
+        <Input v-model="description" id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text" class="w-100"/>
         <br><br>
-       <Input id="stock" label="Stock" placeholder="stock" type="number" class="w-100"/>
+       <Input v-model="stock" id="stock" label="Stock" placeholder="stock" type="number" class="w-100"/>
         <br><br>
-        <Button color="btn-brown btn-detail" label="Save Change"></Button>
+        <Button color="btn-brown btn-detail" label="Save Change" @trigger="save()"></Button>
       </aside>
     </main>
     <main class="row pt-5">
@@ -186,7 +101,7 @@
 <script>
 import Input from '../../components/admin/base/Input'
 import Button from '../../components/cust/base/Button'
-
+import axios from 'axios'
 export default {
   name: 'ProductDetail',
   components: {
@@ -195,13 +110,59 @@ export default {
   },
   data () {
     return {
-      category: 'add',
-      size: [],
-      deliver: [],
-      avatar: 'https://5.imimg.com/data5/DC/TD/MY-14296065/coffee-anise-cinnamon-spices-photo-wallpaper-2-copy-500x500.jpg'
+      start: '',
+      end: '',
+      name: '',
+      price: '',
+      description: '',
+      stock: '',
+      dataProduct: {},
+      allSize: [],
+      avatar: '',
+      deliver: '',
+      din: 0,
+      door: 0,
+      pick: 0
     }
   },
+  mounted: function () {
+    this.getData()
+  },
   methods: {
+    getData () {
+      axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
+        .then((res) => {
+          console.log(res.data.result[0])
+          this.dataProduct = res.data.result[0]
+
+          const start = res.data.result[0].start_delivery.split(':')
+          const startFormat = start[0] + ':' + start[1]
+          this.start = startFormat
+
+          const end = res.data.result[0].end_delivery.split(':')
+          const endFormat = end[0] + ':' + end[1]
+          this.end = endFormat
+
+          this.name = res.data.result[0].name
+          this.price = res.data.result[0].price
+          this.description = res.data.result[0].description
+          this.stock = res.data.result[0].stock
+          this.allSize = res.data.result[0].size.split(',')
+          this.din = res.data.result[0].is_dine_in === true ? 1 : 0
+          this.door = res.data.result[0].is_home_delivery === true ? 1 : 0
+          this.pick = res.data.result[0].is_pick_up === true ? 1 : 0
+          if (res.data.result[0].is_dine_in === true) {
+            this.deliver = 'din'
+          } else if (res.data.result[0].is_home_delivery === true) {
+            this.deliver = 'door'
+          } else if (res.data.result[0].is_pick_up === true) {
+            this.deliver = 'pick'
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     getImage (e) {
       console.log(e.target.files[0].size)
       var image = e.target.files[0]
@@ -226,6 +187,40 @@ export default {
           this.avatar = e.target.result
         }
       }
+    },
+    save () {
+      var data = new FormData()
+      var inputGambar = document.getElementById('uploadImage')
+      var dataFile = inputGambar.files[0]
+      const sizes = this.allSize.join(',')
+      if (this.deliver === 'din') {
+        this.din = 1
+      } else if (this.deliver === 'door') {
+        this.door = 1
+      } else if (this.deliver === 'pick') {
+        this.pick = 1
+      }
+      if (dataFile) {
+        data.append('image', dataFile)
+      }
+      // Tambahkan data ke Form Data
+      data.append('is_dine_in', this.din)
+      data.append('is_home_delivery', this.door)
+      data.append('is_pick_up', this.pick)
+      data.append('start_delivery', this.start)
+      data.append('end_delivery', this.end)
+      data.append('stock', this.stock)
+      data.append('name', this.name)
+      data.append('price', this.price)
+      data.append('description', this.description)
+      data.append('size', sizes)
+      axios.patch(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
     }
   }
 }
@@ -255,7 +250,7 @@ export default {
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 480px;
+  // margin-bottom: 480px;
 }
 
 // this delivery time

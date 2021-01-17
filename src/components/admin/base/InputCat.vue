@@ -3,10 +3,9 @@
     <select :id="id" class="w-100 " @change="$emit('change', $event.target.value)">
       <option :value="value" disabled selected class="disabled">{{label}}</option>
       <!-- <option value="fav">Favorite & Promo</option> -->
-      <option value="2">Coffee</option>
-      <option value="3">Non Coffee</option>
-      <option value="4">Foods</option>
-      <option value="5">Add-on</option>
+      <option value="1">Coffee</option>
+      <option value="2">Non Coffee</option>
+      <option value="3">Foods</option>
     </select>
   </div>
 </template>

@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getProducts () {
-      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=4&sort=desc`)
+      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=2&sort=desc`)
         .then((result) => {
           // handle success
           this.products = result.data.result
@@ -56,7 +56,11 @@ export default {
         })
     },
     detailProducts (val) {
-      this.$router.push({ path: 'product-d', query: { id: val } })
+      if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
+        this.$router.push(`/admin/edit-product?id=${val}`)
+      } else {
+        this.$router.push({ path: 'product-d', query: { id: val } })
+      }
     }
   }
 }

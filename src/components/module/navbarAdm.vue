@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav option-box">
                 <li class="nav-item option">
-                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
+                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
+                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Your Cart</a></router-link>
+                    <router-link to="/admin/manage-order" exact tag="li"><a class="nav-link" href="#">Orders</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Dashboard</a></router-link>
+                    <router-link to="/admin/dashboard" exact tag="li"><a class="nav-link" href="#">Dashboard</a></router-link>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto option-box2" >

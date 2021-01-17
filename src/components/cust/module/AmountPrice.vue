@@ -16,10 +16,12 @@
 <script>
 export default {
   name: 'AmountPrice',
-
+  props: [
+    'prices',
+    'stock'
+  ],
   data () {
     return {
-
     }
   },
   methods: {

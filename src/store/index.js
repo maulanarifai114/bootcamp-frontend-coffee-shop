@@ -43,6 +43,10 @@ export default new Vuex.Store({
     // email: 'zalikha@gmail.com',
     // gender: '',
 
+    // Add to cart
+    checkoutdine: [],
+    checkoutdoor: [],
+    checkoutpick: [],
     // History Products
     history: [],
 
@@ -107,6 +111,9 @@ export default new Vuex.Store({
     changeGender (state, payload) {
       state.gender = payload
     },
+    addCheckout (state, payload) {
+      state.checkout.push(payload)
+    },
     SET_HISTORY (state, payload) {
       state.history = payload
     },
@@ -115,6 +122,35 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    interceptorRequest (context) {
+      axios.interceptors.request.use(function (config) {
+        config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+        return config
+      }, function (error) {
+        return Promise.reject(error)
+      })
+    },
+    interceptorResponse (context) {
+      axios.interceptors.response.use(function (response) {
+        return response
+      }, function (error) {
+        console.log(error.response)
+        if (error.response.status === 401) {
+          if (error.response.data.messages === 'invalid token') {
+            localStorage.removeItem('token')
+            localStorage.removeItem('id')
+            localStorage.removeItem('role_id')
+            this.$router.push('/auth/login')
+          } else if (error.response.data.messages === 'Token Expired') {
+            localStorage.removeItem('token')
+            localStorage.removeItem('id')
+            localStorage.removeItem('role_id')
+            this.$router.push('/auth/login')
+          }
+        }
+        return Promise.reject(error)
+      })
+    },
     getAllHistory (context) {
       return new Promise((resolve, reject) => {
         axios.get('http://54.227.187.8:5000/api/history', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })

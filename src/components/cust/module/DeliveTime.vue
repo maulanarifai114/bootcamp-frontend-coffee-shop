@@ -45,6 +45,11 @@ export default {
   components: {
     Input
   },
+  props: [
+    'dine',
+    'door',
+    'pick'
+  ],
   data () {
     return {
       deliver: this.$store.state.detailP.deliver,

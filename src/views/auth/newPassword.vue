@@ -12,13 +12,13 @@
       <h4>Don't forget me, he's the only one you forget</h4>
       <div class="group-form">
         <form @submit.prevent="">
-          <Input id="newPassword" :type="type" placeholder="Enter new password"/>
-          <Input id="password" :type="type" placeholder="Repeat your new password"/>
+          <Input id="newPassword" :type="type" placeholder="Enter new password" @keyup="newPass"/>
+          <Input id="password" :type="type" placeholder="Repeat your new password" @keyup="repeatPass"/>
           <div class="custom-control custom-checkbox checkbox-lg">
   <input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
   <label class="custom-control-label" for="showPassword">Show Password</label>
 </div>
-          <Button color="btn-yellow btn-auth" label="Login" :nonActiveImg=1></Button>
+          <Button color="btn-yellow btn-auth" label="Login Now" :nonActiveImg=1 @click="changePassword"></Button>
         </form>
       </div>
     </main>
@@ -29,6 +29,8 @@
 <script>
 import Input from '../../components/auth/base/Input'
 import Button from '../../components/auth/base/Button'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Forgot',
@@ -38,7 +40,9 @@ export default {
   },
   data () {
     return {
-      type: 'password'
+      type: 'password',
+      newpass: '',
+      repeatpass: ''
     }
   },
   methods: {
@@ -48,6 +52,68 @@ export default {
         this.type = 'text'
       } else {
         this.type = 'password'
+      }
+    },
+    newPass (e) {
+      console.log(e.target.value)
+      this.newpass = e.target.value
+    },
+    repeatPass (e) {
+      console.log(e.target.value)
+      this.repeatpass = e.target.value
+    },
+    changePassword () {
+      if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Password is to short'
+          // text: 'Use minimal 8 character'
+        })
+        // return alert('Password is to short')
+      } else if (this.newpass === this.repeatpass) {
+        if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+          console.log('new', this.newpass, 'repeat', this.repeatpass)
+          return Swal.fire({
+            icon: 'error',
+            title: 'Password is to short'
+            // text: 'Use minimal 8 character'
+          })
+          // return alert('Password is to short')
+        } else if (this.newpass.length >= 8 && this.repeatpass.length >= 8) {
+          console.log('lanjut')
+          const user = {
+            password: this.newpass,
+            repeat_password: this.repeatpass
+          }
+          axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params.token}`, user)
+            .then((res) => {
+              console.log(res.data.messages)
+              Swal.fire({
+                icon: 'success',
+                title: res.data.messages
+                // text: 'Use minimal 8 character'
+              })
+              // alert(res.data.messages)
+              this.$router.push('/auth/login')
+            })
+            .catch((err) => {
+              console.log(err.response.data.messages)
+              Swal.fire({
+                icon: 'error',
+                title: err.response.data.messages
+                // text: 'Use minimal 8 character'
+              })
+              // alert(err.response.data.messages)
+            })
+        }
+      } else {
+        console.log('error')
+        Swal.fire({
+          icon: 'error',
+          title: 'Password not have same character'
+          // text: 'Use minimal 8 character'
+        })
+        // alert('Password not have same character')
       }
     }
   }

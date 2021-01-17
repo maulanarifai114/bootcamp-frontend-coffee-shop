@@ -220,15 +220,12 @@ export default new Vuex.Store({
     },
     getProfile (state) {
       return state.profile
-<<<<<<< HEAD
     },
     currentPrice (state) {
       const price = state.detailP.price
       const amount = state.detailP.amount
       const current = price * amount
       return current.toLocaleString('id-ID')
-=======
->>>>>>> 9e0c4aa (profile update)
     }
   },
   modules: {

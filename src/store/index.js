@@ -8,17 +8,55 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     checkoutDineIn: {
-      products: [],
+      products: [
+        {
+          product_id: 1,
+          qty: 1,
+          size: '300'
+        },
+        {
+          product_id: 1,
+          qty: 3,
+          size: '500'
+        },
+        {
+          product_id: 2,
+          qty: 2,
+          size: '500'
+        }
+      ],
       delivery_method: 'dine in',
       delivery_time: ''
     },
     checkoutHomeDelivery: {
-      products: [],
+      products: [
+        {
+          product_id: 3,
+          qty: 10,
+          size: '300'
+        },
+        {
+          product_id: 4,
+          qty: 20,
+          size: '500'
+        }
+      ],
       delivery_method: 'home delivery',
       delivery_time: ''
     },
     checkoutTakeAway: {
-      products: [],
+      products: [
+        {
+          product_id: 5,
+          qty: 31,
+          size: '300'
+        },
+        {
+          product_id: 6,
+          qty: 42,
+          size: '500'
+        }
+      ],
       delivery_method: 'pick up',
       delivery_time: ''
     },

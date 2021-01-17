@@ -1,35 +1,93 @@
 <template>
-  <div class="box w-100 d-flex flex-row align-items-center">
-    <div class="container-img">
-      <div class="img">
-        <img :src="img" alt="product" class="w-100">
-      </div>
-    </div>
-    <div class="group-checkout d-flex flex-column">
-      <header class="header-checkout">{{name}}</header>
-      <main class="body-checkout">
-        <p>x1 (Reguler)</p>
-        <p>x1 (Large)</p>
-        <p>x1 (Extra Large)</p>
-      </main>
-    </div>
-    <div class="group-checkout-2 d-flex flex-row flex-grow-1 justify-content-end align-items-center">
-        <p class="checkout">Checkout</p>
-        <div class="wrap-arrow d-flex justify-content-center align-items-center">
-          <img src="../../../assets/cust/arrow-right.svg" alt="">
+  <div class="box w-100 d-flex flex-row ">
+    <div>
+      <!-- Dine In -->
+      <div class=" d-flex " v-for="(item, index) in checkout" :key="index">
+        <div class="container-img d-flex align-items-center">
+          <div class="img">
+            <img :src="item.img" alt="product" class="w-100">
+          </div>
+        </div>
+        <div class="group-checkout d-flex flex-column">
+          <header class="header-checkout">{{item.name}}</header>
+          <main class="body-checkout">
+            <div v-if="item.qtyR">
+              <p>x{{item.qtyR}} (Reguler)</p>
+              <p>x{{item.qtyL}} (Large)</p>
+              <p>x{{item.qtyXL}} (Extra Large)</p>
+            </div>
+            <div v-else>
+              <p>x{{item.qty250}} (250 gram)</p>
+              <p>x{{item.qty300}} (300 gram)</p>
+              <p>x{{item.qty500}} (500 gram)</p>
+            </div>
+          </main>
         </div>
       </div>
+      <!-- End Dine In -->
+    </div>
+    <div class="group-checkout-2 d-flex flex-row flex-grow-1 justify-content-end align-items-center">
+      <p class="checkout">Checkout</p>
+      <div class="wrap-arrow d-flex justify-content-center align-items-center">
+        <img src="../../../assets/cust/arrow-right.svg" alt="">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Checkout',
+  props: ['dine_in', 'home_delivery', 'pick_up'],
   data () {
     return {
       name: this.$store.state.detailP.name,
-      img: this.$store.state.detailP.img
+      img: this.$store.state.detailP.img,
+      deliver: this.$store.state.detailP.deliver,
+      checkoutDineIn: this.$store.state.checkoutDineIn,
+      checkoutHomeDelivery: this.$store.state.checkoutHomeDelivery,
+      checkoutTakeAway: this.$store.state.checkoutTakeAway,
+      checkout: [
+        // {
+        //   name: 'Cold Brew',
+        //   img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
+        //   product_id: 1,
+        //   qtyR: 2,
+        //   qtyL: 0,
+        //   qtyXL: 0,
+        //   delivery_method: 'pick up'
+        // },
+        // {
+        //   name: 'Hot Bowl Noodle',
+        //   img: 'https://images.unsplash.com/photo-1584739200850-dc2072fdfe04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+        //   product_id: 1,
+        //   qty250: 4,
+        //   qty300: 0,
+        //   qty500: 0,
+        //   delivery_method: 'pick up'
+        // }
+      ]
     }
+  },
+  methods: {
+    getCheckout () {
+      console.log(this.checkoutDineIn)
+      console.log(this.checkoutHomeDelivery)
+      console.log(this.checkoutTakeAway)
+      // if (this.deliver === this.checkoutDineIn.delivery_method) {
+      //   console.log('dine in')
+      // } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
+      //   console.log('home delivery')
+      // } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
+      //   console.log('pick up')
+      // }
+    }
+  },
+  created () {
+    this.getCheckout()
+  },
+  updated () {
+    this.getCheckout()
   }
 }
 </script>
@@ -49,7 +107,7 @@ export default {
 
 .box {
   cursor: pointer;
-  padding: 0 50px;
+  padding: 50px;
   height: 100%;
   background: #FFFFFF;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
@@ -67,7 +125,7 @@ export default {
   background-color: #e6e6e6;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 33px 0 0;
+  margin: 0 30px 0 0;
   img {
     width: 100%;
     height: 100%;

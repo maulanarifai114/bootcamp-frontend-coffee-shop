@@ -29,7 +29,7 @@
       </aside>
       <!-- Checkout -->
       <div class="col-xl-8 col-12 mb-3">
-        <Checkout></Checkout>
+        <Checkout :dine_in="checkoutDineIn" :home_delivery="checkoutHomeDelivery" :pick_up="checkoutTakeAway"></Checkout>
       </div>
     </main>
   </div>
@@ -56,7 +56,10 @@ export default {
   data () {
     return {
       name: this.$store.state.detailP.name,
-      img: this.$store.state.detailP.img
+      img: this.$store.state.detailP.img,
+      checkoutDineIn: null,
+      checkoutHomeDelivery: null,
+      checkoutTakeAway: null
     }
   },
   methods: {
@@ -89,7 +92,21 @@ export default {
       } else if (deliverMethod === 'pick up') {
         this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
       }
+    },
+    updateCheckout () {
+      this.checkoutDineIn = this.$store.state.checkoutDineIn
+      this.checkoutHomeDelivery = this.$store.state.checkoutHomeDelivery
+      this.checkoutTakeAway = this.$store.state.checkoutTakeAway
+      console.log(this.checkoutDineIn)
+      console.log(this.checkoutHomeDelivery)
+      console.log(this.checkoutTakeAway)
     }
+  },
+  beforeMount () {
+    this.updateCheckout()
+  },
+  updated () {
+    this.updateCheckout()
   }
 
 }

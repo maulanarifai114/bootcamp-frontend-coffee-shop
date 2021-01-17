@@ -61,13 +61,10 @@ export default {
   },
   methods: {
     helperCart (method, setCheckout, setQty, qtyNew, data) {
-      console.log(data)
-      console.log(qtyNew)
       if (method.products.length === 0) {
         this.$store.commit(setCheckout, data)
       } else if (method.products.length > 0) {
         const checkId = method.products.findIndex(item => item.product_id === data.product_id && item.size === data.size)
-        console.log(checkId)
         if (checkId === -1) {
           this.$store.commit(setCheckout, data)
         } else {

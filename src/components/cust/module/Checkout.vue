@@ -36,6 +36,8 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 export default {
   name: 'Checkout',
   props: ['dine_in', 'home_delivery', 'pick_up'],
@@ -47,46 +49,146 @@ export default {
       checkoutDineIn: this.$store.state.checkoutDineIn,
       checkoutHomeDelivery: this.$store.state.checkoutHomeDelivery,
       checkoutTakeAway: this.$store.state.checkoutTakeAway,
-      checkout: [
-        // {
-        //   name: 'Cold Brew',
-        //   img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
-        //   product_id: 1,
-        //   qtyR: 2,
-        //   qtyL: 0,
-        //   qtyXL: 0,
-        //   delivery_method: 'pick up'
-        // },
-        // {
-        //   name: 'Hot Bowl Noodle',
-        //   img: 'https://images.unsplash.com/photo-1584739200850-dc2072fdfe04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-        //   product_id: 1,
-        //   qty250: 4,
-        //   qty300: 0,
-        //   qty500: 0,
-        //   delivery_method: 'pick up'
-        // }
-      ]
+      checkout: []
     }
   },
   methods: {
+    resetObjectReg (dataSizeReg) {
+      dataSizeReg = {
+        name: 'Cold Brew',
+        img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
+        product_id: 0,
+        qtyR: 0,
+        qtyL: 0,
+        qtyXL: 0,
+        delivery_method: ''
+      }
+    },
+    resetObjectGram (dataSizeGram) {
+      dataSizeGram = {
+        name: 'Hot Bowl Noodle',
+        img: 'https://images.unsplash.com/photo-1584739200850-dc2072fdfe04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+        product_id: 0,
+        qty250: 0,
+        qty300: 0,
+        qty500: 0,
+        delivery_method: ''
+      }
+    },
+    handleCart () {
+
+    },
     getCheckout () {
-      console.log(this.checkoutDineIn)
-      console.log(this.checkoutHomeDelivery)
+      const dataSizeGram = {
+        name: 'Hot Bowl Noodle',
+        img: 'https://images.unsplash.com/photo-1584739200850-dc2072fdfe04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+        product_id: 0,
+        qty250: 0,
+        qty300: 0,
+        qty500: 0,
+        delivery_method: ''
+      }
+      const dataSizeReg = {
+        name: 'Cold Brew',
+        img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
+        product_id: 0,
+        qtyR: 0,
+        qtyL: 0,
+        qtyXL: 0,
+        delivery_method: ''
+      }
+      // console.log(this.checkoutDineIn)
+      // console.log(this.checkoutHomeDelivery)
+      // axios.get(`${VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
+      //   .then((res)=> {
+      //   })
+      //   .catch((err)=> {
+      //     console.log(err);
+      //   })
+      console.log(dataSizeGram)
+      console.log(dataSizeReg)
       console.log(this.checkoutTakeAway)
-      // if (this.deliver === this.checkoutDineIn.delivery_method) {
-      //   console.log('dine in')
-      // } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
-      //   console.log('home delivery')
-      // } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
-      //   console.log('pick up')
-      // }
+      if (this.deliver === this.checkoutDineIn.delivery_method) {
+        console.log('dine in')
+      } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
+        console.log('home delivery')
+      } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
+        console.log('pick up')
+        this.checkoutTakeAway.products.forEach((item, index) => {
+          if (item.size.includes('R')) {
+            if (this.checkout.length === 0) {
+              console.log('R')
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyR = item.qty
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else if (this.checkout.length > 0) {
+              console.log('R22')
+              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+              if (checkId === -1) {
+                dataSizeReg.product_id = item.product_id
+                console.log(dataSizeReg)
+                dataSizeReg.qtyR = item.qty
+                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+                this.checkout.push(dataSizeReg)
+                this.resetObjectReg(dataSizeReg)
+              } else {
+                dataSizeReg.qtyR = item.qty
+                this.checkout[checkId].qtyR += dataSizeReg.qtyR
+                this.resetObjectReg(dataSizeReg)
+              }
+            }
+          } else if (item.size.includes('L')) {
+            console.log('L')
+            // if (this.checkout.length === 0) {
+            //   dataSizeReg.product_id = item.product_id
+            //   dataSizeReg.qtyL = item.qty
+            //   dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            //   this.checkout.push(dataSizeReg)
+            //   this.resetObjectReg(dataSizeReg)
+            // } else if (this.checkout.length > 0) {
+            //   const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            //   if (checkId === -1) {
+            //     dataSizeReg.product_id = item.product_id
+            //     dataSizeReg.qtyL = item.qty
+            //     dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            //     this.checkout.push(dataSizeReg)
+            //     this.resetObjectReg(dataSizeReg)
+            //   } else {
+            //     dataSizeReg.qtyL = item.qty
+            //     this.checkout[item.product_id].qtyL += dataSizeReg.qtyL
+            //     this.resetObjectReg(dataSizeReg)
+            //   }
+            // }
+          } else if (item.size.includes('XL')) {
+            console.log('XL')
+            // if (this.checkout.length === 0) {
+            //   dataSizeReg.product_id = item.product_id
+            //   dataSizeReg.qtyXL = item.qty
+            //   dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            //   this.checkout.push(dataSizeReg)
+            //   this.resetObjectReg(dataSizeReg)
+            // } else if (this.checkout.length > 0) {
+            //   const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            //   if (checkId === -1) {
+            //     dataSizeReg.product_id = item.product_id
+            //     dataSizeReg.qtyXL = item.qty
+            //     dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            //     this.checkout.push(dataSizeReg)
+            //     this.resetObjectReg(dataSizeReg)
+            //   } else {
+            //     dataSizeReg.qtyXL = item.qty
+            //     this.checkout[item.product_id].qtyXL += dataSizeReg.qtyXL
+            //     this.resetObjectReg(dataSizeReg)
+            //   }
+            // }
+          }
+        })
+      }
     }
   },
-  created () {
-    this.getCheckout()
-  },
-  updated () {
+  mounted () {
     this.getCheckout()
   }
 }

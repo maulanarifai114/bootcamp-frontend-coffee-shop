@@ -92,23 +92,8 @@ export default {
       } else if (deliverMethod === 'pick up') {
         this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
       }
-    },
-    updateCheckout () {
-      this.checkoutDineIn = this.$store.state.checkoutDineIn
-      this.checkoutHomeDelivery = this.$store.state.checkoutHomeDelivery
-      this.checkoutTakeAway = this.$store.state.checkoutTakeAway
-      console.log(this.checkoutDineIn)
-      console.log(this.checkoutHomeDelivery)
-      console.log(this.checkoutTakeAway)
     }
-  },
-  beforeMount () {
-    this.updateCheckout()
-  },
-  updated () {
-    this.updateCheckout()
   }
-
 }
 </script>
 

@@ -48,13 +48,28 @@ export default new Vuex.Store({
       products: [
         {
           product_id: 5,
-          qty: 31,
+          qty: 3,
           size: '300'
         },
         {
-          product_id: 6,
-          qty: 42,
+          product_id: 5,
+          qty: 1,
           size: '500'
+        },
+        {
+          product_id: 1,
+          qty: 5,
+          size: 'R'
+        },
+        {
+          product_id: 1,
+          qty: 2,
+          size: 'L'
+        },
+        {
+          product_id: 1,
+          qty: 20,
+          size: 'XL'
         }
       ],
       delivery_method: 'pick up',
@@ -70,7 +85,7 @@ export default new Vuex.Store({
       deliver: 'pick up',
       now: 'yes',
       date: '',
-      size: ['250', '300', '500']
+      size: ['R', 'XL']
     },
     sizeProduct: '',
     nameproduct: '',

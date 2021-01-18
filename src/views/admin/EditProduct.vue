@@ -91,6 +91,7 @@
        <Input v-model="stock" id="stock" label="Stock" placeholder="stock" type="number" class="w-100"/>
         <br><br>
         <Button color="btn-brown btn-detail" label="Save Change" @trigger="save()"></Button>
+        <Button color="btn-detail btn-danger" label="Delete Product" @trigger="destroy()"></Button>
       </aside>
     </main>
     <main class="row pt-5">
@@ -132,7 +133,6 @@ export default {
     getData () {
       axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
         .then((res) => {
-          console.log(res.data.result[0])
           this.dataProduct = res.data.result[0]
 
           const start = res.data.result[0].start_delivery.split(':')
@@ -216,11 +216,45 @@ export default {
       data.append('size', sizes)
       axios.patch(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then((res) => {
-          console.log(res)
+          this.$swal.fire({
+            title: 'success!',
+            text: 'Update Successfully',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
+          this.$router.push('/admin/product')
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$swal.fire({
+            title: 'Warning!',
+            text: err.response.data,
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+          })
         })
+    },
+    destroy () {
+      this.$swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
+            .then((res) => {
+              this.$swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              this.$router.push('/admin/product')
+            })
+        }
+      })
     }
   }
 }

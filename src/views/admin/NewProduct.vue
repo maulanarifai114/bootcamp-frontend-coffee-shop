@@ -21,9 +21,9 @@
 
         <!-- Delivery Hour -->
         <div class=" d-flex flex-column ">
-          <h5 class="label">Delivery Hour :</h5>
-          <input type="datetime-local" v-model="start">
-          <input type="datetime-local" v-model="end">
+          <!-- <h5 class="label">Delivery Hour :</h5> -->
+          <Input label="Delivery Hour :" type="datetime-local" v-model="start" />
+          <Input type="datetime-local" v-model="end" />
         </div>
         <br><br>
         <!-- Input Stock -->

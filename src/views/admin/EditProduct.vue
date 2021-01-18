@@ -33,10 +33,10 @@
             </div>
             <div :class="deliver.includes('door') ? '' : 'd-none'">
               <div class=" align-items-center mb-3">
-                <input type="datetime-local" v-model="start">
+                <Input label="Start Delivery" type="datetime-local" v-model="start" />
               </div>
               <div class="align-items-center">
-               <input type="datetime-local" v-model="end">
+              <Input label="End Delivery" type="datetime-local" v-model="end" />
               </div>
             </div>
           </div>

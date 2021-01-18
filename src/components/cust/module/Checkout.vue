@@ -117,14 +117,12 @@ export default {
         this.checkoutTakeAway.products.forEach((item, index) => {
           if (item.size.includes('R')) {
             if (this.checkout.length === 0) {
-              console.log('R')
               dataSizeReg.product_id = item.product_id
               dataSizeReg.qtyR = item.qty
               dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
               this.checkout.push(dataSizeReg)
               this.resetObjectReg(dataSizeReg)
             } else if (this.checkout.length > 0) {
-              console.log('R22')
               const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
               if (checkId === -1) {
                 dataSizeReg.product_id = item.product_id
@@ -157,7 +155,7 @@ export default {
             //     this.resetObjectReg(dataSizeReg)
             //   } else {
             //     dataSizeReg.qtyL = item.qty
-            //     this.checkout[item.product_id].qtyL += dataSizeReg.qtyL
+            //     this.checkout[checkId].qtyL += dataSizeReg.qtyL
             //     this.resetObjectReg(dataSizeReg)
             //   }
             // }
@@ -179,7 +177,7 @@ export default {
             //     this.resetObjectReg(dataSizeReg)
             //   } else {
             //     dataSizeReg.qtyXL = item.qty
-            //     this.checkout[item.product_id].qtyXL += dataSizeReg.qtyXL
+            //     this.checkout[checkId].qtyXL += dataSizeReg.qtyXL
             //     this.resetObjectReg(dataSizeReg)
             //   }
             // }
@@ -190,7 +188,32 @@ export default {
   },
   mounted () {
     this.getCheckout()
+  },
+  created () {
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.checkoutTakeAway // could also put a Getter here
+      },
+      (newValue, oldValue) => {
+        // something changed do something
+        console.log(oldValue)
+        console.log(newValue)
+        this.checkoutTakeAway = newValue
+        this.checkout = []
+        this.getCheckout()
+      },
+      // Optional Deep if you need it
+      {
+        deep: true
+      }
+    )
   }
+  // watch: {
+  //   $store.state.checkoutTakeAway: function (val) {
+  //     console.log(val)
+  //     this.getCheckout()
+  //   }
+  // }
 }
 </script>
 

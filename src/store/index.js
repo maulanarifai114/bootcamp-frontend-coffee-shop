@@ -58,7 +58,7 @@ export default new Vuex.Store({
         },
         {
           product_id: 1,
-          qty: 5,
+          qty: 8,
           size: 'R'
         },
         {

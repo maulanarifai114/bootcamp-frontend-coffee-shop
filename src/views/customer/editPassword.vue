@@ -93,22 +93,39 @@ export default {
       }
     },
     save () {
-      if (this.checkOldPassword === '1' && this.newPassword === this.repeatPassword) {
-        const payload = {
-          prev_password: this.oldPassword,
-          password: this.newPassword,
-          repeat_password: this.repeatPassword
-        }
-        axios.patch(`${process.env.VUE_APP_BASE_URL}/auth/edit-password`, payload)
-          .then((res) => {
-            this.$swal.fire({
-              title: 'success!',
-              text: 'password changed successfully',
-              icon: 'success',
-              confirmButtonText: 'Ok'
-            })
-            this.$router.push({ path: 'profile' })
+      if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
+        return this.$swal.fire({
+          icon: 'error',
+          title: 'Your password is too short!',
+          text: 'Use minimal 8 character'
+          // text: 'Use minimal 8 character'
+        })
+        // return alert('Password is to short')
+      } else if (this.checkOldPassword === '1' && this.newPassword === this.repeatPassword) {
+        if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
+          console.log('new', this.newPassword, 'repeat', this.repeatPassword)
+          return this.$swal.fire({
+            icon: 'error',
+            title: 'Your password is too short!',
+            text: 'Use minimal 8 character'
           })
+        } else {
+          const payload = {
+            prev_password: this.oldPassword,
+            password: this.newPassword,
+            repeat_password: this.repeatPassword
+          }
+          axios.patch(`${process.env.VUE_APP_BASE_URL}/auth/edit-password`, payload)
+            .then((res) => {
+              this.$swal.fire({
+                title: 'success!',
+                text: 'password changed successfully',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              })
+              this.$router.push({ path: 'profile' })
+            })
+        }
       } else {
         this.$swal.fire({
           title: 'Warning!',

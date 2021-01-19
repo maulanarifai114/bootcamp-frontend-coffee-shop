@@ -8,70 +8,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     checkoutDineIn: {
-      products: [
-        {
-          product_id: 1,
-          qty: 1,
-          size: '300'
-        },
-        {
-          product_id: 1,
-          qty: 3,
-          size: '500'
-        },
-        {
-          product_id: 2,
-          qty: 2,
-          size: '500'
-        }
-      ],
+      products: [],
       delivery_method: 'dine in',
       delivery_time: ''
     },
     checkoutHomeDelivery: {
-      products: [
-        {
-          product_id: 3,
-          qty: 10,
-          size: '300'
-        },
-        {
-          product_id: 4,
-          qty: 20,
-          size: '500'
-        }
-      ],
+      products: [],
       delivery_method: 'home delivery',
       delivery_time: ''
     },
     checkoutTakeAway: {
-      products: [
-        // {
-        //   product_id: 5,
-        //   qty: 3,
-        //   size: '300'
-        // },
-        // {
-        //   product_id: 5,
-        //   qty: 1,
-        //   size: '500'
-        // },
-        {
-          product_id: 1,
-          qty: 5,
-          size: 'XL'
-        },
-        {
-          product_id: 1,
-          qty: 8,
-          size: 'R'
-        },
-        {
-          product_id: 1,
-          qty: 3,
-          size: 'L'
-        }
-      ],
+      products: [],
       delivery_method: 'pick up',
       delivery_time: ''
     },
@@ -82,7 +29,7 @@ export default new Vuex.Store({
       description: 'Cold Brew Is A Cold Coffee',
       amount: 0,
       price: 30000,
-      deliver: 'pick up',
+      deliver: 'dine in',
       now: 'yes',
       date: '',
       size: ['R', 'XL']

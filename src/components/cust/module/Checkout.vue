@@ -1,6 +1,7 @@
 <template>
   <div class="box w-100 d-flex flex-row ">
-    <div>
+    <div :class="this.checkout.length === 0 ? 'd-flex align-items-center':'' ">
+      <h2 v-if="this.checkout.length === 0" class="cart-here">Your Cart Here</h2>
       <!-- Dine In -->
       <div class=" d-flex " v-for="(item, index) in checkout" :key="index">
         <div class="container-img d-flex align-items-center">
@@ -53,103 +54,124 @@ export default {
     }
   },
   methods: {
-    handleCart (dataSizeReg) {
-      this.checkoutTakeAway.products.forEach((item, index) => {
+    handleCart (dataSizeReg, dataSizeGram, methodCheckout) {
+      // axios.get(`${VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
+      //   .then((res)=> {
+      //   })
+      //   .catch((err)=> {
+      //     console.log(err);
+      //   })
+      methodCheckout.products.forEach((item, index) => {
         if (item.size.includes('R')) {
           if (this.checkout.length === 0) {
             dataSizeReg.product_id = item.product_id
             dataSizeReg.qtyR = item.qty
-            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            dataSizeReg.delivery_method = methodCheckout.delivery_method
             this.checkout.push(dataSizeReg)
-            this.resetObjectReg(dataSizeReg)
           } else if (this.checkout.length > 0) {
             const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
             if (checkId === -1) {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.product_id = item.product_id
               dataSizeReg.qtyR = item.qty
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
             } else {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.qtyR = item.qty
               this.checkout[checkId].qtyR = dataSizeReg.qtyR
-              this.resetObjectReg(dataSizeReg)
             }
           }
         } else if (item.size.includes('L') && item.size.length === 1) {
           if (this.checkout.length === 0) {
-            this.resetObjectReg(dataSizeReg)
             dataSizeReg.product_id = item.product_id
             dataSizeReg.qtyL = item.qty
-            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            dataSizeReg.delivery_method = methodCheckout.delivery_method
             this.checkout.push(dataSizeReg)
-            this.resetObjectReg(dataSizeReg)
           } else if (this.checkout.length > 0) {
             const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
             if (checkId === -1) {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.product_id = item.product_id
               dataSizeReg.qtyL = item.qty
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
             } else {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.qtyL = item.qty
               this.checkout[checkId].qtyL = dataSizeReg.qtyL
-              this.resetObjectReg(dataSizeReg)
             }
           }
         } else if (item.size.includes('XL')) {
           if (this.checkout.length === 0) {
-            this.resetObjectReg(dataSizeReg)
             dataSizeReg.product_id = item.product_id
             dataSizeReg.qtyXL = item.qty
-            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            dataSizeReg.delivery_method = methodCheckout.delivery_method
             this.checkout.push(dataSizeReg)
-            this.resetObjectReg(dataSizeReg)
           } else if (this.checkout.length > 0) {
             const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
             if (checkId === -1) {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.product_id = item.product_id
               dataSizeReg.qtyXL = item.qty
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
             } else {
-              this.resetObjectReg(dataSizeReg)
               dataSizeReg.qtyXL = item.qty
               this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
-              this.resetObjectReg(dataSizeReg)
+            }
+          }
+        } else if (item.size.includes('250')) {
+          if (this.checkout.length === 0) {
+            dataSizeGram.product_id = item.product_id
+            dataSizeGram.qty250 = item.qty
+            dataSizeGram.delivery_method = methodCheckout.delivery_method
+            this.checkout.push(dataSizeGram)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              dataSizeGram.product_id = item.product_id
+              dataSizeGram.qty250 = item.qty
+              dataSizeGram.delivery_method = methodCheckout.delivery_method
+              this.checkout.push(dataSizeGram)
+            } else {
+              dataSizeGram.qty250 = item.qty
+              this.checkout[checkId].qty250 = dataSizeGram.qty250
+            }
+          }
+        } else if (item.size.includes('300')) {
+          if (this.checkout.length === 0) {
+            dataSizeGram.product_id = item.product_id
+            dataSizeGram.qty300 = item.qty
+            dataSizeGram.delivery_method = methodCheckout.delivery_method
+            this.checkout.push(dataSizeGram)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              dataSizeGram.product_id = item.product_id
+              dataSizeGram.qty300 = item.qty
+              dataSizeGram.delivery_method = methodCheckout.delivery_method
+              this.checkout.push(dataSizeGram)
+            } else {
+              dataSizeGram.qty300 = item.qty
+              this.checkout[checkId].qty300 = dataSizeGram.qty300
+            }
+          }
+        } else if (item.size.includes('500')) {
+          if (this.checkout.length === 0) {
+            dataSizeGram.product_id = item.product_id
+            dataSizeGram.qty500 = item.qty
+            dataSizeGram.delivery_method = methodCheckout.delivery_method
+            this.checkout.push(dataSizeGram)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              dataSizeGram.product_id = item.product_id
+              dataSizeGram.qty500 = item.qty
+              dataSizeGram.delivery_method = methodCheckout.delivery_method
+              this.checkout.push(dataSizeGram)
+            } else {
+              dataSizeGram.qty500 = item.qty
+              this.checkout[checkId].qty500 = dataSizeGram.qty500
             }
           }
         }
       })
-    },
-    resetObjectReg (dataSizeReg) {
-      dataSizeReg = {
-        name: 'Cold Brew',
-        img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
-        product_id: 0,
-        qtyR: 0,
-        qtyL: 0,
-        qtyXL: 0,
-        delivery_method: ''
-      }
-    },
-    resetObjectGram (dataSizeGram) {
-      dataSizeGram = {
-        name: 'Hot Bowl Noodle',
-        img: 'https://images.unsplash.com/photo-1584739200850-dc2072fdfe04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-        product_id: 0,
-        qty250: 0,
-        qty300: 0,
-        qty500: 0,
-        delivery_method: ''
-      }
     },
     getCheckout () {
       const dataSizeGram = {
@@ -162,7 +184,7 @@ export default {
         delivery_method: ''
       }
       const dataSizeReg = {
-        name: 'Cold Brwaweew',
+        name: 'Cold Brew',
         img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
         product_id: 0,
         qtyR: 0,
@@ -170,93 +192,12 @@ export default {
         qtyXL: 0,
         delivery_method: ''
       }
-      // axios.get(`${VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-      //   .then((res)=> {
-      //   })
-      //   .catch((err)=> {
-      //     console.log(err);
-      //   })
-      console.log(dataSizeGram)
       if (this.deliver === this.checkoutDineIn.delivery_method) {
-        console.log('dine in')
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutDineIn)
       } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
-        console.log('home delivery')
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutHomeDelivery)
       } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
-        this.handleCart(dataSizeReg)
-        // this.checkoutTakeAway.products.forEach((item, index) => {
-        //   if (item.size.includes('R')) {
-        //     if (this.checkout.length === 0) {
-        //       dataSizeReg.product_id = item.product_id
-        //       dataSizeReg.qtyR = item.qty
-        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //       this.checkout.push(dataSizeReg)
-        //       this.resetObjectReg(dataSizeReg)
-        //     } else if (this.checkout.length > 0) {
-        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-        //       if (checkId === -1) {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.product_id = item.product_id
-        //         dataSizeReg.qtyR = item.qty
-        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //         this.checkout.push(dataSizeReg)
-        //         this.resetObjectReg(dataSizeReg)
-        //       } else {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.qtyR = item.qty
-        //         this.checkout[checkId].qtyR = dataSizeReg.qtyR
-        //         this.resetObjectReg(dataSizeReg)
-        //       }
-        //     }
-        //   } else if (item.size.includes('L') && item.size.length === 1) {
-        //     if (this.checkout.length === 0) {
-        //       this.resetObjectReg(dataSizeReg)
-        //       dataSizeReg.product_id = item.product_id
-        //       dataSizeReg.qtyL = item.qty
-        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //       this.checkout.push(dataSizeReg)
-        //       this.resetObjectReg(dataSizeReg)
-        //     } else if (this.checkout.length > 0) {
-        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-        //       if (checkId === -1) {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.product_id = item.product_id
-        //         dataSizeReg.qtyL = item.qty
-        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //         this.checkout.push(dataSizeReg)
-        //         this.resetObjectReg(dataSizeReg)
-        //       } else {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.qtyL = item.qty
-        //         this.checkout[checkId].qtyL = dataSizeReg.qtyL
-        //         this.resetObjectReg(dataSizeReg)
-        //       }
-        //     }
-        //   } else if (item.size.includes('XL')) {
-        //     if (this.checkout.length === 0) {
-        //       this.resetObjectReg(dataSizeReg)
-        //       dataSizeReg.product_id = item.product_id
-        //       dataSizeReg.qtyXL = item.qty
-        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //       this.checkout.push(dataSizeReg)
-        //       this.resetObjectReg(dataSizeReg)
-        //     } else if (this.checkout.length > 0) {
-        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-        //       if (checkId === -1) {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.product_id = item.product_id
-        //         dataSizeReg.qtyXL = item.qty
-        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-        //         this.checkout.push(dataSizeReg)
-        //         this.resetObjectReg(dataSizeReg)
-        //       } else {
-        //         this.resetObjectReg(dataSizeReg)
-        //         dataSizeReg.qtyXL = item.qty
-        //         this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
-        //         this.resetObjectReg(dataSizeReg)
-        //       }
-        //     }
-        //   }
-        // })
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutTakeAway)
       }
     }
   },
@@ -277,11 +218,46 @@ export default {
         deep: true
       }
     )
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.checkoutHomeDelivery
+      },
+      (newValue, oldValue) => {
+        this.checkoutHomeDelivery = newValue
+        this.checkout = []
+        this.getCheckout()
+      },
+      {
+        deep: true
+      }
+    )
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.checkoutDineIn
+      },
+      (newValue, oldValue) => {
+        this.checkoutDineIn = newValue
+        this.checkout = []
+        this.getCheckout()
+      },
+      {
+        deep: true
+      }
+    )
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.cart-here {
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1em;
+  text-align: left;
+}
 
 .group-checkout-2 {
   height: 100%;

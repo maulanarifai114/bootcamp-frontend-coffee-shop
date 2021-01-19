@@ -21,9 +21,9 @@
 
         <!-- Delivery Hour -->
         <div class=" d-flex flex-column ">
-          <h5 class="label">Delivery Hour :</h5>
-          <InputTime id="start" label="Select start hour" value="start" @change="startDelivery"></InputTime>
-          <InputTime id="end" label="Select end hour" value="end" @change="endDelivery"></InputTime>
+          <!-- <h5 class="label">Delivery Hour :</h5> -->
+          <Input label="Delivery Hour :" type="datetime-local" v-model="start" />
+          <Input type="datetime-local" v-model="end" />
         </div>
         <br><br>
         <!-- Input Stock -->
@@ -45,28 +45,27 @@
         <h5 class="label-size">Input product size :</h5>
         <h6 class="text-muted">Click size you want to use for this product</h6>
         <!-- R L XL -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '2' || category === '3' || category === '1' || category === '5'">
-          <label class="btn d-flex align-items-center justify-content-center" for="r" :class="size1 === 'r' ? 'selected':'unselected'">
-            <input type="radio" name="size1" id="r" v-model="size1" value="r" class="d-none"> R
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '1' || category === '2'">
+          <label class="btn d-flex align-items-center justify-content-center" for="r" :class="allSize.includes('R') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="r" v-model="allSize" value="R" class="d-none"> R
           </label>
-          <label class="btn d-flex align-items-center justify-content-center" for="l" :class="size1 === 'l' ? 'selected':'unselected'">
-            <input type="radio" name="size1" id="l" v-model="size1" value="l" class="d-none"> L
+          <label class="btn d-flex align-items-center justify-content-center" for="l" :class="allSize.includes('L') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="l" v-model="allSize" value="L" class="d-none"> L
           </label>
-          <label class="btn d-flex align-items-center justify-content-center" for="xl" :class="size1 === 'xl' ? 'selected':'unselected'">
-            <input type="radio" name="size1" id="xl" v-model="size1" value="xl" class="d-none"> XL
+          <label class="btn d-flex align-items-center justify-content-center" for="xl" :class="allSize.includes('XL') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="xl" v-model="allSize" value="XL" class="d-none"> XL
           </label>
         </div>
-        <br v-if="category === '1' || category === '5'">
         <!-- Gram -->
-        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '4' || category === '1' || category === '5'" @>
-          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="250" :class="size2 === '250' ? 'selected':'unselected'">
-            <input type="radio" name="size2" id="250" v-model="size2" value="250" class="d-none"> 250g
+        <div class="d-flex justify-content-between flex-row btn-group-toggle" v-if="category === '3'">
+          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="250" :class="allSize.includes('250') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="250" v-model="allSize" value="250" class="d-none"> 250g
           </label>
-          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="300" :class="size2 === '300' ? 'selected':'unselected'">
-            <input type="radio" name="size2" id="300" v-model="size2" value="300" class="d-none"> 300g
+          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="300" :class="allSize.includes('300') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="300" v-model="allSize" value="300" class="d-none"> 300g
           </label>
-          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="500" :class="size2 === '500' ? 'selected':'unselected'">
-            <input type="radio" name="size2" id="500" v-model="size2" value="500" class="d-none"> 500g
+          <label class="btn btn-gram d-flex align-items-center justify-content-center" for="500" :class="allSize.includes('500') === true ? 'selected':'unselected'">
+            <input type="checkbox" id="500" v-model="allSize" value="500" class="d-none"> 500g
           </label>
         </div>
         <br>
@@ -95,8 +94,7 @@
               </label>
         </div>
         <br><br><br><br>
-        <button  @click="inputForm()" color="btn-brown btn-admin-1">save</button>
-        <Button @click="inputForm" color="btn-brown btn-admin-1" label="Save Product"></Button>
+        <Button @trigger="inputForm()" color="btn-brown btn-admin-1" label="Save Product"></Button>
         <br>
         <Button color="btn-cancel btn-admin-1" label="Cancel"></Button>
       </section>
@@ -107,7 +105,6 @@
 <script>
 import Button from '../../components/admin/base/Button'
 import Input from '../../components/admin/base/Input'
-import InputTime from '../../components/admin/base/InputTime'
 import InputCat from '../../components/admin/base/InputCat'
 import axios from 'axios'
 export default {
@@ -115,14 +112,14 @@ export default {
   components: {
     Button,
     Input,
-    InputTime,
     InputCat
   },
   data () {
     return {
-      size1: '',
-      size2: '',
       deliver: '',
+      din: 0,
+      door: 0,
+      pick: 0,
       avatar: 'https://lh3.googleusercontent.com/EbXw8rOdYxOGdXEFjgNP8lh-YAuUxwhOAe2jhrz3sgqvPeMac6a6tHvT35V6YMbyNvkZL4R_a2hcYBrtfUhLvhf-N2X3OB9cvH4uMw=w1064-v0',
       category: '',
       start: '',
@@ -131,7 +128,7 @@ export default {
       name: '',
       price: '',
       description: '',
-      size: [{ size1: '', size2: '' }]
+      allSize: []
     }
   },
   methods: {
@@ -141,6 +138,7 @@ export default {
     lihatVal (e) {
       const category = e
       this.category = category
+      this.allSize = []
     },
     startDelivery (e) {
       const start = e
@@ -151,7 +149,6 @@ export default {
       this.end = end
     },
     getImage (e) {
-      console.log(e.target.files[0].size)
       var image = e.target.files[0]
       var reader = new FileReader()
       if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
@@ -179,30 +176,52 @@ export default {
       var data = new FormData()
       var inputGambar = document.getElementById('uploadImage')
       var dataFile = inputGambar.files[0]
+      const sizes = this.allSize.join(',')
+      if (this.deliver === 'din') {
+        this.din = 1
+      } else if (this.deliver === 'door') {
+        this.door = 1
+      } else if (this.deliver === 'pick') {
+        this.pick = 1
+      }
 
       // Tambahkan data ke Form Data
-      // data.append('deliver', this.deliver)
-      // data.append('image', this.category)
-      // data.append('start_delivery', this.start)
-      // data.append('end_delivery', this.end)
-      // data.append('stock', this.stock)
-      // data.append('name', this.name)
-      // data.append('price', this.price)
-      // data.append('description', this.description)
-      // data.append('size', this.size)
+      data.append('is_dine_in', this.din)
+      data.append('is_home_delivery', this.door)
+      data.append('is_pick_up', this.pick)
+      data.append('category_id', this.category)
+      data.append('start_delivery', this.start)
+      data.append('end_delivery', this.end)
+      data.append('stock', this.stock)
+      data.append('name', this.name)
+      data.append('price', this.price)
+      data.append('description', this.description)
+      data.append('size', sizes)
       data.append('image', dataFile)
 
-      axios.post(`${process.env.VUE_APP_BASE_URL}/api/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+      axios.post(`${process.env.VUE_APP_BASE_URL}/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then(res => {
+          this.$swal.fire({
+            title: 'Success!',
+            text: `Create Product ${res.data.result.name}`,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
+          this.$router.push('/admin/product')
           console.log(res)
         })
         .catch(err => {
+          this.$swal.fire({
+            title: 'Warning!',
+            text: err.response.data,
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+          })
           console.log(err.response)
         })
     },
     reset () {
-      this.size1 = ''
-      this.size2 = ''
+      this.allSize = []
     }
   }
 }

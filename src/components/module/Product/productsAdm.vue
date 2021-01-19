@@ -6,7 +6,6 @@
             <b-tab class="tab-detail" title="Coffee" :title-link-class="'tab-title-class'"><Coffee/></b-tab>
             <b-tab class="tab-detail" title="Non-coffee" :title-link-class="'tab-title-class'"><Noncoffee/></b-tab>
             <b-tab class="tab-detail" title="Foods" :title-link-class="'tab-title-class'"><Foods/></b-tab>
-            <b-tab  class="tab-detail" title="Add-on" :title-link-class="'tab-title-class'"><p></p></b-tab>
           </b-tabs>
           <p class="info">*the price has been cutted by discount appears</p>
           <div class="product-option" type= button>Edit Product</div>

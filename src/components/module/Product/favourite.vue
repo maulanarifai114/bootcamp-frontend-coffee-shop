@@ -56,7 +56,11 @@ export default {
         })
     },
     detailProducts (val) {
-      this.$router.push({ path: 'product-d', query: { id: val } })
+      if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
+        this.$router.push(`/admin/edit-product?id=${val}`)
+      } else {
+        this.$router.push({ path: 'product-d', query: { id: val } })
+      }
     }
   }
 }

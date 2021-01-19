@@ -6,7 +6,7 @@
             <b-tab class="tab-detail" title="Coffee" :title-link-class="'tab-title-class'"><Coffee/></b-tab>
             <b-tab class="tab-detail" title="Non-coffee" :title-link-class="'tab-title-class'"><Noncoffee/></b-tab>
             <b-tab class="tab-detail" title="Foods" :title-link-class="'tab-title-class'"><Foods/></b-tab>
-            <b-tab  class="tab-detail" title="Add-on" :title-link-class="'tab-title-class'"><p>Add-on</p></b-tab>
+            <b-tab  class="tab-detail" title="Add-on" :title-link-class="'tab-title-class'"><p class="add-on">Add-on</p></b-tab>
           </b-tabs>
           <p class="info">*the price has been cutted by discount appears</p>
       </div>
@@ -36,12 +36,22 @@ export default {
 .tab-detail {
   height: max-content !important;
   overflow: visible !important;
+  // color: #6A4029;
 }
 .tab-title-class {
   font-family: Rubik;
   font-size: 20px;
   font-weight: 400;
-  color: #9F9F9F;
+  color: #6A4029!important;
+}
+.tab-title-class:hover {
+  color: #351606
+}
+.add-on {
+  font-family: Rubik;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6A4029!important;
 }
 
 </style>

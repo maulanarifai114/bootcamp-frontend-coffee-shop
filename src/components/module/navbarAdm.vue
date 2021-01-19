@@ -32,7 +32,9 @@
                     <img src="../../assets/img/chat (1) 1.png" alt="" style="" @click.prevent="" type="button">
                 </li>
                 <li class="nav-item d-flex option2" @click.prevent="" type="button">
-                    <div class="user-photo"></div>
+                    <div class="user-photo">
+                        <img :src="getProfile.image" alt="">
+                    </div>
                 </li>
             </ul>
         </div>
@@ -40,9 +42,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Navbar'
-
+  name: 'Navbar',
+  methods: {
+    ...mapActions({ getCustProfile: 'getCustProfile' })
+  },
+  computed: {
+    ...mapGetters(['getProfile'])
+  },
+  mounted () {
+    this.getCustProfile()
+  }
 }
 </script>
 
@@ -100,8 +111,11 @@ img {
 .user-photo {
     width: 30px;
     height: 30px;
-    border: 1px solid black;
     border-radius: 50%;
+    overflow: hidden;
+}
+.user-photo img {
+    width: 100%;
 }
 @media screen and (max-width: 991px) {
     .option-box {

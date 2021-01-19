@@ -17,7 +17,7 @@
               </label>
               <input type="file" id="choose" placeholder="Choose Photo" ref="file" class="d-none" v-on:change="handleFileUpload()">
               <Button label="Remove photo" color="btn-brown btn-profile-1 mb-42" @trigger="deleteFileImage"></Button>
-              <Button label="Edit Password" color="btn-profile-white mb-34"></Button>
+              <Button label="Edit Password" color="btn-profile-white mb-34" @trigger="editPassword"></Button>
               <div class="flex-grow-1">
                 <div v-if="this.$store.state.editmode > 0">
                   <h3>Do you want to save the change?</h3>
@@ -155,6 +155,9 @@ export default {
           this.getCustProfile()
           this.address = ''
         })
+    },
+    editPassword () {
+      this.$router.push({ path: 'edit-password' })
     }
   },
   computed: {

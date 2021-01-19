@@ -53,6 +53,82 @@ export default {
     }
   },
   methods: {
+    handleCart (dataSizeReg) {
+      this.checkoutTakeAway.products.forEach((item, index) => {
+        if (item.size.includes('R')) {
+          if (this.checkout.length === 0) {
+            dataSizeReg.product_id = item.product_id
+            dataSizeReg.qtyR = item.qty
+            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            this.checkout.push(dataSizeReg)
+            this.resetObjectReg(dataSizeReg)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyR = item.qty
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.qtyR = item.qty
+              this.checkout[checkId].qtyR = dataSizeReg.qtyR
+              this.resetObjectReg(dataSizeReg)
+            }
+          }
+        } else if (item.size.includes('L') && item.size.length === 1) {
+          if (this.checkout.length === 0) {
+            this.resetObjectReg(dataSizeReg)
+            dataSizeReg.product_id = item.product_id
+            dataSizeReg.qtyL = item.qty
+            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            this.checkout.push(dataSizeReg)
+            this.resetObjectReg(dataSizeReg)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyL = item.qty
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.qtyL = item.qty
+              this.checkout[checkId].qtyL = dataSizeReg.qtyL
+              this.resetObjectReg(dataSizeReg)
+            }
+          }
+        } else if (item.size.includes('XL')) {
+          if (this.checkout.length === 0) {
+            this.resetObjectReg(dataSizeReg)
+            dataSizeReg.product_id = item.product_id
+            dataSizeReg.qtyXL = item.qty
+            dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+            this.checkout.push(dataSizeReg)
+            this.resetObjectReg(dataSizeReg)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyXL = item.qty
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.qtyXL = item.qty
+              this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
+              this.resetObjectReg(dataSizeReg)
+            }
+          }
+        }
+      })
+    },
     resetObjectReg (dataSizeReg) {
       dataSizeReg = {
         name: 'Cold Brew',
@@ -94,8 +170,6 @@ export default {
         qtyXL: 0,
         delivery_method: ''
       }
-      // console.log(this.checkoutDineIn)
-      // console.log(this.checkoutHomeDelivery)
       // axios.get(`${VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
       //   .then((res)=> {
       //   })
@@ -103,120 +177,102 @@ export default {
       //     console.log(err);
       //   })
       console.log(dataSizeGram)
-      console.log(dataSizeReg)
-      console.log(this.checkoutTakeAway)
       if (this.deliver === this.checkoutDineIn.delivery_method) {
         console.log('dine in')
       } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
         console.log('home delivery')
       } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
-        console.log('pick up')
-        this.checkoutTakeAway.products.forEach((item, index) => {
-          if (item.size.includes('R')) {
-            // this.handleCart(dataSizeReg, dataSizeReg.qtyR, this.checkoutTakeAway, item, this.resetObjectReg)
-            if (this.checkout.length === 0) {
-              dataSizeReg.product_id = item.product_id
-              dataSizeReg.qtyR = item.qty
-              console.log(dataSizeReg.qtyR)
-              console.log(dataSizeReg.qtyL)
-              console.log(dataSizeReg.qtyXL)
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-              this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
-            } else if (this.checkout.length > 0) {
-              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-              if (checkId === -1) {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.product_id = item.product_id
-                dataSizeReg.qtyR = item.qty
-                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-                this.checkout.push(dataSizeReg)
-                this.resetObjectReg(dataSizeReg)
-              } else {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.qtyR = item.qty
-                this.checkout[checkId].qtyR = dataSizeReg.qtyR
-                this.resetObjectReg(dataSizeReg)
-              }
-            }
-          } else if (item.size.includes('L') && item.size.length === 1) {
-            if (this.checkout.length === 0) {
-              this.resetObjectReg(dataSizeReg)
-              dataSizeReg.product_id = item.product_id
-              dataSizeReg.qtyL = item.qty
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-              this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
-            } else if (this.checkout.length > 0) {
-              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-              if (checkId === -1) {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.product_id = item.product_id
-                dataSizeReg.qtyL = item.qty
-                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-                this.checkout.push(dataSizeReg)
-                this.resetObjectReg(dataSizeReg)
-              } else {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.qtyL = item.qty
-                console.log(dataSizeReg.qtyR)
-                console.log(dataSizeReg.qtyL)
-                console.log(dataSizeReg.qtyXL)
-                this.checkout[checkId].qtyL = dataSizeReg.qtyL
-                this.resetObjectReg(dataSizeReg)
-              }
-            }
-          } else if (item.size.includes('XL')) {
-            if (this.checkout.length === 0) {
-              this.resetObjectReg(dataSizeReg)
-              console.log(dataSizeReg)
-              dataSizeReg.product_id = item.product_id
-              dataSizeReg.qtyXL = item.qty
-              console.log(dataSizeReg.qtyR)
-              console.log(dataSizeReg.qtyL)
-              console.log(dataSizeReg.qtyXL)
-              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-              this.checkout.push(dataSizeReg)
-              this.resetObjectReg(dataSizeReg)
-            } else if (this.checkout.length > 0) {
-              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-              if (checkId === -1) {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.product_id = item.product_id
-                dataSizeReg.qtyXL = item.qty
-                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-                this.checkout.push(dataSizeReg)
-                this.resetObjectReg(dataSizeReg)
-              } else {
-                this.resetObjectReg(dataSizeReg)
-                dataSizeReg.qtyXL = item.qty
-                this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
-                this.resetObjectReg(dataSizeReg)
-              }
-            }
-          }
-        })
+        this.handleCart(dataSizeReg)
+        // this.checkoutTakeAway.products.forEach((item, index) => {
+        //   if (item.size.includes('R')) {
+        //     if (this.checkout.length === 0) {
+        //       dataSizeReg.product_id = item.product_id
+        //       dataSizeReg.qtyR = item.qty
+        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //       this.checkout.push(dataSizeReg)
+        //       this.resetObjectReg(dataSizeReg)
+        //     } else if (this.checkout.length > 0) {
+        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+        //       if (checkId === -1) {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.product_id = item.product_id
+        //         dataSizeReg.qtyR = item.qty
+        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //         this.checkout.push(dataSizeReg)
+        //         this.resetObjectReg(dataSizeReg)
+        //       } else {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.qtyR = item.qty
+        //         this.checkout[checkId].qtyR = dataSizeReg.qtyR
+        //         this.resetObjectReg(dataSizeReg)
+        //       }
+        //     }
+        //   } else if (item.size.includes('L') && item.size.length === 1) {
+        //     if (this.checkout.length === 0) {
+        //       this.resetObjectReg(dataSizeReg)
+        //       dataSizeReg.product_id = item.product_id
+        //       dataSizeReg.qtyL = item.qty
+        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //       this.checkout.push(dataSizeReg)
+        //       this.resetObjectReg(dataSizeReg)
+        //     } else if (this.checkout.length > 0) {
+        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+        //       if (checkId === -1) {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.product_id = item.product_id
+        //         dataSizeReg.qtyL = item.qty
+        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //         this.checkout.push(dataSizeReg)
+        //         this.resetObjectReg(dataSizeReg)
+        //       } else {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.qtyL = item.qty
+        //         this.checkout[checkId].qtyL = dataSizeReg.qtyL
+        //         this.resetObjectReg(dataSizeReg)
+        //       }
+        //     }
+        //   } else if (item.size.includes('XL')) {
+        //     if (this.checkout.length === 0) {
+        //       this.resetObjectReg(dataSizeReg)
+        //       dataSizeReg.product_id = item.product_id
+        //       dataSizeReg.qtyXL = item.qty
+        //       dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //       this.checkout.push(dataSizeReg)
+        //       this.resetObjectReg(dataSizeReg)
+        //     } else if (this.checkout.length > 0) {
+        //       const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+        //       if (checkId === -1) {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.product_id = item.product_id
+        //         dataSizeReg.qtyXL = item.qty
+        //         dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+        //         this.checkout.push(dataSizeReg)
+        //         this.resetObjectReg(dataSizeReg)
+        //       } else {
+        //         this.resetObjectReg(dataSizeReg)
+        //         dataSizeReg.qtyXL = item.qty
+        //         this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
+        //         this.resetObjectReg(dataSizeReg)
+        //       }
+        //     }
+        //   }
+        // })
       }
     }
   },
-  // mounted () {
-  //   this.getCheckout()
-  // },
+  mounted () {
+    this.getCheckout()
+  },
   created () {
     this.$store.watch(
       (state) => {
-        console.log(state)
-        return this.$store.state.checkoutTakeAway // could also put a Getter here
+        return this.$store.state.checkoutTakeAway
       },
       (newValue, oldValue) => {
-        // something changed do something
-        console.log(oldValue)
-        console.log(newValue)
         this.checkoutTakeAway = newValue
         this.checkout = []
         this.getCheckout()
       },
-      // Optional Deep if you need it
       {
         deep: true
       }

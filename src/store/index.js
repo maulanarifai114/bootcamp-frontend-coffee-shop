@@ -51,7 +51,9 @@ export default new Vuex.Store({
     history: [],
 
     // Profile
-    profile: {}
+    profile: {},
+    manageorderid: {},
+    allmanageorder: []
   },
   mutations: {
     SET_SIZE (state, payload) {
@@ -119,6 +121,12 @@ export default new Vuex.Store({
     },
     SET_PROFILE (state, payload) {
       state.profile = payload
+    },
+    SET_MANAGEORDERID (state, payload) {
+      state.manageorderid = payload
+    },
+    SET_ALLMANAGEORDER (state, payload) {
+      state.allmanageorder = payload
     }
   },
   actions: {
@@ -153,10 +161,23 @@ export default new Vuex.Store({
     },
     getAllHistory (context) {
       return new Promise((resolve, reject) => {
-        axios.get(`${process.env.VUE_APP_BASE_URL}/history`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.get(`${process.env.VUE_APP_BASE_URL}history`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             console.log(res.data.data)
             context.commit('SET_HISTORY', res.data.data)
+            resolve(res.data.data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    getAllManageOrder (context) {
+      return new Promise((resolve, reject) => {
+        axios.get(`${process.env.VUE_APP_BASE_URL}order/all`)
+          .then((res) => {
+            console.log(res.data.data)
+            context.commit('SET_ALLMANAGEORDER', res.data.data)
             resolve(res.data.data)
           })
           .catch((err) => {
@@ -168,7 +189,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         console.log('abcd')
         console.log(deleteProducts)
-        axios.delete(`${process.env.VUE_APP_BASE_URL}/history/delete-history`,
+        axios.delete(`${process.env.VUE_APP_BASE_URL}history/delete-history`,
           { data: { order_detail_ids: deleteProducts } }
         )
           .then((res) => {
@@ -183,7 +204,8 @@ export default new Vuex.Store({
     },
     getCustProfile (context) {
       return new Promise((resolve, reject) => {
-        axios.get(`${process.env.VUE_APP_BASE_URL}/user/detail`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        console.log('abcd')
+        axios.get(`${process.env.VUE_APP_BASE_URL}user/detail`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             context.commit('SET_PROFILE', res.data.data)
             resolve(res.data.data)
@@ -193,9 +215,22 @@ export default new Vuex.Store({
           })
       })
     },
+    getManageOrderId (context) {
+      return new Promise((resolve, reject) => {
+        axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${localStorage.getItem('allorderid')}`)
+          .then((res) => {
+            console.log(res.data.data)
+            context.commit('SET_MANAGEORDERID', res.data.data)
+            resolve(res.data.data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
     updateProfile ({ context, payload }, { email, username, firstName, lastName, address, phone, gender, bod }) {
       return new Promise((resolve, reject) => {
-        axios.patch(`${process.env.VUE_APP_BASE_URL}/user/edit-profile`, {
+        axios.patch(`${process.env.VUE_APP_BASE_URL}user/edit-profile`, {
           email: email,
           username: username,
           first_name: firstName,
@@ -215,10 +250,24 @@ export default new Vuex.Store({
           })
       })
     },
+    markAsDone ({ context, payload }, { orderId }) {
+      console.log(orderId)
+      return new Promise((resolve, reject) => {
+        axios.patch(`${process.env.VUE_APP_BASE_URL}order/done`, { order_id: orderId }, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+          .then((res) => {
+            localStorage.removeItem('allorderid')
+            resolve(res.data.data)
+          })
+          .catch((err) => {
+            console.log(err.response.data.messages)
+            reject(err)
+          })
+      })
+    },
     updateImage (context, file) {
       return new Promise((resolve, reject) => {
         console.log('kebaca?')
-        axios.patch(`${process.env.VUE_APP_BASE_URL}/user/update-image`, file, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.patch(`${process.env.VUE_APP_BASE_URL}user/update-image`, file, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             Swal.fire(
               'Success!',
@@ -238,7 +287,7 @@ export default new Vuex.Store({
     },
     deleteImage (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.delete(`${process.env.VUE_APP_BASE_URL}/user/delete-image`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.delete(`${process.env.VUE_APP_BASE_URL}user/delete-image`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             resolve(res.data)
           })
@@ -260,6 +309,12 @@ export default new Vuex.Store({
       const amount = state.detailP.amount
       const current = price * amount
       return current.toLocaleString('id-ID')
+    },
+    getManageOrderId (state) {
+      return state.manageorderid
+    },
+    getAllManageOrder (state) {
+      return state.allmanageorder
     }
   },
   modules: {

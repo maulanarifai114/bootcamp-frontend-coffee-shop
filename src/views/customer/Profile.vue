@@ -126,16 +126,21 @@ export default {
         bod: this.getProfile.bod,
         gender: this.gender
       }
-      this.updateProfile(payload)
-        .then((res) => {
-          console.log(this.gender)
-          Swal.fire(
-            'Success!',
-            'Your profile has been updated'
-          )
-          this.getCustProfile()
-          this.address = ''
-        })
+      if (payload.address === '' || payload.email === '' || payload.phone === '' || payload.username === '' || payload.firstName === '' || payload.lastName === '' || payload.bod === '' || payload.gender === '') {
+        Swal.fire(
+          'Error!',
+          'Field Can Not Be Empty'
+        )
+      } else {
+        this.updateProfile(payload)
+          .then((res) => {
+            Swal.fire(
+              'Success!',
+              'Your profile has been updated'
+            )
+            this.getCustProfile()
+          })
+      }
     },
     handleFileUpload () {
       this.image = this.$refs.file.files[0]

@@ -24,6 +24,7 @@ import Product from '../views/main/product/product.vue'
 import Cart from '../views/main/cart/cart.vue'
 import History from '../views/main/History/history.vue'
 import ManageOrder from '../views/admin/manage order/manageorder.vue'
+import BeforeManageOrder from '../views/admin/manage order/beforemanageorder.vue'
 import ProductAdmin from '../views/admin/product/index.vue'
 import Dashboard from '../views/admin/dashboard/dashboard.vue'
 import HomeAdm from '../views/Home/Admin/admin.vue'
@@ -134,6 +135,12 @@ const routes = [
         path: 'manage-order',
         name: 'ManageOrder',
         component: ManageOrder,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'bmanage-order',
+        name: 'BeforeManageOrder',
+        component: BeforeManageOrder,
         meta: { requiresAuth: true }
       },
       {

@@ -6,7 +6,7 @@
                     </div>
                     <div class="detail">
                         <p class="name">{{p1}}</p>
-                        <p class="total">{{p2}}</p>
+                        <p class="total">{{p2}}x</p>
                     </div>
                 </div>
                 <p class="price">{{p3}}</p>

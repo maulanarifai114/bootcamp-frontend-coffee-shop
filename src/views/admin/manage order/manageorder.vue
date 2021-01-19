@@ -5,41 +5,40 @@
                 <p class="title">Finish your <br> customer order now!</p>
                 <div class="summary">
                     <h1>Order Summary</h1>
-                    <div class="products">
+                    <div class="products" v-for="order in getManageOrderId.order_details" :key="order.id">
                         <Summaryproduct
-                            p1="Latte"
-                            p2="2"
-                            p3="120000"
-                            photos= "https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg"
+                            :p1= order.products[0].name
+                            :p2= order.qty
+                            :p3= order.products[0].price
+                            :photos= order.products[0].images
                         />
                     </div>
                     <div>
                         <Calculation
-                            subtotal="120000"
-                            taxfees="120000"
-                            shipping= "120000"
-                            total= "120000"
+                            :subtotal= getManageOrderId.subtotal
+                            :taxfees= getManageOrderId.tax_fee
+                            :shipping= getManageOrderId.shipping
+                            :total= getManageOrderId.total
                         />
                     </div>
                 </div>
-                <button class="button2">
-                    Slide to see upcoming orders
-                    <img src="../../../assets/img/Arrow 4.png" alt="">
+                <button class="button2" @click.prevent="pageAllOrder">
+                    Back to All Order
                 </button>
             </div>
             <div class="col-right">
                 <p class="address-title">Address Details</p>
                 <div class="address">
                     <Address
-                        mainAddress="Jalan Bunga"
-                        detailAddress="Bunga Melati No 6"
-                        phoneaddress= "83562572532"
+                        mainAddress=""
+                        :detailAddress= getManageOrderId.address
+                        :phoneaddress= getManageOrderId.customer_phone
                     />
                 </div>
                 <p class="payment-title">Payment Methods</p>
                 <Payment v-model="payment"/>
-                <span>Picked: {{ payment }}</span>
-                <button class="button">
+                <!-- <span>Picked: {{ payment }}</span> -->
+                <button class="button" @click.prevent= 'orderDone'>
                     Mark as Done
                 </button>
             </div>
@@ -52,7 +51,8 @@ import Summaryproduct from '../../../components/module/Cart/summaryProduct'
 import Payment from '../../../components/module/Cart/paymentmethod'
 import Calculation from '../../../components/module/Cart/calculation'
 import Address from '../../../components/module/Cart/address'
-
+import Swal from 'sweetalert2'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'ManageOrder',
   data () {
@@ -66,6 +66,31 @@ export default {
     Payment,
     Calculation,
     Address
+  },
+  methods: {
+    ...mapActions({ getManageOrderById: 'getManageOrderId', markAsDone: 'markAsDone' }),
+    orderDone () {
+      const payload = {
+        orderId: localStorage.getItem('allorderid')
+      }
+      this.markAsDone(payload)
+        .then((res) => {
+          Swal.fire(
+            'Success!',
+            'The order has been completed'
+          )
+          this.$router.push('bmanage-order')
+        })
+    },
+    pageAllOrder () {
+      this.$router.push('bmanage-order')
+    }
+  },
+  computed: {
+    ...mapGetters(['getManageOrderId'])
+  },
+  mounted () {
+    this.getManageOrderById()
   }
 }
 </script>
@@ -126,11 +151,8 @@ h1 {
     justify-content: space-around;
 }
 
-.products {
-    border-bottom: 0.5px solid #000000
-}
 .address {
-    min-height: 300px;
+    min-height: 200px;
     width:100%;
     border-radius: 20px;
     background-color: #FFFFFF;

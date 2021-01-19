@@ -206,7 +206,7 @@ export default new Vuex.Store({
     },
     getAllHistory (context) {
       return new Promise((resolve, reject) => {
-        axios.get('http://54.227.187.8:5000/api/history', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.get(`${process.env.VUE_APP_BASE_URL}/history`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             console.log(res.data.data)
             context.commit('SET_HISTORY', res.data.data)
@@ -221,7 +221,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         console.log('abcd')
         console.log(deleteProducts)
-        axios.delete('http://54.227.187.8:5000/api/history/delete-history',
+        axios.delete(`${process.env.VUE_APP_BASE_URL}/history/delete-history`,
           { data: { order_detail_ids: deleteProducts } }
         )
           .then((res) => {
@@ -236,10 +236,8 @@ export default new Vuex.Store({
     },
     getCustProfile (context) {
       return new Promise((resolve, reject) => {
-        console.log('abcd')
-        axios.get('http://54.227.187.8:5000/api/user/detail', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.get(`${process.env.VUE_APP_BASE_URL}/user/detail`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
-            console.log(res.data.data)
             context.commit('SET_PROFILE', res.data.data)
             resolve(res.data.data)
           })
@@ -250,7 +248,7 @@ export default new Vuex.Store({
     },
     updateProfile ({ context, payload }, { email, username, firstName, lastName, address, phone, gender, bod }) {
       return new Promise((resolve, reject) => {
-        axios.patch('http://54.227.187.8:5000/api/user/edit-profile', {
+        axios.patch(`${process.env.VUE_APP_BASE_URL}/user/edit-profile`, {
           email: email,
           username: username,
           first_name: firstName,
@@ -273,7 +271,7 @@ export default new Vuex.Store({
     updateImage (context, file) {
       return new Promise((resolve, reject) => {
         console.log('kebaca?')
-        axios.patch('http://54.227.187.8:5000/api/user/update-image', file, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.patch(`${process.env.VUE_APP_BASE_URL}/user/update-image`, file, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             Swal.fire(
               'Success!',
@@ -293,7 +291,7 @@ export default new Vuex.Store({
     },
     deleteImage (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.delete('http://54.227.187.8:5000/api/user/delete-image', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.delete(`${process.env.VUE_APP_BASE_URL}/user/delete-image`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             resolve(res.data)
           })

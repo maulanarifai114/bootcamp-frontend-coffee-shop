@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin:0px;">
       <aside class="col-lg-6 side-image-2 d-none d-lg-block"></aside>
       <aside class="col-12 col-lg-6 side-main">
          <nav class="navbar-auth d-flex flex-row justify-content-center align-items-center">
@@ -15,15 +15,17 @@
       <h4>Don't forget me, he's the only one you forget</h4>
       <div class="group-form">
         <form @submit.prevent="">
-          <Input id="oldPassword" :type="type" placeholder="Enter old password"/>
-          <Input id="newPassword" :type="type" placeholder="Enter new password"/>
-          <Input id="repeatPassword" :type="type" placeholder="Repeat your new password"/>
+          <Input id="oldPassword" :type="type" placeholder="Enter old password" v-model="oldPassword" @input="OldPassword"/>
+          <span>{{alert}}</span>
+          <Input id="newPassword" :type="type" placeholder="Enter new password" v-model="newPassword"/>
+          <Input id="repeatPassword" :type="type" placeholder="Repeat your new password" v-model="repeatPassword"  @input="repeat"/>
+          <span>{{alertRepeat}}</span>
           <div class="custom-control custom-checkbox checkbox-lg">
   <input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
   <label class="custom-control-label" for="showPassword">Show Password</label>
 </div>
-          <Button color="btn-yellow btn-auth" label="Save" :nonActiveImg=1></Button>
-          <Button color="btn-secondary btn-auth" label="Cancel" :nonActiveImg=1></Button>
+          <Button color="btn-yellow btn-auth" label="Save" :nonActiveImg=1 @click="save"></Button>
+          <Button color="btn-secondary btn-auth" label="Cancel" :nonActiveImg=1 @click="cancel"></Button>
         </form>
       </div>
     </main>
@@ -35,6 +37,8 @@
 <script>
 import Input from '../../components/admin/base/Input'
 import Button from '../../components/auth/base/Button'
+import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Forgot',
   components: {
@@ -43,17 +47,79 @@ export default {
   },
   data () {
     return {
-      type: 'password'
+      type: 'password',
+      checkOldPassword: '',
+      oldPassword: '',
+      newPassword: '',
+      repeatPassword: '',
+      alert: '',
+      alertRepeat: ''
     }
   },
+  computed: {
+    ...mapGetters(['getProfile'])
+  },
+  mounted () {
+    this.getCustProfile()
+  },
   methods: {
+    ...mapActions(['getCustProfile', 'updateProfile']),
     showPW () {
-      console.log(this.type)
       if (this.type === 'password') {
         this.type = 'text'
       } else {
         this.type = 'password'
       }
+    },
+    OldPassword (e) {
+      const user = {
+        email: this.$store.state.profile.email,
+        password: this.oldPassword
+      }
+      axios.post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
+        .then((res) => {
+          this.checkOldPassword = '1'
+          this.alert = ''
+          console.log('benar')
+        }).catch(() => {
+          this.alert = 'Password Lama Salah'
+        })
+    },
+    repeat (e) {
+      if (this.repeatPassword !== this.newPassword) {
+        this.alertRepeat = 'harus sama dengan new password'
+      } else {
+        this.alertRepeat = ''
+      }
+    },
+    save () {
+      if (this.checkOldPassword === '1' && this.newPassword === this.repeatPassword) {
+        const payload = {
+          prev_password: this.oldPassword,
+          password: this.newPassword,
+          repeat_password: this.repeatPassword
+        }
+        axios.patch(`${process.env.VUE_APP_BASE_URL}/auth/edit-password`, payload)
+          .then((res) => {
+            this.$swal.fire({
+              title: 'success!',
+              text: 'password changed successfully',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            })
+            this.$router.push({ path: 'profile' })
+          })
+      } else {
+        this.$swal.fire({
+          title: 'Warning!',
+          text: 'error changing password',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+      }
+    },
+    cancel () {
+      this.$router.push({ path: 'profile' })
     }
   }
 }

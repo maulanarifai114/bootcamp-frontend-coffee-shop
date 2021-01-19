@@ -46,15 +46,20 @@ export default new Vuex.Store({
     },
     checkoutTakeAway: {
       products: [
+        // {
+        //   product_id: 5,
+        //   qty: 3,
+        //   size: '300'
+        // },
+        // {
+        //   product_id: 5,
+        //   qty: 1,
+        //   size: '500'
+        // },
         {
-          product_id: 5,
-          qty: 3,
-          size: '300'
-        },
-        {
-          product_id: 5,
-          qty: 1,
-          size: '500'
+          product_id: 1,
+          qty: 5,
+          size: 'XL'
         },
         {
           product_id: 1,
@@ -63,13 +68,8 @@ export default new Vuex.Store({
         },
         {
           product_id: 1,
-          qty: 2,
+          qty: 3,
           size: 'L'
-        },
-        {
-          product_id: 1,
-          qty: 20,
-          size: 'XL'
         }
       ],
       delivery_method: 'pick up',

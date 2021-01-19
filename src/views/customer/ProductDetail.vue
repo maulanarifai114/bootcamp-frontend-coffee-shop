@@ -91,10 +91,6 @@ export default {
         this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
       } else if (deliverMethod === 'pick up') {
         this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
-        this.checkoutTakeAway = this.$store.state.checkoutTakeAway
-        console.log('dipanggil settimeout', this.checkoutTakeAway)
-        // setTimeout(() => {
-        // }, 10)
       }
     }
   }

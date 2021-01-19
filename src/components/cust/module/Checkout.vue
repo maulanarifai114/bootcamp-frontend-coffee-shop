@@ -11,7 +11,7 @@
         <div class="group-checkout d-flex flex-column">
           <header class="header-checkout">{{item.name}}</header>
           <main class="body-checkout">
-            <div v-if="item.qtyR">
+            <div v-if="item.qtyR || item.qtyL || item.qtyXL">
               <p>x{{item.qtyR}} (Reguler)</p>
               <p>x{{item.qtyL}} (Large)</p>
               <p>x{{item.qtyXL}} (Extra Large)</p>
@@ -75,9 +75,6 @@ export default {
         delivery_method: ''
       }
     },
-    handleCart () {
-
-    },
     getCheckout () {
       const dataSizeGram = {
         name: 'Hot Bowl Noodle',
@@ -89,7 +86,7 @@ export default {
         delivery_method: ''
       }
       const dataSizeReg = {
-        name: 'Cold Brew',
+        name: 'Cold Brwaweew',
         img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
         product_id: 0,
         qtyR: 0,
@@ -116,82 +113,99 @@ export default {
         console.log('pick up')
         this.checkoutTakeAway.products.forEach((item, index) => {
           if (item.size.includes('R')) {
+            // this.handleCart(dataSizeReg, dataSizeReg.qtyR, this.checkoutTakeAway, item, this.resetObjectReg)
             if (this.checkout.length === 0) {
               dataSizeReg.product_id = item.product_id
               dataSizeReg.qtyR = item.qty
+              console.log(dataSizeReg.qtyR)
+              console.log(dataSizeReg.qtyL)
+              console.log(dataSizeReg.qtyXL)
               dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
               this.checkout.push(dataSizeReg)
               this.resetObjectReg(dataSizeReg)
             } else if (this.checkout.length > 0) {
               const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
               if (checkId === -1) {
+                this.resetObjectReg(dataSizeReg)
                 dataSizeReg.product_id = item.product_id
-                console.log(dataSizeReg)
                 dataSizeReg.qtyR = item.qty
                 dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
                 this.checkout.push(dataSizeReg)
                 this.resetObjectReg(dataSizeReg)
               } else {
+                this.resetObjectReg(dataSizeReg)
                 dataSizeReg.qtyR = item.qty
-                this.checkout[checkId].qtyR += dataSizeReg.qtyR
+                this.checkout[checkId].qtyR = dataSizeReg.qtyR
                 this.resetObjectReg(dataSizeReg)
               }
             }
-          } else if (item.size.includes('L')) {
-            console.log('L')
-            // if (this.checkout.length === 0) {
-            //   dataSizeReg.product_id = item.product_id
-            //   dataSizeReg.qtyL = item.qty
-            //   dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-            //   this.checkout.push(dataSizeReg)
-            //   this.resetObjectReg(dataSizeReg)
-            // } else if (this.checkout.length > 0) {
-            //   const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            //   if (checkId === -1) {
-            //     dataSizeReg.product_id = item.product_id
-            //     dataSizeReg.qtyL = item.qty
-            //     dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-            //     this.checkout.push(dataSizeReg)
-            //     this.resetObjectReg(dataSizeReg)
-            //   } else {
-            //     dataSizeReg.qtyL = item.qty
-            //     this.checkout[checkId].qtyL += dataSizeReg.qtyL
-            //     this.resetObjectReg(dataSizeReg)
-            //   }
-            // }
+          } else if (item.size.includes('L') && item.size.length === 1) {
+            if (this.checkout.length === 0) {
+              this.resetObjectReg(dataSizeReg)
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyL = item.qty
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else if (this.checkout.length > 0) {
+              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+              if (checkId === -1) {
+                this.resetObjectReg(dataSizeReg)
+                dataSizeReg.product_id = item.product_id
+                dataSizeReg.qtyL = item.qty
+                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+                this.checkout.push(dataSizeReg)
+                this.resetObjectReg(dataSizeReg)
+              } else {
+                this.resetObjectReg(dataSizeReg)
+                dataSizeReg.qtyL = item.qty
+                console.log(dataSizeReg.qtyR)
+                console.log(dataSizeReg.qtyL)
+                console.log(dataSizeReg.qtyXL)
+                this.checkout[checkId].qtyL = dataSizeReg.qtyL
+                this.resetObjectReg(dataSizeReg)
+              }
+            }
           } else if (item.size.includes('XL')) {
-            console.log('XL')
-            // if (this.checkout.length === 0) {
-            //   dataSizeReg.product_id = item.product_id
-            //   dataSizeReg.qtyXL = item.qty
-            //   dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-            //   this.checkout.push(dataSizeReg)
-            //   this.resetObjectReg(dataSizeReg)
-            // } else if (this.checkout.length > 0) {
-            //   const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            //   if (checkId === -1) {
-            //     dataSizeReg.product_id = item.product_id
-            //     dataSizeReg.qtyXL = item.qty
-            //     dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
-            //     this.checkout.push(dataSizeReg)
-            //     this.resetObjectReg(dataSizeReg)
-            //   } else {
-            //     dataSizeReg.qtyXL = item.qty
-            //     this.checkout[checkId].qtyXL += dataSizeReg.qtyXL
-            //     this.resetObjectReg(dataSizeReg)
-            //   }
-            // }
+            if (this.checkout.length === 0) {
+              this.resetObjectReg(dataSizeReg)
+              console.log(dataSizeReg)
+              dataSizeReg.product_id = item.product_id
+              dataSizeReg.qtyXL = item.qty
+              console.log(dataSizeReg.qtyR)
+              console.log(dataSizeReg.qtyL)
+              console.log(dataSizeReg.qtyXL)
+              dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+              this.checkout.push(dataSizeReg)
+              this.resetObjectReg(dataSizeReg)
+            } else if (this.checkout.length > 0) {
+              const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+              if (checkId === -1) {
+                this.resetObjectReg(dataSizeReg)
+                dataSizeReg.product_id = item.product_id
+                dataSizeReg.qtyXL = item.qty
+                dataSizeReg.delivery_method = this.checkoutTakeAway.delivery_method
+                this.checkout.push(dataSizeReg)
+                this.resetObjectReg(dataSizeReg)
+              } else {
+                this.resetObjectReg(dataSizeReg)
+                dataSizeReg.qtyXL = item.qty
+                this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
+                this.resetObjectReg(dataSizeReg)
+              }
+            }
           }
         })
       }
     }
   },
-  mounted () {
-    this.getCheckout()
-  },
+  // mounted () {
+  //   this.getCheckout()
+  // },
   created () {
     this.$store.watch(
       (state) => {
+        console.log(state)
         return this.$store.state.checkoutTakeAway // could also put a Getter here
       },
       (newValue, oldValue) => {
@@ -208,12 +222,6 @@ export default {
       }
     )
   }
-  // watch: {
-  //   $store.state.checkoutTakeAway: function (val) {
-  //     console.log(val)
-  //     this.getCheckout()
-  //   }
-  // }
 }
 </script>
 

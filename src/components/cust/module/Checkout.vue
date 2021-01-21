@@ -2,7 +2,7 @@
   <div class="box w-100 d-flex flex-row ">
     <div :class="this.checkout.length === 0 ? 'd-flex align-items-center':'' ">
       <h2 v-if="this.checkout.length === 0" class="cart-here">Your Cart Here</h2>
-      <!-- Dine In -->
+      <!-- Cart -->
       <div class=" d-flex " v-for="(item, index) in checkout" :key="index">
         <div class="container-img d-flex align-items-center">
           <div class="img">
@@ -25,7 +25,7 @@
           </main>
         </div>
       </div>
-      <!-- End Dine In -->
+      <!-- End Cart -->
     </div>
     <div class="group-checkout-2 d-flex flex-row flex-grow-1 justify-content-end align-items-center">
       <p class="checkout">Checkout</p>

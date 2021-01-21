@@ -1,8 +1,8 @@
 <template>
     <div class="content">
-        <div class="leftside">
+        <!-- <div class="leftside">
             <Promo/>
-        </div>
+        </div> -->
         <div class="rightside">
             <Products/>
         </div>
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import Promo from '../../../components/module/Product/promoCust'
+// import Promo from '../../../components/module/Product/promoCust'
 import Products from '../../../components/module/Product/productsCust'
 export default {
   name: 'ProductCust',
   components: {
-    Promo,
+    // Promo,
     Products
   }
 }
@@ -26,7 +26,7 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color:  #ececec;
+    background-color:  #ffffff;
     margin: 0;
     padding: 0;
 }

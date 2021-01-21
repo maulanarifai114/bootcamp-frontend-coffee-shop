@@ -58,31 +58,39 @@ export default {
       if (this.checkout.length === 0) {
         axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
           .then((res) => {
+            console.log(item)
             console.log('ini dataSizeReg', dataSizeReg)
+            console.log('ini checkout', this.checkout)
             const img = res.data.result[0].images
             const name = res.data.result[0].name
             const id = res.data.result[0].id
             if (item.size === 'R') {
+              console.log('ini ukuran R')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyR = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
+              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === 'L') {
+              console.log('ini ukuran L')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyL = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
+              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === 'XL') {
+              console.log('ini ukuran XL')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyXL = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
+              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === '250') {
               dataSizeGram.name = name
               dataSizeGram.img = img
@@ -168,190 +176,8 @@ export default {
       }
     },
     handleCart (dataSizeReg, dataSizeGram, methodCheckout) {
-      // axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-      //   .then((res)=> {
-      //   })
-      //   .catch((err)=> {
-      //     console.log(err);
-      //   })
       methodCheckout.products.forEach((item, index) => {
-        if (item.size.includes('R')) {
-          this.handlePerSize(dataSizeReg, dataSizeGram, methodCheckout, item)
-          // if (this.checkout.length === 0) {
-          //   axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-          //     .then((res) => {
-          //       console.log(item.size)
-          //       const img = res.data.result[0].images
-          //       const name = res.data.result[0].name
-          //       const id = res.data.result[0].id
-          //       dataSizeReg.name = name
-          //       dataSizeReg.img = img
-          //       dataSizeReg.product_id = id
-          //       dataSizeReg.qtyR = item.qty
-          //       dataSizeReg.delivery_method = methodCheckout.delivery_method
-          //       this.checkout.push(dataSizeReg)
-          //     })
-          //     .catch((err) => {
-          //       console.log(err)
-          //     })
-          // } else if (this.checkout.length > 0) {
-          //   const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-          //   if (checkId === -1) {
-          //     dataSizeReg.product_id = item.product_id
-          //     dataSizeReg.qtyR = item.qty
-          //     dataSizeReg.delivery_method = methodCheckout.delivery_method
-          //     this.checkout.push(dataSizeReg)
-          //   } else {
-          //     dataSizeReg.qtyR = item.qty
-          //     this.checkout[checkId].qtyR = dataSizeReg.qtyR
-          //   }
-          // }
-        } else if (item.size.includes('L') && item.size.length === 1) {
-          if (this.checkout.length === 0) {
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-              .then((res) => {
-                const img = res.data.result[0].images
-                const name = res.data.result[0].name
-                const id = res.data.result[0].id
-                dataSizeReg.name = name
-                dataSizeReg.img = img
-                dataSizeReg.product_id = id
-                dataSizeReg.qtyL = item.qty
-                dataSizeReg.delivery_method = methodCheckout.delivery_method
-                this.checkout.push(dataSizeReg)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          } else if (this.checkout.length > 0) {
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            if (checkId === -1) {
-              dataSizeReg.product_id = item.product_id
-              dataSizeReg.qtyL = item.qty
-              dataSizeReg.delivery_method = methodCheckout.delivery_method
-              this.checkout.push(dataSizeReg)
-            } else {
-              dataSizeReg.qtyL = item.qty
-              this.checkout[checkId].qtyL = dataSizeReg.qtyL
-            }
-          }
-        } else if (item.size.includes('XL')) {
-          if (this.checkout.length === 0) {
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-              .then((res) => {
-                const img = res.data.result[0].images
-                const name = res.data.result[0].name
-                const id = res.data.result[0].id
-                dataSizeReg.name = name
-                dataSizeReg.img = img
-                dataSizeReg.product_id = id
-                dataSizeReg.qtyXL = item.qty
-                dataSizeReg.delivery_method = methodCheckout.delivery_method
-                this.checkout.push(dataSizeReg)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          } else if (this.checkout.length > 0) {
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            if (checkId === -1) {
-              dataSizeReg.product_id = item.product_id
-              dataSizeReg.qtyXL = item.qty
-              dataSizeReg.delivery_method = methodCheckout.delivery_method
-              this.checkout.push(dataSizeReg)
-            } else {
-              dataSizeReg.qtyXL = item.qty
-              this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
-            }
-          }
-        } else if (item.size.includes('250')) {
-          if (this.checkout.length === 0) {
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-              .then((res) => {
-                const img = res.data.result[0].images
-                const name = res.data.result[0].name
-                const id = res.data.result[0].id
-                dataSizeGram.name = name
-                dataSizeGram.img = img
-                dataSizeGram.product_id = id
-                dataSizeGram.qty250 = item.qty
-                dataSizeGram.delivery_method = methodCheckout.delivery_method
-                this.checkout.push(dataSizeGram)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          } else if (this.checkout.length > 0) {
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            if (checkId === -1) {
-              dataSizeGram.product_id = item.product_id
-              dataSizeGram.qty250 = item.qty
-              dataSizeGram.delivery_method = methodCheckout.delivery_method
-              this.checkout.push(dataSizeGram)
-            } else {
-              dataSizeGram.qty250 = item.qty
-              this.checkout[checkId].qty250 = dataSizeGram.qty250
-            }
-          }
-        } else if (item.size.includes('300')) {
-          if (this.checkout.length === 0) {
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-              .then((res) => {
-                const img = res.data.result[0].images
-                const name = res.data.result[0].name
-                const id = res.data.result[0].id
-                dataSizeGram.name = name
-                dataSizeGram.img = img
-                dataSizeGram.product_id = id
-                dataSizeGram.qty300 = item.qty
-                dataSizeGram.delivery_method = methodCheckout.delivery_method
-                this.checkout.push(dataSizeGram)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          } else if (this.checkout.length > 0) {
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            if (checkId === -1) {
-              dataSizeGram.product_id = item.product_id
-              dataSizeGram.qty300 = item.qty
-              dataSizeGram.delivery_method = methodCheckout.delivery_method
-              this.checkout.push(dataSizeGram)
-            } else {
-              dataSizeGram.qty300 = item.qty
-              this.checkout[checkId].qty300 = dataSizeGram.qty300
-            }
-          }
-        } else if (item.size.includes('500')) {
-          if (this.checkout.length === 0) {
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-              .then((res) => {
-                const img = res.data.result[0].images
-                const name = res.data.result[0].name
-                const id = res.data.result[0].id
-                dataSizeGram.name = name
-                dataSizeGram.img = img
-                dataSizeGram.product_id = id
-                dataSizeGram.qty500 = item.qty
-                dataSizeGram.delivery_method = methodCheckout.delivery_method
-                this.checkout.push(dataSizeGram)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          } else if (this.checkout.length > 0) {
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            if (checkId === -1) {
-              dataSizeGram.product_id = item.product_id
-              dataSizeGram.qty500 = item.qty
-              dataSizeGram.delivery_method = methodCheckout.delivery_method
-              this.checkout.push(dataSizeGram)
-            } else {
-              dataSizeGram.qty500 = item.qty
-              this.checkout[checkId].qty500 = dataSizeGram.qty500
-            }
-          }
-        }
+        this.handlePerSize(dataSizeReg, dataSizeGram, methodCheckout, item)
       })
     },
     getCheckout () {
@@ -375,16 +201,19 @@ export default {
       }
       if (this.deliver === this.checkoutDineIn.delivery_method) {
         this.handleCart(dataSizeReg, dataSizeGram, this.checkoutDineIn)
+        console.log('checkout berhasil', this.checkout)
       } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
         this.handleCart(dataSizeReg, dataSizeGram, this.checkoutHomeDelivery)
+        console.log('checkout berhasil', this.checkout)
       } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
         this.handleCart(dataSizeReg, dataSizeGram, this.checkoutTakeAway)
+        console.log('checkout berhasil', this.checkout)
       }
     }
   },
-  mounted () {
-    this.getCheckout()
-  },
+  // mounted () {
+  //   this.getCheckout()
+  // },
   created () {
     this.$store.watch(
       (state) => {

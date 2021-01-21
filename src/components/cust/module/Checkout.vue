@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Checkout',
@@ -47,50 +48,41 @@ export default {
       name: this.$store.state.detailP.name,
       img: this.$store.state.detailP.img,
       deliver: this.$store.state.detailP.deliver,
-      checkoutDineIn: this.$store.state.checkoutDineIn,
-      checkoutHomeDelivery: this.$store.state.checkoutHomeDelivery,
-      checkoutTakeAway: this.$store.state.checkoutTakeAway,
+      checkoutDineInData: this.$store.state.checkoutDineIn,
+      checkoutHomeDeliveryData: this.$store.state.checkoutHomeDelivery,
+      checkoutTakeAwayData: this.$store.state.checkoutTakeAway,
       checkout: []
     }
   },
   methods: {
     handlePerSize (dataSizeReg, dataSizeGram, methodCheckout, item) {
-      if (this.checkout.length === 0) {
-        axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
-          .then((res) => {
-            console.log(item)
-            console.log('ini dataSizeReg', dataSizeReg)
-            console.log('ini checkout', this.checkout)
+      axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`) // AXIOS FOR GET PRODUCT BY ID ()
+        .then((res) => {
+          if (this.checkout.length === 0) {
             const img = res.data.result[0].images
             const name = res.data.result[0].name
             const id = res.data.result[0].id
             if (item.size === 'R') {
-              console.log('ini ukuran R')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyR = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === 'L') {
-              console.log('ini ukuran L')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyL = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === 'XL') {
-              console.log('ini ukuran XL')
               dataSizeReg.name = name
               dataSizeReg.img = img
               dataSizeReg.product_id = id
               dataSizeReg.qtyXL = item.qty
               dataSizeReg.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeReg)
-              console.log('checkout setelahnya', this.checkout)
             } else if (item.size === '250') {
               dataSizeGram.name = name
               dataSizeGram.img = img
@@ -113,67 +105,69 @@ export default {
               dataSizeGram.delivery_method = methodCheckout.delivery_method
               this.checkout.push(dataSizeGram)
             }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      } else if (this.checkout.length > 0) {
-        const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-        if (checkId === -1) {
-          if (item.size === 'R') {
-            dataSizeReg.qtyR = item.qty
-            dataSizeReg.delivery_method = methodCheckout.delivery_method
-            dataSizeReg.product_id = item.product_id
-            this.checkout.push(dataSizeReg)
-          } else if (item.size === 'L') {
-            dataSizeReg.qtyL = item.qty
-            dataSizeReg.delivery_method = methodCheckout.delivery_method
-            dataSizeReg.product_id = item.product_id
-            this.checkout.push(dataSizeReg)
-          } else if (item.size === 'XL') {
-            dataSizeReg.qtyXL = item.qty
-            dataSizeReg.delivery_method = methodCheckout.delivery_method
-            dataSizeReg.product_id = item.product_id
-            this.checkout.push(dataSizeReg)
-          } else if (item.size === '250') {
-            dataSizeGram.qty250 = item.qty
-            dataSizeGram.delivery_method = methodCheckout.delivery_method
-            dataSizeGram.product_id = item.product_id
-            this.checkout.push(dataSizeGram)
-          } else if (item.size === '300') {
-            dataSizeGram.qty300 = item.qty
-            dataSizeGram.delivery_method = methodCheckout.delivery_method
-            dataSizeGram.product_id = item.product_id
-            this.checkout.push(dataSizeGram)
-          } else if (item.size === '500') {
-            dataSizeGram.qt500 = item.qty
-            dataSizeGram.delivery_method = methodCheckout.delivery_method
-            dataSizeGram.product_id = item.product_id
-            this.checkout.push(dataSizeGram)
+          } else if (this.checkout.length > 0) {
+            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
+            if (checkId === -1) {
+              if (item.size === 'R') {
+                dataSizeReg.qtyR = item.qty
+                dataSizeReg.delivery_method = methodCheckout.delivery_method
+                dataSizeReg.product_id = item.product_id
+                this.checkout.push(dataSizeReg)
+              } else if (item.size === 'L') {
+                dataSizeReg.qtyL = item.qty
+                dataSizeReg.delivery_method = methodCheckout.delivery_method
+                dataSizeReg.product_id = item.product_id
+                this.checkout.push(dataSizeReg)
+              } else if (item.size === 'XL') {
+                dataSizeReg.qtyXL = item.qty
+                dataSizeReg.delivery_method = methodCheckout.delivery_method
+                dataSizeReg.product_id = item.product_id
+                this.checkout.push(dataSizeReg)
+              } else if (item.size === '250') {
+                dataSizeGram.qty250 = item.qty
+                dataSizeGram.delivery_method = methodCheckout.delivery_method
+                dataSizeGram.product_id = item.product_id
+                this.checkout.push(dataSizeGram)
+              } else if (item.size === '300') {
+                dataSizeGram.qty300 = item.qty
+                dataSizeGram.delivery_method = methodCheckout.delivery_method
+                dataSizeGram.product_id = item.product_id
+                this.checkout.push(dataSizeGram)
+              } else if (item.size === '500') {
+                dataSizeGram.qt500 = item.qty
+                dataSizeGram.delivery_method = methodCheckout.delivery_method
+                dataSizeGram.product_id = item.product_id
+                this.checkout.push(dataSizeGram)
+              }
+            } else {
+              if (item.size === 'R') {
+                dataSizeReg.qtyR = item.qty
+                this.checkout[checkId].qtyR = dataSizeReg.qtyR
+              } else if (item.size === 'L') {
+                dataSizeReg.qtyL = item.qty
+                this.checkout[checkId].qtyL = dataSizeReg.qtyL
+              } else if (item.size === 'XL') {
+                dataSizeReg.qtyXL = item.qty
+                this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
+              } else if (item.size === '250') {
+                dataSizeGram.qty250 = item.qty
+                this.checkout[checkId].qty250 = dataSizeGram.qty250
+              } else if (item.size === '300') {
+                dataSizeGram.qty300 = item.qty
+                this.checkout[checkId].qty300 = dataSizeGram.qty300
+              } else if (item.size === '500') {
+                dataSizeGram.qty500 = item.qty
+                this.checkout[checkId].qty500 = dataSizeGram.qty500
+              }
+            }
           }
-        } else {
-          if (item.size === 'R') {
-            dataSizeReg.qtyR = item.qty
-            this.checkout[checkId].qtyR = dataSizeReg.qtyR
-          } else if (item.size === 'L') {
-            dataSizeReg.qtyL = item.qty
-            this.checkout[checkId].qtyL = dataSizeReg.qtyL
-          } else if (item.size === 'XL') {
-            dataSizeReg.qtyXL = item.qty
-            this.checkout[checkId].qtyXL = dataSizeReg.qtyXL
-          } else if (item.size === '250') {
-            dataSizeGram.qty250 = item.qty
-            this.checkout[checkId].qty250 = dataSizeGram.qty250
-          } else if (item.size === '300') {
-            dataSizeGram.qty300 = item.qty
-            this.checkout[checkId].qty300 = dataSizeGram.qty300
-          } else if (item.size === '500') {
-            dataSizeGram.qty500 = item.qty
-            this.checkout[checkId].qty500 = dataSizeGram.qty500
-          }
-          // this.checkout[checkId].checkSize = qtySize
-        }
-      }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      // if () {
+      //   console.log('gagal masuk')
+      // }
     },
     handleCart (dataSizeReg, dataSizeGram, methodCheckout) {
       methodCheckout.products.forEach((item, index) => {
@@ -199,75 +193,90 @@ export default {
         qtyXL: 0,
         delivery_method: ''
       }
-      if (this.deliver === this.checkoutDineIn.delivery_method) {
-        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutDineIn)
-        console.log('checkout berhasil', this.checkout)
-      } else if (this.deliver === this.checkoutHomeDelivery.delivery_method) {
-        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutHomeDelivery)
-        console.log('checkout berhasil', this.checkout)
-      } else if (this.deliver === this.checkoutTakeAway.delivery_method) {
-        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutTakeAway)
-        console.log('checkout berhasil', this.checkout)
+      if (this.deliver === this.checkoutDineInData.delivery_method) {
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutDineInData)
+      } else if (this.deliver === this.checkoutHomeDeliveryData.delivery_method) {
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutHomeDeliveryData)
+      } else if (this.deliver === this.checkoutTakeAwayData.delivery_method) {
+        this.handleCart(dataSizeReg, dataSizeGram, this.checkoutTakeAwayData)
       }
     }
   },
   // mounted () {
   //   this.getCheckout()
   // },
+  computed: {
+    ...mapGetters(['getDineIn', 'getHomeDev', 'getPickUp'])
+  },
   created () {
+    // getDineIn (newValue, oldValue) {
+    //   console.log(newValue)
+    //   console.log(oldValue)
+    // },
+    // getHomeDev (newValue, oldValue) {
+    //   console.log(newValue)
+    //   console.log(oldValue)
+    // },
+    // getPickUp (newValue, oldValue) {
+    //   console.log(newValue)
+    //   console.log(oldValue)
+    // }
     this.$store.watch(
       (state) => {
-        return this.$store.state.checkoutTakeAway
+        console.log('ini state', state)
+        return state.checkoutHomeDelivery
       },
       (newValue, oldValue) => {
-        this.checkoutTakeAway = newValue
-        this.checkout = []
-        this.getCheckout()
+        console.log('new Value', newValue)
+        console.log('old Value', oldValue)
+        // this.checkoutTakeAway = newValue
+        // this.checkout = []
+        // this.getCheckout()
       },
       {
         deep: true
       }
     )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.checkoutHomeDelivery
-      },
-      (newValue, oldValue) => {
-        this.checkoutHomeDelivery = newValue
-        this.checkout = []
-        this.getCheckout()
-      },
-      {
-        deep: true
-      }
-    )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.checkoutDineIn
-      },
-      (newValue, oldValue) => {
-        console.log(newValue)
-        console.log(oldValue)
-        this.checkoutDineIn = newValue
-        this.checkout = []
-        this.getCheckout()
-      },
-      {
-        deep: true
-      }
-    )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.detailP.deliver
-      },
-      (newValue, oldValue) => {
-        this.deliver = newValue
-        this.getCheckout()
-      },
-      {
-        deep: true
-      }
-    )
+    // this.$store.watch(
+    //   (state) => {
+    //     return this.$store.state.checkoutHomeDelivery
+    //   },
+    //   (newValue, oldValue) => {
+    //     this.checkoutHomeDelivery = newValue
+    //     this.checkout = []
+    //     this.getCheckout()
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
+    // this.$store.watch(
+    //   (state) => {
+    //     return this.$store.state.checkoutDineIn
+    //   },
+    //   (newValue, oldValue) => {
+    //     console.log(newValue)
+    //     console.log(oldValue)
+    //     this.checkoutDineIn = newValue
+    //     this.checkout = []
+    //     this.getCheckout()
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
+    // this.$store.watch(
+    //   (state) => {
+    //     return this.$store.state.detailP.deliver
+    //   },
+    //   (newValue, oldValue) => {
+    //     this.deliver = newValue
+    //     this.getCheckout()
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
   }
 }
 </script>

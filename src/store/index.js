@@ -192,7 +192,6 @@ export default new Vuex.Store({
     },
     deleteHistory (context, { deleteProducts }) {
       return new Promise((resolve, reject) => {
-        console.log('abcd')
         console.log(deleteProducts)
         axios.delete(`${process.env.VUE_APP_BASE_URL}history/delete-history`,
           { data: { order_detail_ids: deleteProducts } }
@@ -209,7 +208,6 @@ export default new Vuex.Store({
     },
     getCustProfile (context) {
       return new Promise((resolve, reject) => {
-        console.log('abcd')
         axios.get(`${process.env.VUE_APP_BASE_URL}user/detail`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             context.commit('SET_PROFILE', res.data.data)
@@ -303,6 +301,15 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getDineIn (state) {
+      return state.checkoutDineIn
+    },
+    getHomeDev (state) {
+      return state.checkoutHomeDelivery
+    },
+    getPickUp (state) {
+      return state.checkoutTakeAway
+    },
     getHistory (state) {
       return state.history
     },

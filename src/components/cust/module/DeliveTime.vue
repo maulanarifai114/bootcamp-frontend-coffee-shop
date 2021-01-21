@@ -83,6 +83,19 @@ export default {
     const now = this.now
     const date = this.date
     this.$store.commit('SET_DELIVERY', { deliver, now, date })
+  },
+  created () {
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.detailP.deliver
+      },
+      (newValue, oldValue) => {
+        this.deliver = newValue
+      },
+      {
+        deep: true
+      }
+    )
   }
 }
 </script>

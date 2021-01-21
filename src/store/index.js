@@ -23,16 +23,18 @@ export default new Vuex.Store({
       delivery_time: ''
     },
     detailP: {
-      id: 1,
-      img: 'https://images.unsplash.com/photo-1585492594199-2211db8cbd4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80',
-      name: 'Cold Breww',
-      description: 'Cold Brew Is A Cold Coffee',
+      id: 0,
+      img: '.',
+      name: '.',
+      description: '.',
       amount: 0,
-      price: 30000,
-      deliver: 'dine in',
+      price: 0,
+      priceMid: 0,
+      priceHigh: 0,
+      deliver: '.',
       now: 'yes',
       date: '',
-      size: ['R', 'XL']
+      size: []
     },
     sizeProduct: '',
     nameproduct: '',
@@ -56,6 +58,9 @@ export default new Vuex.Store({
     allmanageorder: []
   },
   mutations: {
+    SET_PRODUCT_DETAIL (state, payload) {
+      state.detailP = { ...payload }
+    },
     SET_SIZE (state, payload) {
       state.sizeProduct = payload
     },
@@ -305,10 +310,22 @@ export default new Vuex.Store({
       return state.profile
     },
     currentPrice (state) {
-      const price = state.detailP.price
-      const amount = state.detailP.amount
-      const current = price * amount
-      return current.toLocaleString('id-ID')
+      if (state.sizeProduct === 'R' || state.sizeProduct === '250') {
+        const price = state.detailP.price
+        const amount = state.detailP.amount
+        const current = price * amount
+        return current.toLocaleString('id-ID')
+      } else if (state.sizeProduct === 'L' || state.sizeProduct === '300') {
+        const priceMid = state.detailP.priceMid
+        const amount = state.detailP.amount
+        const current = priceMid * amount
+        return current.toLocaleString('id-ID')
+      } else if (state.sizeProduct === 'XL' || state.sizeProduct === '500') {
+        const priceHigh = state.detailP.priceHigh
+        const amount = state.detailP.amount
+        const current = priceHigh * amount
+        return current.toLocaleString('id-ID')
+      }
     },
     getManageOrderId (state) {
       return state.manageorderid

@@ -71,28 +71,56 @@ export default {
     },
     defaultSize () {
       if (this.availableSize.includes('R')) {
-        this.$store.commit('SET_SIZE', 'R')
+        // this.$store.commit('SET_SIZE', 'R')
         this.size = this.$store.state.sizeProduct
       } else if (this.availableSize.includes('L')) {
-        this.$store.commit('SET_SIZE', 'L')
+        // this.$store.commit('SET_SIZE', 'L')
         this.size = this.$store.state.sizeProduct
       } else if (this.availableSize.includes('XL')) {
-        this.$store.commit('SET_SIZE', 'XL')
+        // this.$store.commit('SET_SIZE', 'XL')
         this.size = this
       } else if (this.availableSize.includes('250')) {
-        this.$store.commit('SET_SIZE', '250')
+        // this.$store.commit('SET_SIZE', '250')
         this.size = this.$store.state.sizeProduct
       } else if (this.availableSize.includes('300')) {
-        this.$store.commit('SET_SIZE', '300')
+        // this.$store.commit('SET_SIZE', '300')
         this.size = this.$store.state.sizeProduct
       } else if (this.availableSize.includes('500')) {
-        this.$store.commit('SET_SIZE', '500')
+        // this.$store.commit('SET_SIZE', '500')
         this.size = this.$store.state.sizeProduct
       }
     }
   },
+  // mounted () {
+  //   this.defaultSize()
+  // },
   created () {
-    this.defaultSize()
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.sizeProduct
+      },
+      (newValue, oldValue) => {
+        console.log(newValue)
+        this.sizeProduct = newValue
+        this.defaultSize()
+      },
+      {
+        deep: true
+      }
+    )
+    this.$store.watch(
+      (state) => {
+        return this.$store.state.detailP.size
+      },
+      (newValue, oldValue) => {
+        console.log(newValue)
+        this.availableSize = newValue
+        this.defaultSize()
+      },
+      {
+        deep: true
+      }
+    )
   }
 }
 </script>

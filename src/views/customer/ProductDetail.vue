@@ -42,7 +42,7 @@ import AmountPrice from '../../components/cust/module/AmountPrice'
 import SizeProduct from '../../components/cust/module/SizeProduct'
 import Checkout from '../../components/cust/module/Checkout'
 import Button from '../../components/cust/base/Button'
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'ProductDetail',
   components: {
@@ -92,7 +92,47 @@ export default {
       } else if (deliverMethod === 'pick up') {
         this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
       }
+    },
+    getProductById () {
+      const id = this.$route.query.id
+      axios.get(`${process.env.VUE_APP_BASE_URL}products/${id}`) // AXIOS FOR GET PRODUCT BY ID ()
+        .then((res) => {
+          const data = res.data.result[0]
+          const newData = {
+            id: 0,
+            img: '.',
+            name: '.',
+            description: '.',
+            amount: 0,
+            price: 0,
+            priceMid: 0,
+            priceHigh: 0,
+            deliver: '.',
+            now: 'yes',
+            date: '',
+            size: []
+          }
+          newData.id = data.id
+          newData.img = data.images
+          this.img = data.images
+          newData.name = data.name
+          newData.description = data.description
+          newData.price = data.price
+          newData.priceMid = data.price + 5000
+          newData.priceHigh = data.price + 8000
+          newData.deliver = data.is_dine_in ? 'dine in' : (data.is_home_delivery ? 'home delivery' : 'pick up')
+          newData.size = data.size.split(',')
+          // console.log(data)
+          // console.log(newData)
+          this.$store.commit('SET_PRODUCT_DETAIL', newData)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
+  },
+  created () {
+    this.getProductById()
   }
 }
 </script>

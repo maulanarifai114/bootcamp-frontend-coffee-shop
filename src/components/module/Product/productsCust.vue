@@ -74,5 +74,8 @@ export default {
   font-family: Rubik;
   border-color: #6A4029!important;
 }
+.page-item.disabled .page-link {
+  font-family: Rubik;
+}
 
 </style>

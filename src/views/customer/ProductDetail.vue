@@ -29,7 +29,7 @@
       </aside>
       <!-- Checkout -->
       <div class="col-xl-8 col-12 mb-3">
-        <Checkout :dine_in="checkoutDineIn" :home_delivery="checkoutHomeDelivery" :pick_up="checkoutTakeAway"></Checkout>
+        <Checkout></Checkout>
       </div>
     </main>
   </div>
@@ -63,6 +63,36 @@ export default {
     }
   },
   methods: {
+    helperAllCart () {
+      const qtyR = this.$store.state.detailP.amount
+      const qtyL = this.$store.state.detailP.amount
+      const qtyXL = this.$store.state.detailP.amount
+      const qty250 = this.$store.state.detailP.amount
+      const qty300 = this.$store.state.detailP.amount
+      const qty500 = this.$store.state.detailP.amount
+      const data = {
+        qtyR,
+        qtyL,
+        qtyXL,
+        qty250,
+        qty300,
+        qty500
+      }
+      const productId = this.$store.state.detailP.id
+      if (this.$store.state.sizeProduct === 'R') {
+        this.$store.commit('SET_ALL_CART', { qtyR: data.qtyR, product_id: productId, qtyL: 0, qtyXL: 0 })
+      } else if (this.$store.state.sizeProduct === 'L') {
+        this.$store.commit('SET_ALL_CART', { qtyL: data.qtyL, product_id: productId, qtyXL: 0, qtyR: 0 })
+      } else if (this.$store.state.sizeProduct === 'XL') {
+        this.$store.commit('SET_ALL_CART', { qtyXL: data.qtyXL, product_id: productId, qtyR: 0, qtyL: 0 })
+      } else if (this.$store.state.sizeProduct === '250') {
+        this.$store.commit('SET_ALL_CART', { qty250: data.qty250, product_id: productId, qty300: 0, qty500: 0 })
+      } else if (this.$store.state.sizeProduct === '300') {
+        this.$store.commit('SET_ALL_CART', { qty300: data.qty300, product_id: productId, qty250: 0, qty500: 0 })
+      } else if (this.$store.state.sizeProduct === '500') {
+        this.$store.commit('SET_ALL_CART', { qty500: data.qty500, product_id: productId, qty300: 0, qty250: 0 })
+      }
+    },
     helperCart (method, setCheckout, setQty, qtyNew, data) {
       if (method.products.length === 0) {
         this.$store.commit(setCheckout, data)
@@ -87,10 +117,13 @@ export default {
       const qtyNew = data.qty
       if (deliverMethod === 'dine in') {
         this.helperCart(checkoutDineIn, 'SET_CHECKOUT_DINE_IN', 'SET_QTY_DINE_IN', qtyNew, data)
+        this.helperAllCart()
       } else if (deliverMethod === 'home delivery') {
         this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
+        this.helperAllCart()
       } else if (deliverMethod === 'pick up') {
         this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
+        this.helperAllCart()
       }
     },
     getProductById () {
@@ -125,6 +158,7 @@ export default {
           // console.log(data)
           // console.log(newData)
           this.$store.commit('SET_PRODUCT_DETAIL', newData)
+          // this.$store.commit('SET_ALL_CART', newData)
         })
         .catch((err) => {
           console.log(err)

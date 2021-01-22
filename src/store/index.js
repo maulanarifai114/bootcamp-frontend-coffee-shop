@@ -7,22 +7,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    allCheckout: [
+      // {
+      //   name: 'Promise Soul',
+      //   img: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+      //   product_id: 32,
+      //   qtyR: 2,
+      //   qtyL: 4,
+      //   qtyXL: 0,
+      //   delivery_method: 'dine in'
+      // }
+    ],
     checkoutDineIn: {
       products: [
-        {
-          product_id: 32,
-          qty: 2,
-          size: 'R'
-        },
-        {
-          product_id: 32,
-          qty: 4,
-          size: 'L'
-        }
         // {
-        //   product_id: 33,
-        //   qty: 1,
-        //   size: '500'
+        //   product_id: 32,
+        //   qty: 2,
+        //   size: 'R'
+        // },
+        // {
+        //   product_id: 32,
+        //   qty: 4,
+        //   size: 'L'
         // }
       ],
       delivery_method: 'dine in',
@@ -74,6 +80,76 @@ export default new Vuex.Store({
     allmanageorder: []
   },
   mutations: {
+    SET_ALL_CART (state, payload) {
+      // Regular, Large, Xtra Large
+      const dataSizeReg = {
+        name: state.detailP.name,
+        img: state.detailP.img,
+        product_id: state.detailP.id,
+        qtyR: payload.qtyR,
+        qtyL: payload.qtyL,
+        qtyXL: payload.qtyXL,
+        delivery_method: state.detailP.deliver
+      }
+      // 250 gram, 300 gram, 500 gram
+      const dataSizeGram = {
+        name: state.detailP.name,
+        img: state.detailP.img,
+        product_id: state.detailP.id,
+        qty250: payload.qty250,
+        qty300: payload.qty300,
+        qty500: payload.qty500,
+        delivery_method: state.detailP.deliver
+      }
+      console.log(dataSizeReg)
+      console.log(dataSizeGram)
+      if (state.allCheckout.length === 0) {
+        if (state.sizeProduct === 'R') {
+          state.allCheckout.push(dataSizeReg)
+        } else if (state.sizeProduct === 'L') {
+          state.allCheckout.push(dataSizeReg)
+        } else if (state.sizeProduct === 'XL') {
+          state.allCheckout.push(dataSizeReg)
+        } else if (state.sizeProduct === '250') {
+          state.allCheckout.push(dataSizeGram)
+        } else if (state.sizeProduct === '300') {
+          state.allCheckout.push(dataSizeGram)
+        } else if (state.sizeProduct === '500') {
+          state.allCheckout.push(dataSizeGram)
+        }
+      } else if (state.allCheckout.length > 0) {
+        const checkId = state.allCheckout.findIndex(item => item.product_id === payload.product_id)
+        if (checkId === -1) {
+          if (state.sizeProduct === 'R') {
+            state.allCheckout.push(dataSizeReg)
+          } else if (state.sizeProduct === 'L') {
+            state.allCheckout.push(dataSizeReg)
+          } else if (state.sizeProduct === 'XL') {
+            state.allCheckout.push(dataSizeReg)
+          } else if (state.sizeProduct === '250') {
+            state.allCheckout.push(dataSizeGram)
+          } else if (state.sizeProduct === '300') {
+            state.allCheckout.push(dataSizeGram)
+          } else if (state.sizeProduct === '500') {
+            state.allCheckout.push(dataSizeGram)
+          }
+        } else {
+          if (state.sizeProduct === 'R') {
+            state.allCheckout[checkId].qtyR += payload.qtyR
+          } else if (state.sizeProduct === 'L') {
+            state.allCheckout[checkId].qtyL += payload.qtyL
+          } else if (state.sizeProduct === 'XL') {
+            state.allCheckout[checkId].qtyXL += payload.qtyXL
+          } else if (state.sizeProduct === '250') {
+            state.allCheckout[checkId].qty250 += payload.qty250
+          } else if (state.sizeProduct === '300') {
+            state.allCheckout[checkId].qty300 += payload.qty300
+          } else if (state.sizeProduct === '500') {
+            state.allCheckout[checkId].qty500 += payload.qty500
+          }
+        }
+      }
+    },
     DELETE_PRODUCT_DETAIL (state) {
       state.detailP.id = 0
       state.detailP.img = ''
@@ -332,14 +408,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getDineIn (state) {
-      return state.checkoutDineIn
-    },
-    getHomeDev (state) {
-      return state.checkoutHomeDelivery
-    },
-    getPickUp (state) {
-      return state.checkoutTakeAway
+    getAllCart (state) {
+      return state.allCheckout
     },
     getHistory (state) {
       return state.history

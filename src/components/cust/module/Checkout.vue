@@ -1,9 +1,10 @@
 <template>
   <div class="box w-100 d-flex flex-row ">
-    <div :class="this.checkout.length === 0 ? 'd-flex align-items-center':'' ">
-      <h2 v-if="this.checkout.length === 0" class="cart-here">Your Cart Here</h2>
+    <div :class="checkout.length === 0 ? 'd-flex align-items-center':'' ">
+      <h2 v-if="checkout.length === 0" class="cart-here">Your Cart Here</h2>
       <!-- Cart -->
       <div v-for="(item, index) in checkout" :key="index">
+        <!-- <h2 v-if="checkout.length > 0 && deliver !== item.delivery_method" class="cart-here">Your Cart Here</h2> -->
         <div class=" d-flex " v-if="item.delivery_method === deliver">
           <div class="container-img d-flex align-items-center">
             <div class="img">
@@ -39,173 +40,27 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'Checkout',
   data () {
     return {
-      deliver: this.$store.state.detailP.deliver,
-      checkoutDineInData: this.$store.state.checkoutDineIn,
-      checkoutHomeDeliveryData: this.$store.state.checkoutHomeDelivery,
-      checkoutTakeAwayData: this.$store.state.checkoutTakeAway,
-      checkout: []
+      deliver: this.$store.state.detailP.deliver
     }
   },
-  methods: {
-    handleSizeReg (dataSizeReg) {
-      dataSizeReg.name = ''
-      dataSizeReg.img = ''
-      dataSizeReg.product_id = 0
-      dataSizeReg.qtyR = 0
-      dataSizeReg.qtyL = 0
-      dataSizeReg.qtyXL = 0
-      dataSizeReg.delivery_method = ''
-    },
-    getCheckout () {
-      if (this.deliver === this.checkoutDineInData.delivery_method) {
-        console.log('Dine In')
-        if (this.checkout.length === 0) {
-          this.checkoutDineInData.products.forEach((item, index) => {
-            const dataSizeReg = {
-              name: '',
-              img: '',
-              product_id: 0,
-              qtyR: 0,
-              qtyL: 0,
-              qtyXL: 0,
-              delivery_method: 'dine in'
-            }
-            console.log(dataSizeReg)
-            axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`)
-              .then((res) => {
-                const data = res.data.result[0]
-                dataSizeReg.name = data.name
-                dataSizeReg.img = data.images
-                dataSizeReg.product_id = data.id
-                if (item.size === 'R') {
-                  dataSizeReg.qtyR = item.qty
-                } else if (item.size === 'L') {
-                  dataSizeReg.qtyL = item.qty
-                } else if (item.size === 'XL') {
-                  dataSizeReg.qtyXL = item.qty
-                }
-                console.log(dataSizeReg)
-                if (this.checkout.length === 0) {
-                  this.checkout.push(dataSizeReg)
-                } else {
-                  const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-                  console.log(this.checkout[checkId])
-                  if (item.size === 'R') {
-                    this.checkout[checkId].qtyR = item.qty
-                  } else if (item.size === 'L') {
-                    this.checkout[checkId].qtyL = item.qty
-                  } else if (item.size === 'XL') {
-                    this.checkout[checkId].qtyXL = item.qty
-                  }
-                }
-              })
-          })
-        } else {
-          this.checkoutDineInData.products.forEach((item, index) => {
-            console.log('ini else')
-            const checkId = this.checkout.findIndex(element => element.product_id === item.product_id)
-            console.log(item)
-            console.log(checkId)
-            console.log(this.checkout[checkId])
-            if (checkId === -1) {
-              axios.get(`${process.env.VUE_APP_BASE_URL}products/${item.product_id}`)
-                .then((res) => {
-                  const dataSizeReg = {
-                    name: '',
-                    img: '',
-                    product_id: 0,
-                    qtyR: 0,
-                    qtyL: 0,
-                    qtyXL: 0,
-                    delivery_method: 'dine in'
-                  }
-                  const data = res.data.result[0]
-                  dataSizeReg.name = data.name
-                  dataSizeReg.img = data.images
-                  dataSizeReg.product_id = data.id
-                  if (item.size === 'R') {
-                    dataSizeReg.qtyR = item.qty
-                  } else if (item.size === 'L') {
-                    dataSizeReg.qtyL = item.qty
-                  } else if (item.size === 'XL') {
-                    dataSizeReg.qtyXL = item.qty
-                  }
-                  console.log(dataSizeReg)
-                  this.checkout.push(dataSizeReg)
-                })
-            } else {
-              if (item.size === 'R') {
-                this.checkout[checkId].qtyR = item.qty
-              } else if (item.size === 'L') {
-                this.checkout[checkId].qtyL = item.qty
-              } else if (item.size === 'XL') {
-                this.checkout[checkId].qtyXL = item.qty
-              }
-            }
-          })
-        }
-      }
+  computed: {
+    checkout () {
+      return this.$store.getters.getAllCart
     }
   },
   created () {
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.checkoutDineIn
-      },
-      (newValue, oldValue) => {
-        if (this.checkout.length === 0) {
-          this.getCheckout()
-        } else if (this.checkout.length !== 0) {
-          // this.checkoutDineInData = newValue
-          this.getCheckout()
-          console.log(this.checkoutDineInData.products)
-          console.log(newValue)
-          console.log(oldValue)
-        }
-      },
-      {
-        deep: true
-      }
-    )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.checkoutHomeDelivery
-      },
-      (newValue, oldValue) => {
-        this.checkoutHomeDeliveryData = newValue
-        this.checkout = []
-        this.getCheckout()
-      },
-      {
-        deep: true
-      }
-    )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.checkoutTakeAway
-      },
-      (newValue, oldValue) => {
-        this.checkoutTakeAwayData = newValue
-        this.checkout = []
-        this.getCheckout()
-      },
-      {
-        deep: true
-      }
-    )
     this.$store.watch(
       (state) => {
         return this.$store.state.detailP.deliver
       },
       (newValue, oldValue) => {
         this.deliver = newValue
-        this.getCheckout()
       },
       {
         deep: true

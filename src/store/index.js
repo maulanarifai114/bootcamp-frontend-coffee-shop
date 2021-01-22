@@ -8,7 +8,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     checkoutDineIn: {
-      products: [],
+      products: [
+        {
+          product_id: 32,
+          qty: 2,
+          size: 'R'
+        },
+        {
+          product_id: 32,
+          qty: 4,
+          size: 'L'
+        }
+        // {
+        //   product_id: 33,
+        //   qty: 1,
+        //   size: '500'
+        // }
+      ],
       delivery_method: 'dine in',
       delivery_time: ''
     },
@@ -24,14 +40,14 @@ export default new Vuex.Store({
     },
     detailP: {
       id: 0,
-      img: '.',
-      name: '.',
-      description: '.',
+      img: '',
+      name: '',
+      description: '',
       amount: 0,
       price: 0,
       priceMid: 0,
       priceHigh: 0,
-      deliver: '.',
+      deliver: '',
       now: 'yes',
       date: '',
       size: []
@@ -58,6 +74,21 @@ export default new Vuex.Store({
     allmanageorder: []
   },
   mutations: {
+    DELETE_PRODUCT_DETAIL (state) {
+      state.detailP.id = 0
+      state.detailP.img = ''
+      state.detailP.name = ''
+      state.detailP.description = ''
+      state.detailP.amount = 0
+      state.detailP.price = 0
+      state.detailP.priceMid = 0
+      state.detailP.priceHigh = 0
+      state.detailP.deliver = ''
+      state.detailP.now = 'yes'
+      state.detailP.date = ''
+      state.detailP.size = []
+      state.sizeProduct = ''
+    },
     SET_PRODUCT_DETAIL (state, payload) {
       state.detailP = { ...payload }
     },

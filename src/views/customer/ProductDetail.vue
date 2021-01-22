@@ -133,6 +133,9 @@ export default {
   },
   mounted () {
     this.getProductById()
+  },
+  destroyed () {
+    this.$store.commit('DELETE_PRODUCT_DETAIL')
   }
 }
 </script>

@@ -43,6 +43,7 @@ import SizeProduct from '../../components/cust/module/SizeProduct'
 import Checkout from '../../components/cust/module/Checkout'
 import Button from '../../components/cust/base/Button'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 export default {
   name: 'ProductDetail',
   components: {
@@ -115,7 +116,9 @@ export default {
       const checkoutTakeAway = this.$store.state.checkoutTakeAway
       const data = { product_id: productId, qty, size }
       const qtyNew = data.qty
-      if (deliverMethod === 'dine in') {
+      if (qty === 0 || size === '') {
+        Swal.fire('Failed', 'You must choose one size and input an amount', 'warning')
+      } else if (deliverMethod === 'dine in') {
         this.helperCart(checkoutDineIn, 'SET_CHECKOUT_DINE_IN', 'SET_QTY_DINE_IN', qtyNew, data)
         this.helperAllCart()
       } else if (deliverMethod === 'home delivery') {

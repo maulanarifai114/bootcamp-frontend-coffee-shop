@@ -7,30 +7,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    allCheckout: [
-      // {
-      //   name: 'Promise Soul',
-      //   img: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-      //   product_id: 32,
-      //   qtyR: 2,
-      //   qtyL: 4,
-      //   qtyXL: 0,
-      //   delivery_method: 'dine in'
-      // }
-    ],
+    allCheckout: [],
     checkoutDineIn: {
-      products: [
-        // {
-        //   product_id: 32,
-        //   qty: 2,
-        //   size: 'R'
-        // },
-        // {
-        //   product_id: 32,
-        //   qty: 4,
-        //   size: 'L'
-        // }
-      ],
+      products: [],
       delivery_method: 'dine in',
       delivery_time: ''
     },
@@ -408,6 +387,15 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getProductDine (state) {
+      return state.checkoutDineIn
+    },
+    getProductHome (state) {
+      return state.checkoutHomeDelivery
+    },
+    getProductPick (state) {
+      return state.checkoutTakeAway
+    },
     getAllCart (state) {
       return state.allCheckout
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="box w-100 d-flex flex-row ">
+  <div class="box w-100 d-flex flex-row " @click="postCheckout">
     <div :class="checkout.length === 0 ? 'd-flex align-items-center':'' ">
       <h2 v-if="checkout.length === 0" class="cart-here">Your Cart Here</h2>
       <!-- Cart -->
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Checkout',
@@ -49,9 +50,46 @@ export default {
       deliver: this.$store.state.detailP.deliver
     }
   },
+  methods: {
+    postCheckout () {
+      if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
+        Swal.fire('Failed', 'Your cart is empty', 'warning')
+      } else if (this.deliver === 'dine in') {
+        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getDineIn)
+          .then((res) => {
+            const msg = res.data.messages
+            Swal.fire('Success', msg, 'success')
+            console.log(res.data)
+          })
+      } else if (this.deliver === 'home delivery') {
+        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getHomeDev)
+          .then((res) => {
+            const msg = res.data.messages
+            Swal.fire('Success', msg, 'success')
+            console.log(res.data)
+          })
+      } else if (this.deliver === 'pick up') {
+        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getPickUp)
+          .then((res) => {
+            const msg = res.data.messages
+            Swal.fire('Success', msg, 'success')
+            console.log(res.data)
+          })
+      }
+    }
+  },
   computed: {
     checkout () {
       return this.$store.getters.getAllCart
+    },
+    getDineIn () {
+      return this.$store.getters.getProductDine
+    },
+    getHomeDev () {
+      return this.$store.getters.getProductHome
+    },
+    getPickUp () {
+      return this.$store.getters.getProductPick
     }
   },
   created () {

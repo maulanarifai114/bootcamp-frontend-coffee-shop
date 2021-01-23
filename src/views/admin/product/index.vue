@@ -13,11 +13,11 @@
 import Promo from '../../../components/module/Product/promoAdm'
 import Products from '../../../components/module/Product/productsAdm'
 export default {
-  name: 'ProductAdm',
-  components: {
-    Promo,
-    Products
-  }
+	name: 'ProductAdm',
+	components: {
+		Promo,
+		Products
+	}
 }
 </script>
 

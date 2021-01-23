@@ -32,13 +32,13 @@
 
 <script>
 export default {
-  name: 'Payment',
-  methods: {
-    handlechange (e) {
-      console.log(e.target.value)
-      this.$emit('input', e.target.value)
-    }
-  }
+	name: 'Payment',
+	methods: {
+		handlechange (e) {
+			console.log(e.target.value)
+			this.$emit('input', e.target.value)
+		}
+	}
 }
 </script>
 

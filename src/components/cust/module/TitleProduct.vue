@@ -13,12 +13,12 @@
 <script>
 export default {
 
-  name: 'TitleProduct',
-  props: [
-    'title',
-    'description'
+	name: 'TitleProduct',
+	props: [
+		'title',
+		'description'
 
-  ]
+	]
 }
 </script>
 

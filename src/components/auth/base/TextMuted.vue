@@ -10,8 +10,8 @@
 
 <script>
 export default {
-  name: 'TextMuted',
-  props: ['text']
+	name: 'TextMuted',
+	props: ['text']
 }
 </script>
 

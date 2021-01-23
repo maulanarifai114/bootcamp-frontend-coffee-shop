@@ -176,10 +176,10 @@
 
 <script>
 export default {
-  name: 'HistoryCust',
-  computed: {
+	name: 'HistoryCust',
+	computed: {
 
-  }
+	}
 }
 </script>
 

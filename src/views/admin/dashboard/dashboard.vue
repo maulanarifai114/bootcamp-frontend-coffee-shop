@@ -53,50 +53,50 @@
 import ApexCharts from 'apexcharts/dist/apexcharts.js'
 
 export default {
-  name: 'Dashboard',
-  mounted () {
-    var options = {
-      chart: {
-        height: 420,
-        type: 'bar'
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: 'smooth'
-      },
-      series: [
-        {
-          name: 'income',
-          data: [3, 5, 4.5, 4, 4.5, 4],
-          color: '#FFBA33'
-        },
-        {
-          name: 'outcome',
-          data: [-1, -1.5, -2, -1, -1.5, -2],
-          color: '#6A4029'
-        }
-      ],
+	name: 'Dashboard',
+	mounted () {
+		var options = {
+			chart: {
+				height: 420,
+				type: 'bar'
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'smooth'
+			},
+			series: [
+				{
+					name: 'income',
+					data: [3, 5, 4.5, 4, 4.5, 4],
+					color: '#FFBA33'
+				},
+				{
+					name: 'outcome',
+					data: [-1, -1.5, -2, -1, -1.5, -2],
+					color: '#6A4029'
+				}
+			],
 
-      xaxis: {
-        type: 'varchar',
-        categories: ['15', '16', '17', '18', '19', '20']
-      },
-      yaxis: {
-        labels: {
-          formatter: function (value) {
-            return 'IDR ' + value + ' M'
-          }
-        }
-      }
-    }
+			xaxis: {
+				type: 'varchar',
+				categories: ['15', '16', '17', '18', '19', '20']
+			},
+			yaxis: {
+				labels: {
+					formatter: function (value) {
+						return 'IDR ' + value + ' M'
+					}
+				}
+			}
+		}
 
-    if (this.$refs.chart) {
-      var chart = new ApexCharts(this.$refs.chart, options)
-      chart.render()
-    }
-  }
+		if (this.$refs.chart) {
+			var chart = new ApexCharts(this.$refs.chart, options)
+			chart.render()
+		}
+	}
 }
 </script>
 

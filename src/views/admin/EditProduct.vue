@@ -104,159 +104,159 @@ import Input from '../../components/admin/base/Input'
 import Button from '../../components/cust/base/Button'
 import axios from 'axios'
 export default {
-  name: 'ProductDetail',
-  components: {
-    Button,
-    Input
-  },
-  data () {
-    return {
-      start: '',
-      end: '',
-      name: '',
-      price: '',
-      description: '',
-      stock: '',
-      dataProduct: {},
-      allSize: [],
-      avatar: '',
-      deliver: '',
-      din: 0,
-      door: 0,
-      pick: 0
-    }
-  },
-  mounted: function () {
-    this.getData()
-  },
-  methods: {
-    getData () {
-      axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
-        .then((res) => {
-          this.dataProduct = res.data.result[0]
+	name: 'ProductDetail',
+	components: {
+		Button,
+		Input
+	},
+	data () {
+		return {
+			start: '',
+			end: '',
+			name: '',
+			price: '',
+			description: '',
+			stock: '',
+			dataProduct: {},
+			allSize: [],
+			avatar: '',
+			deliver: '',
+			din: 0,
+			door: 0,
+			pick: 0
+		}
+	},
+	mounted: function () {
+		this.getData()
+	},
+	methods: {
+		getData () {
+			axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
+				.then((res) => {
+					this.dataProduct = res.data.result[0]
 
-          const start = res.data.result[0].start_delivery.split(':')
-          const startFormat = start[0] + ':' + start[1]
-          this.start = startFormat
+					const start = res.data.result[0].start_delivery.split(':')
+					const startFormat = start[0] + ':' + start[1]
+					this.start = startFormat
 
-          const end = res.data.result[0].end_delivery.split(':')
-          const endFormat = end[0] + ':' + end[1]
-          this.end = endFormat
+					const end = res.data.result[0].end_delivery.split(':')
+					const endFormat = end[0] + ':' + end[1]
+					this.end = endFormat
 
-          this.name = res.data.result[0].name
-          this.price = res.data.result[0].price
-          this.description = res.data.result[0].description
-          this.stock = res.data.result[0].stock
-          this.allSize = res.data.result[0].size.split(',')
-          this.din = res.data.result[0].is_dine_in === true ? 1 : 0
-          this.door = res.data.result[0].is_home_delivery === true ? 1 : 0
-          this.pick = res.data.result[0].is_pick_up === true ? 1 : 0
-          if (res.data.result[0].is_dine_in === true) {
-            this.deliver = 'din'
-          } else if (res.data.result[0].is_home_delivery === true) {
-            this.deliver = 'door'
-          } else if (res.data.result[0].is_pick_up === true) {
-            this.deliver = 'pick'
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    getImage (e) {
-      console.log(e.target.files[0].size)
-      var image = e.target.files[0]
-      var reader = new FileReader()
-      if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
-        this.$swal.fire({
-          title: 'Warning!',
-          text: 'Only .png, .jpg and .jpeg format allowed!',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-      } else if (image.size >= 4388608) {
-        this.$swal.fire({
-          title: 'Warning!',
-          text: 'Image size is too large, it must be under 4MB',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-      } else {
-        reader.readAsDataURL(image)
-        reader.onload = e => {
-          this.avatar = e.target.result
-        }
-      }
-    },
-    save () {
-      var data = new FormData()
-      var inputGambar = document.getElementById('uploadImage')
-      var dataFile = inputGambar.files[0]
-      const sizes = this.allSize.join(',')
-      if (this.deliver === 'din') {
-        this.din = 1
-      } else if (this.deliver === 'door') {
-        this.door = 1
-      } else if (this.deliver === 'pick') {
-        this.pick = 1
-      }
-      if (dataFile) {
-        data.append('image', dataFile)
-      }
-      // Tambahkan data ke Form Data
-      data.append('is_dine_in', this.din)
-      data.append('is_home_delivery', this.door)
-      data.append('is_pick_up', this.pick)
-      data.append('start_delivery', this.start)
-      data.append('end_delivery', this.end)
-      data.append('stock', this.stock)
-      data.append('name', this.name)
-      data.append('price', this.price)
-      data.append('description', this.description)
-      data.append('size', sizes)
-      axios.patch(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
-        .then((res) => {
-          this.$swal.fire({
-            title: 'success!',
-            text: 'Update Successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })
-          this.$router.push('/admin/product')
-        })
-        .catch((err) => {
-          this.$swal.fire({
-            title: 'Warning!',
-            text: err.response.data,
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-          })
-        })
-    },
-    destroy () {
-      this.$swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios.delete(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
-            .then((res) => {
-              this.$swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-              this.$router.push('/admin/product')
-            })
-        }
-      })
-    }
-  }
+					this.name = res.data.result[0].name
+					this.price = res.data.result[0].price
+					this.description = res.data.result[0].description
+					this.stock = res.data.result[0].stock
+					this.allSize = res.data.result[0].size.split(',')
+					this.din = res.data.result[0].is_dine_in === true ? 1 : 0
+					this.door = res.data.result[0].is_home_delivery === true ? 1 : 0
+					this.pick = res.data.result[0].is_pick_up === true ? 1 : 0
+					if (res.data.result[0].is_dine_in === true) {
+						this.deliver = 'din'
+					} else if (res.data.result[0].is_home_delivery === true) {
+						this.deliver = 'door'
+					} else if (res.data.result[0].is_pick_up === true) {
+						this.deliver = 'pick'
+					}
+				})
+				.catch((err) => {
+					console.log(err)
+				})
+		},
+		getImage (e) {
+			console.log(e.target.files[0].size)
+			var image = e.target.files[0]
+			var reader = new FileReader()
+			if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
+				this.$swal.fire({
+					title: 'Warning!',
+					text: 'Only .png, .jpg and .jpeg format allowed!',
+					icon: 'warning',
+					confirmButtonText: 'Ok'
+				})
+			} else if (image.size >= 4388608) {
+				this.$swal.fire({
+					title: 'Warning!',
+					text: 'Image size is too large, it must be under 4MB',
+					icon: 'warning',
+					confirmButtonText: 'Ok'
+				})
+			} else {
+				reader.readAsDataURL(image)
+				reader.onload = e => {
+					this.avatar = e.target.result
+				}
+			}
+		},
+		save () {
+			var data = new FormData()
+			var inputGambar = document.getElementById('uploadImage')
+			var dataFile = inputGambar.files[0]
+			const sizes = this.allSize.join(',')
+			if (this.deliver === 'din') {
+				this.din = 1
+			} else if (this.deliver === 'door') {
+				this.door = 1
+			} else if (this.deliver === 'pick') {
+				this.pick = 1
+			}
+			if (dataFile) {
+				data.append('image', dataFile)
+			}
+			// Tambahkan data ke Form Data
+			data.append('is_dine_in', this.din)
+			data.append('is_home_delivery', this.door)
+			data.append('is_pick_up', this.pick)
+			data.append('start_delivery', this.start)
+			data.append('end_delivery', this.end)
+			data.append('stock', this.stock)
+			data.append('name', this.name)
+			data.append('price', this.price)
+			data.append('description', this.description)
+			data.append('size', sizes)
+			axios.patch(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+				.then((res) => {
+					this.$swal.fire({
+						title: 'success!',
+						text: 'Update Successfully',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+					this.$router.push('/admin/product')
+				})
+				.catch((err) => {
+					this.$swal.fire({
+						title: 'Warning!',
+						text: err.response.data,
+						icon: 'warning',
+						confirmButtonText: 'Ok'
+					})
+				})
+		},
+		destroy () {
+			this.$swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					axios.delete(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
+						.then((res) => {
+							this.$swal.fire(
+								'Deleted!',
+								'Your file has been deleted.',
+								'success'
+							)
+							this.$router.push('/admin/product')
+						})
+				}
+			})
+		}
+	}
 }
 </script>
 

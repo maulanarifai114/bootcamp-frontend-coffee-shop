@@ -19,13 +19,13 @@ import Coffee from '../../../components/module/Product/coffee'
 import Noncoffee from '../../../components/module/Product/non-coffee'
 import Foods from '../../../components/module/Product/Foods'
 export default {
-  name: 'ProductsCust',
-  components: {
-    // Favourite,
-    Coffee,
-    Noncoffee,
-    Foods
-  }
+	name: 'ProductsCust',
+	components: {
+		// Favourite,
+		Coffee,
+		Noncoffee,
+		Foods
+	}
 }
 </script>
 

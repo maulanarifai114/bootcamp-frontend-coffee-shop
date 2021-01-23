@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: 'FooterAuth'
+	name: 'FooterAuth'
 }
 </script>
 

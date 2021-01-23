@@ -30,62 +30,62 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'Forgot',
-  components: {
-    Input,
-    Button
-  },
-  data () {
-    return {
-      email: ''
-    }
-  },
-  methods: {
-    checkEmail (e) {
-      const inputEmail = e.target.value
-      console.log('email', inputEmail)
-      if (inputEmail.length >= 1) {
-        this.email = inputEmail
-      } else if (inputEmail.length < 1) {
-        this.email = ''
-      }
-    },
-    sendLink () {
-      if (this.email.length < 1) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Error send email'
-          // text: 'Use minimal 8 character'
-        })
-        // return alert('Fill the blank email')
-      } else if (!this.email.includes('@')) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Error send email'
-          // text: 'Use minimal 8 character'
-        })
-        // return alert('Fill the blank email')
-      }
-      axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, { email: this.email })
-        .then((res) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Check your email now'
-          // text: 'Use minimal 8 character'
-          })
-          // return alert('Check your email now')
-        })
-        .catch((err) => {
-          console.log(err.response.data)
-          Swal.fire({
-            icon: 'error',
-            title: 'Error send email'
-            // text: 'Use minimal 8 character'
-          })
-          // return alert('Check your email now')
-        })
-    }
-  }
+	name: 'Forgot',
+	components: {
+		Input,
+		Button
+	},
+	data () {
+		return {
+			email: ''
+		}
+	},
+	methods: {
+		checkEmail (e) {
+			const inputEmail = e.target.value
+			console.log('email', inputEmail)
+			if (inputEmail.length >= 1) {
+				this.email = inputEmail
+			} else if (inputEmail.length < 1) {
+				this.email = ''
+			}
+		},
+		sendLink () {
+			if (this.email.length < 1) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'Error send email'
+					// text: 'Use minimal 8 character'
+				})
+				// return alert('Fill the blank email')
+			} else if (!this.email.includes('@')) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'Error send email'
+					// text: 'Use minimal 8 character'
+				})
+				// return alert('Fill the blank email')
+			}
+			axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/request`, { email: this.email })
+				.then((res) => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Check your email now'
+						// text: 'Use minimal 8 character'
+					})
+					// return alert('Check your email now')
+				})
+				.catch((err) => {
+					console.log(err.response.data)
+					Swal.fire({
+						icon: 'error',
+						title: 'Error send email'
+						// text: 'Use minimal 8 character'
+					})
+					// return alert('Check your email now')
+				})
+		}
+	}
 }
 </script>
 

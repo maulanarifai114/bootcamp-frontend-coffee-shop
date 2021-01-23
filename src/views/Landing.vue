@@ -12,11 +12,11 @@
 import Navbar from '../components/module/navbarAdm'
 import Footer from '../components/module/footer'
 export default {
-  name: 'Landing',
-  components: {
-    Navbar,
-    Footer
-  }
+	name: 'Landing',
+	components: {
+		Navbar,
+		Footer
+	}
 }
 </script>
 

@@ -9,14 +9,14 @@
 
 <script>
 export default {
-  name: 'ButtonAuth',
-  props: {
-    color: String,
-    label: String,
-    nonActiveImg: {
-      type: Number
-    }
-  }
+	name: 'ButtonAuth',
+	props: {
+		color: String,
+		label: String,
+		nonActiveImg: {
+			type: Number
+		}
+	}
 }
 </script>
 

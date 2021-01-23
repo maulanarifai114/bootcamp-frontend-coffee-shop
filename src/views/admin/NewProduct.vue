@@ -108,122 +108,122 @@ import Input from '../../components/admin/base/Input'
 import InputCat from '../../components/admin/base/InputCat'
 import axios from 'axios'
 export default {
-  name: 'NewProduct',
-  components: {
-    Button,
-    Input,
-    InputCat
-  },
-  data () {
-    return {
-      deliver: '',
-      din: 0,
-      door: 0,
-      pick: 0,
-      avatar: 'https://lh3.googleusercontent.com/EbXw8rOdYxOGdXEFjgNP8lh-YAuUxwhOAe2jhrz3sgqvPeMac6a6tHvT35V6YMbyNvkZL4R_a2hcYBrtfUhLvhf-N2X3OB9cvH4uMw=w1064-v0',
-      category: '',
-      start: '',
-      end: '',
-      stock: '',
-      name: '',
-      price: '',
-      description: '',
-      allSize: []
-    }
-  },
-  methods: {
-    inputName (e) {
-      return e
-    },
-    lihatVal (e) {
-      const category = e
-      this.category = category
-      this.allSize = []
-    },
-    startDelivery (e) {
-      const start = e
-      this.start = start
-    },
-    endDelivery (e) {
-      const end = e
-      this.end = end
-    },
-    getImage (e) {
-      var image = e.target.files[0]
-      var reader = new FileReader()
-      if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
-        this.$swal.fire({
-          title: 'Warning!',
-          text: 'Only .png, .jpg and .jpeg format allowed!',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-      } else if (image.size >= 4388608) {
-        this.$swal.fire({
-          title: 'Warning!',
-          text: 'Image size is too large, it must be under 4MB',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-      } else {
-        reader.readAsDataURL(image)
-        reader.onload = e => {
-          this.avatar = e.target.result
-        }
-      }
-    },
-    inputForm () {
-      var data = new FormData()
-      var inputGambar = document.getElementById('uploadImage')
-      var dataFile = inputGambar.files[0]
-      const sizes = this.allSize.join(',')
-      if (this.deliver === 'din') {
-        this.din = 1
-      } else if (this.deliver === 'door') {
-        this.door = 1
-      } else if (this.deliver === 'pick') {
-        this.pick = 1
-      }
+	name: 'NewProduct',
+	components: {
+		Button,
+		Input,
+		InputCat
+	},
+	data () {
+		return {
+			deliver: '',
+			din: 0,
+			door: 0,
+			pick: 0,
+			avatar: 'https://lh3.googleusercontent.com/EbXw8rOdYxOGdXEFjgNP8lh-YAuUxwhOAe2jhrz3sgqvPeMac6a6tHvT35V6YMbyNvkZL4R_a2hcYBrtfUhLvhf-N2X3OB9cvH4uMw=w1064-v0',
+			category: '',
+			start: '',
+			end: '',
+			stock: '',
+			name: '',
+			price: '',
+			description: '',
+			allSize: []
+		}
+	},
+	methods: {
+		inputName (e) {
+			return e
+		},
+		lihatVal (e) {
+			const category = e
+			this.category = category
+			this.allSize = []
+		},
+		startDelivery (e) {
+			const start = e
+			this.start = start
+		},
+		endDelivery (e) {
+			const end = e
+			this.end = end
+		},
+		getImage (e) {
+			var image = e.target.files[0]
+			var reader = new FileReader()
+			if (image.type !== 'image/png' && image.type !== 'image/jpg' && image.type !== 'image/jpeg') {
+				this.$swal.fire({
+					title: 'Warning!',
+					text: 'Only .png, .jpg and .jpeg format allowed!',
+					icon: 'warning',
+					confirmButtonText: 'Ok'
+				})
+			} else if (image.size >= 4388608) {
+				this.$swal.fire({
+					title: 'Warning!',
+					text: 'Image size is too large, it must be under 4MB',
+					icon: 'warning',
+					confirmButtonText: 'Ok'
+				})
+			} else {
+				reader.readAsDataURL(image)
+				reader.onload = e => {
+					this.avatar = e.target.result
+				}
+			}
+		},
+		inputForm () {
+			var data = new FormData()
+			var inputGambar = document.getElementById('uploadImage')
+			var dataFile = inputGambar.files[0]
+			const sizes = this.allSize.join(',')
+			if (this.deliver === 'din') {
+				this.din = 1
+			} else if (this.deliver === 'door') {
+				this.door = 1
+			} else if (this.deliver === 'pick') {
+				this.pick = 1
+			}
 
-      // Tambahkan data ke Form Data
-      data.append('is_dine_in', this.din)
-      data.append('is_home_delivery', this.door)
-      data.append('is_pick_up', this.pick)
-      data.append('category_id', this.category)
-      data.append('start_delivery', this.start)
-      data.append('end_delivery', this.end)
-      data.append('stock', this.stock)
-      data.append('name', this.name)
-      data.append('price', this.price)
-      data.append('description', this.description)
-      data.append('size', sizes)
-      data.append('image', dataFile)
+			// Tambahkan data ke Form Data
+			data.append('is_dine_in', this.din)
+			data.append('is_home_delivery', this.door)
+			data.append('is_pick_up', this.pick)
+			data.append('category_id', this.category)
+			data.append('start_delivery', this.start)
+			data.append('end_delivery', this.end)
+			data.append('stock', this.stock)
+			data.append('name', this.name)
+			data.append('price', this.price)
+			data.append('description', this.description)
+			data.append('size', sizes)
+			data.append('image', dataFile)
 
-      axios.post(`${process.env.VUE_APP_BASE_URL}/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
-        .then(res => {
-          this.$swal.fire({
-            title: 'Success!',
-            text: `Create Product ${res.data.result.name}`,
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })
-          this.$router.push('/admin/product')
-          console.log(res)
-        })
-        .catch(err => {
-          this.$swal.fire({
-            title: 'Warning!',
-            text: err.response.data,
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-          })
-          console.log(err.response)
-        })
-    },
-    reset () {
-      this.allSize = []
-    }
-  }
+			axios.post(`${process.env.VUE_APP_BASE_URL}/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+				.then(res => {
+					this.$swal.fire({
+						title: 'Success!',
+						text: `Create Product ${res.data.result.name}`,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+					this.$router.push('/admin/product')
+					console.log(res)
+				})
+				.catch(err => {
+					this.$swal.fire({
+						title: 'Warning!',
+						text: err.response.data,
+						icon: 'warning',
+						confirmButtonText: 'Ok'
+					})
+					console.log(err.response)
+				})
+		},
+		reset () {
+			this.allSize = []
+		}
+	}
 }
 </script>
 

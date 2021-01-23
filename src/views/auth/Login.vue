@@ -12,11 +12,11 @@ import Navbar from '../../components/auth/module/Navbar'
 import LoginForm from '../../components/auth/module/LoginForm'
 
 export default {
-  name: 'SignUp',
-  components: {
-    Navbar,
-    LoginForm
-  }
+	name: 'SignUp',
+	components: {
+		Navbar,
+		LoginForm
+	}
 }
 </script>
 

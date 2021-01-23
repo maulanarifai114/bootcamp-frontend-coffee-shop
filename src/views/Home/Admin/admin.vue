@@ -13,12 +13,12 @@ import Navbar from '../../../components/module/Home/navbarAdmHome'
 import Footer from '../../../components/module/footer'
 import Content from '../../../components/module/Home/content'
 export default {
-  name: 'Customer',
-  components: {
-    Navbar,
-    Footer,
-    Content
-  }
+	name: 'Customer',
+	components: {
+		Navbar,
+		Footer,
+		Content
+	}
 }
 </script>
 

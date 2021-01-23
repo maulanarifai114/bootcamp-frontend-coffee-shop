@@ -13,10 +13,10 @@ import Col1 from '../module/Footer/col1'
 import Col2 from '../module/Footer/col2'
 import Col3 from '../module/Footer/col3'
 export default {
-  name: 'Footer',
-  components: {
-    Col1, Col2, Col3
-  }
+	name: 'Footer',
+	components: {
+		Col1, Col2, Col3
+	}
 
 }
 </script>

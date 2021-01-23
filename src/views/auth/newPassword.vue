@@ -33,90 +33,90 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'Forgot',
-  components: {
-    Input,
-    Button
-  },
-  data () {
-    return {
-      type: 'password',
-      newpass: '',
-      repeatpass: ''
-    }
-  },
-  methods: {
-    showPW () {
-      console.log(this.type)
-      if (this.type === 'password') {
-        this.type = 'text'
-      } else {
-        this.type = 'password'
-      }
-    },
-    newPass (e) {
-      console.log(e.target.value)
-      this.newpass = e.target.value
-    },
-    repeatPass (e) {
-      console.log(e.target.value)
-      this.repeatpass = e.target.value
-    },
-    changePassword () {
-      if (this.newpass.length < 8 && this.repeatpass.length < 8) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Password is to short'
-          // text: 'Use minimal 8 character'
-        })
-        // return alert('Password is to short')
-      } else if (this.newpass === this.repeatpass) {
-        if (this.newpass.length < 8 && this.repeatpass.length < 8) {
-          console.log('new', this.newpass, 'repeat', this.repeatpass)
-          return Swal.fire({
-            icon: 'error',
-            title: 'Password is to short'
-            // text: 'Use minimal 8 character'
-          })
-          // return alert('Password is to short')
-        } else if (this.newpass.length >= 8 && this.repeatpass.length >= 8) {
-          console.log('lanjut')
-          const user = {
-            password: this.newpass,
-            repeat_password: this.repeatpass
-          }
-          axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params.token}`, user)
-            .then((res) => {
-              console.log(res.data.messages)
-              Swal.fire({
-                icon: 'success',
-                title: res.data.messages
-                // text: 'Use minimal 8 character'
-              })
-              // alert(res.data.messages)
-              this.$router.push('/auth/login')
-            })
-            .catch((err) => {
-              console.log(err.response.data.messages)
-              Swal.fire({
-                icon: 'error',
-                title: err.response.data.messages
-                // text: 'Use minimal 8 character'
-              })
-              // alert(err.response.data.messages)
-            })
-        }
-      } else {
-        console.log('error')
-        Swal.fire({
-          icon: 'error',
-          title: 'Password not have same character'
-          // text: 'Use minimal 8 character'
-        })
-        // alert('Password not have same character')
-      }
-    }
-  }
+	name: 'Forgot',
+	components: {
+		Input,
+		Button
+	},
+	data () {
+		return {
+			type: 'password',
+			newpass: '',
+			repeatpass: ''
+		}
+	},
+	methods: {
+		showPW () {
+			console.log(this.type)
+			if (this.type === 'password') {
+				this.type = 'text'
+			} else {
+				this.type = 'password'
+			}
+		},
+		newPass (e) {
+			console.log(e.target.value)
+			this.newpass = e.target.value
+		},
+		repeatPass (e) {
+			console.log(e.target.value)
+			this.repeatpass = e.target.value
+		},
+		changePassword () {
+			if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'Password is to short'
+					// text: 'Use minimal 8 character'
+				})
+				// return alert('Password is to short')
+			} else if (this.newpass === this.repeatpass) {
+				if (this.newpass.length < 8 && this.repeatpass.length < 8) {
+					console.log('new', this.newpass, 'repeat', this.repeatpass)
+					return Swal.fire({
+						icon: 'error',
+						title: 'Password is to short'
+						// text: 'Use minimal 8 character'
+					})
+					// return alert('Password is to short')
+				} else if (this.newpass.length >= 8 && this.repeatpass.length >= 8) {
+					console.log('lanjut')
+					const user = {
+						password: this.newpass,
+						repeat_password: this.repeatpass
+					}
+					axios.post(`${process.env.VUE_APP_BASE_URL}auth/forgot-password/new-password/${this.$route.params.token}`, user)
+						.then((res) => {
+							console.log(res.data.messages)
+							Swal.fire({
+								icon: 'success',
+								title: res.data.messages
+								// text: 'Use minimal 8 character'
+							})
+							// alert(res.data.messages)
+							this.$router.push('/auth/login')
+						})
+						.catch((err) => {
+							console.log(err.response.data.messages)
+							Swal.fire({
+								icon: 'error',
+								title: err.response.data.messages
+								// text: 'Use minimal 8 character'
+							})
+							// alert(err.response.data.messages)
+						})
+				}
+			} else {
+				console.log('error')
+				Swal.fire({
+					icon: 'error',
+					title: 'Password not have same character'
+					// text: 'Use minimal 8 character'
+				})
+				// alert('Password not have same character')
+			}
+		}
+	}
 }
 </script>
 

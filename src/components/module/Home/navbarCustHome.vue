@@ -34,15 +34,15 @@
 
 <script>
 export default {
-  name: 'Navbar',
-  methods: {
-    goSignUp () {
-      this.$router.push('/auth/signup')
-    },
-    goLogin () {
-      this.$router.push('/auth/login')
-    }
-  }
+	name: 'Navbar',
+	methods: {
+		goSignUp () {
+			this.$router.push('/auth/signup')
+		},
+		goLogin () {
+			this.$router.push('/auth/login')
+		}
+	}
 }
 </script>
 

@@ -27,55 +27,55 @@
 import { mapGetters, mapActions } from 'vuex'
 import Swal from 'sweetalert2'
 export default {
-  name: 'HistoryCust',
-  data () {
-    return {
-      deleteProducts: []
-    }
-  },
-  methods: {
-    ...mapActions({ getAllHistory: 'getAllHistory', deleteHistory: 'deleteHistory' }),
-    selectAll () {
-      this.deleteProducts = this.getHistory.map((history) => history.id)
-      console.log(this.deleteProducts)
-    },
-    unselectAll () {
-      this.deleteProducts = []
-    },
-    deleteCustHistory () {
-      const payload = {
-        deleteProducts: this.deleteProducts
-      }
-      Swal.fire({
-        // title: 'Are You Sure?',
-        text: 'Are you sure you want to delete selected items?',
-        // icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#6A4029',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          console.log(this.deleteProducts)
-          this.deleteHistory(payload)
-            .then((res) => {
-              Swal.fire(
-                'Deleted!',
-                'Your history product has been deleted'
-              )
-              this.getAllHistory()
-              this.deleteProducts = []
-            })
-        }
-      })
-    }
-  },
-  computed: {
-    ...mapGetters(['getHistory'])
-  },
-  mounted () {
-    this.getAllHistory()
-  }
+	name: 'HistoryCust',
+	data () {
+		return {
+			deleteProducts: []
+		}
+	},
+	methods: {
+		...mapActions({ getAllHistory: 'getAllHistory', deleteHistory: 'deleteHistory' }),
+		selectAll () {
+			this.deleteProducts = this.getHistory.map((history) => history.id)
+			console.log(this.deleteProducts)
+		},
+		unselectAll () {
+			this.deleteProducts = []
+		},
+		deleteCustHistory () {
+			const payload = {
+				deleteProducts: this.deleteProducts
+			}
+			Swal.fire({
+				// title: 'Are You Sure?',
+				text: 'Are you sure you want to delete selected items?',
+				// icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#6A4029',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					console.log(this.deleteProducts)
+					this.deleteHistory(payload)
+						.then((res) => {
+							Swal.fire(
+								'Deleted!',
+								'Your history product has been deleted'
+							)
+							this.getAllHistory()
+							this.deleteProducts = []
+						})
+				}
+			})
+		}
+	},
+	computed: {
+		...mapGetters(['getHistory'])
+	},
+	mounted () {
+		this.getAllHistory()
+	}
 }
 </script>
 

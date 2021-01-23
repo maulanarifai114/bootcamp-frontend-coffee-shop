@@ -44,67 +44,73 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'Checkout',
-  data () {
-    return {
-      deliver: this.$store.state.detailP.deliver
-    }
-  },
-  methods: {
-    postCheckout () {
-      if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
-        Swal.fire('Failed', 'Your cart is empty', 'warning')
-      } else if (this.deliver === 'dine in') {
-        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getDineIn)
-          .then((res) => {
-            const msg = res.data.messages
-            Swal.fire('Success', msg, 'success')
-            console.log(res.data)
-          })
-      } else if (this.deliver === 'home delivery') {
-        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getHomeDev)
-          .then((res) => {
-            const msg = res.data.messages
-            Swal.fire('Success', msg, 'success')
-            console.log(res.data)
-          })
-      } else if (this.deliver === 'pick up') {
-        axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getPickUp)
-          .then((res) => {
-            const msg = res.data.messages
-            Swal.fire('Success', msg, 'success')
-            console.log(res.data)
-          })
-      }
-    }
-  },
-  computed: {
-    checkout () {
-      return this.$store.getters.getAllCart
-    },
-    getDineIn () {
-      return this.$store.getters.getProductDine
-    },
-    getHomeDev () {
-      return this.$store.getters.getProductHome
-    },
-    getPickUp () {
-      return this.$store.getters.getProductPick
-    }
-  },
-  created () {
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.detailP.deliver
-      },
-      (newValue, oldValue) => {
-        this.deliver = newValue
-      },
-      {
-        deep: true
-      }
-    )
-  }
+	name: 'Checkout',
+	data () {
+		return {
+			deliver: this.$store.state.detailP.deliver
+		}
+	},
+	methods: {
+		postCheckout () {
+			if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
+				Swal.fire('Failed', 'Your cart is empty', 'warning')
+			} else if (this.deliver === 'dine in') {
+				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getDineIn)
+					.then((res) => {
+						const msg = res.data.messages
+						Swal.fire('Success', msg, 'success')
+						this.$store.commit('RESET_CART_DINE_IN')
+						this.$router.push('/cust/cart')
+						console.log(res.data)
+					})
+			} else if (this.deliver === 'home delivery') {
+				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getHomeDev)
+					.then((res) => {
+						const msg = res.data.messages
+						Swal.fire('Success', msg, 'success')
+						this.$store.commit('RESET_CART_HOME_DELIVERY')
+						this.$router.push('/cust/cart')
+						console.log(res.data)
+					})
+			} else if (this.deliver === 'pick up') {
+				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getPickUp)
+					.then((res) => {
+						const msg = res.data.messages
+						Swal.fire('Success', msg, 'success')
+						this.$store.commit('RESET_CART_PICK_UP')
+						this.$router.push('/cust/cart')
+						console.log(res.data)
+					})
+			}
+		}
+	},
+	computed: {
+		checkout () {
+			return this.$store.getters.getAllCart
+		},
+		getDineIn () {
+			return this.$store.getters.getProductDine
+		},
+		getHomeDev () {
+			return this.$store.getters.getProductHome
+		},
+		getPickUp () {
+			return this.$store.getters.getProductPick
+		}
+	},
+	created () {
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.detailP.deliver
+			},
+			(newValue, oldValue) => {
+				this.deliver = newValue
+			},
+			{
+				deep: true
+			}
+		)
+	}
 }
 </script>
 

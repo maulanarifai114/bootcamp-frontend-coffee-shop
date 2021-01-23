@@ -14,8 +14,8 @@
 
 <script>
 export default {
-  name: 'Address',
-  props: ['mainAddress', 'detailAddress', 'phoneaddress']
+	name: 'Address',
+	props: ['mainAddress', 'detailAddress', 'phoneaddress']
 }
 </script>
 

@@ -51,88 +51,88 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'LoginForm',
-  components: {
-    Button,
-    Inputed,
-    TextMuted
-  },
-  data () {
-    return {
-      pass: '',
-      email: '',
-      messages: ''
-    }
-  },
-  methods: {
-    goSignUp () {
-      this.$router.push('/auth/signup')
-    },
-    checkPassword (e) {
-      const inputPass = e.target.value
-      console.log('pass', inputPass)
-      if (inputPass.length >= 1) {
-        this.pass = inputPass
-      } else if (inputPass.length <= 0) {
-        this.pass = ''
-      }
-    },
-    checkEmail (e) {
-      const inputEmail = e.target.value
-      console.log('email', inputEmail)
-      if (inputEmail.length >= 1) {
-        this.email = inputEmail
-      } else if (inputEmail.length < 1) {
-        this.email = ''
-      }
-    },
-    login () {
-      const email = this.email
-      const password = this.pass
-      const user = {
-        email,
-        password
-      }
-      console.log(user)
-      if (user.email.length < 1) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Fill the blank email'
-        })
-      } else if (!user.email.includes('@')) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'You must insert your email'
-        })
-      } else if (user.password.length < 1) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Fill the blank password'
-        })
-      }
-      axios
-        .post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
-        .then((res) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Success Login'
-          })
-          console.log(res.data.data)
-          localStorage.setItem('token', res.data.token)
-          localStorage.setItem('id', res.data.data.id)
-          localStorage.setItem('role_id', res.data.data.role_id)
-          this.$router.push('/cust/product')
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: 'error',
-            title: err.response.data.messages
-          })
-          this.messages = err.response.data.messages
-          console.log('message', this.messages)
-        })
-    }
-  }
+	name: 'LoginForm',
+	components: {
+		Button,
+		Inputed,
+		TextMuted
+	},
+	data () {
+		return {
+			pass: '',
+			email: '',
+			messages: ''
+		}
+	},
+	methods: {
+		goSignUp () {
+			this.$router.push('/auth/signup')
+		},
+		checkPassword (e) {
+			const inputPass = e.target.value
+			console.log('pass', inputPass)
+			if (inputPass.length >= 1) {
+				this.pass = inputPass
+			} else if (inputPass.length <= 0) {
+				this.pass = ''
+			}
+		},
+		checkEmail (e) {
+			const inputEmail = e.target.value
+			console.log('email', inputEmail)
+			if (inputEmail.length >= 1) {
+				this.email = inputEmail
+			} else if (inputEmail.length < 1) {
+				this.email = ''
+			}
+		},
+		login () {
+			const email = this.email
+			const password = this.pass
+			const user = {
+				email,
+				password
+			}
+			console.log(user)
+			if (user.email.length < 1) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'Fill the blank email'
+				})
+			} else if (!user.email.includes('@')) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'You must insert your email'
+				})
+			} else if (user.password.length < 1) {
+				return Swal.fire({
+					icon: 'error',
+					title: 'Fill the blank password'
+				})
+			}
+			axios
+				.post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
+				.then((res) => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Success Login'
+					})
+					console.log(res.data.data)
+					localStorage.setItem('token', res.data.token)
+					localStorage.setItem('id', res.data.data.id)
+					localStorage.setItem('role_id', res.data.data.role_id)
+					this.$router.push('/cust/product')
+				})
+				.catch((err) => {
+					Swal.fire({
+						icon: 'error',
+						title: err.response.data.messages
+					})
+					this.messages = err.response.data.messages
+					console.log('message', this.messages)
+				})
+		}
+	}
 }
 </script>
 

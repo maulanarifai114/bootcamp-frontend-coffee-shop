@@ -24,45 +24,45 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Favourite',
-  data () {
-    return {
-      currentPages: 1,
-      perPage: 10,
-      products: [],
-      rows: ''
-    }
-  },
-  mounted: function () {
-    this.getProducts()
-  },
-  watch: {
-    currentPages: function (val) {
-      this.getProducts()
-    }
-  },
-  methods: {
-    getProducts () {
-      axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=1&sort=desc`)
-        .then((result) => {
-          // handle success
-          this.products = result.data.result
-          this.rows = result.data.rows
-        //   console.log(result.data)
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error)
-        })
-    },
-    detailProducts (val) {
-      if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
-        this.$router.push(`/admin/edit-product?id=${val}`)
-      } else {
-        this.$router.push({ path: 'product-d', query: { id: val } })
-      }
-    }
-  }
+	name: 'Favourite',
+	data () {
+		return {
+			currentPages: 1,
+			perPage: 10,
+			products: [],
+			rows: ''
+		}
+	},
+	mounted: function () {
+		this.getProducts()
+	},
+	watch: {
+		currentPages: function (val) {
+			this.getProducts()
+		}
+	},
+	methods: {
+		getProducts () {
+			axios.get(`${process.env.VUE_APP_BASE_URL}/products?page=${this.currentPages}&limit=${this.perPage}&category=1&sort=desc`)
+				.then((result) => {
+					// handle success
+					this.products = result.data.result
+					this.rows = result.data.rows
+					//   console.log(result.data)
+				})
+				.catch(function (error) {
+					// handle error
+					console.log(error)
+				})
+		},
+		detailProducts (val) {
+			if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
+				this.$router.push(`/admin/edit-product?id=${val}`)
+			} else {
+				this.$router.push({ path: 'product-d', query: { id: val } })
+			}
+		}
+	}
 }
 </script>
 

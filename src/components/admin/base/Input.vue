@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'InputAuth',
-  props: ['id', 'type', 'placeholder', 'label', 'max', 'value']
+	name: 'InputAuth',
+	props: ['id', 'type', 'placeholder', 'label', 'max', 'value']
 }
 </script>
 

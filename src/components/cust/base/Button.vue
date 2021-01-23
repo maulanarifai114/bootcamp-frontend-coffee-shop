@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: 'ButtonAuth',
-  props: ['color', 'label']
+	name: 'ButtonAuth',
+	props: ['color', 'label']
 }
 </script>
 

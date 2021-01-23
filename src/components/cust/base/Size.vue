@@ -8,22 +8,22 @@
 
 <script>
 export default {
-  name: 'Size',
-  props: ['label', 'id'],
-  data () {
-    return {
-      isActive: 0
-    }
-  },
-  methods: {
-    changeClass () {
-      if (this.isActive === 0) {
-        this.isActive = 1
-      } else if (this.isActive === 1) {
-        this.isActive = 0
-      }
-    }
-  }
+	name: 'Size',
+	props: ['label', 'id'],
+	data () {
+		return {
+			isActive: 0
+		}
+	},
+	methods: {
+		changeClass () {
+			if (this.isActive === 0) {
+				this.isActive = 1
+			} else if (this.isActive === 1) {
+				this.isActive = 0
+			}
+		}
+	}
 }
 </script>
 

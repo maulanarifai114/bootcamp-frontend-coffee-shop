@@ -91,86 +91,86 @@ import InputProfile from '../../components/cust/base/InputProfile'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'Profile',
-  components: {
-    Button,
-    InputProfile
-  },
-  data () {
-    return {
-      editMode: 0,
-      icon: '<img src="../../assets/cust/edit.svg" alt="">',
-      image: '',
-      gender: ''
-    }
-  },
-  methods: {
-    ...mapActions({ getCustProfile: 'getCustProfile', updateProfile: 'updateProfile', updateImage: 'updateImage', deleteImage: 'deleteImage' }),
-    changeEditMode () {
-      this.$store.commit('changeEditMode')
-    },
-    changeStaticMode () {
-      this.$store.commit('changeStaticMode')
-    },
-    changeGender (payload) {
-      this.$store.commit('changeGender')
-    },
-    updateprofilecust () {
-      const payload = {
-        address: this.getProfile.address,
-        email: this.getProfile.email,
-        phone: this.getProfile.phone_number,
-        username: this.getProfile.username,
-        firstName: this.getProfile.first_name,
-        lastName: this.getProfile.last_name,
-        bod: this.getProfile.bod,
-        gender: this.gender
-      }
-      if (payload.address === '' || payload.email === '' || payload.phone === '' || payload.username === '' || payload.firstName === '' || payload.lastName === '' || payload.bod === '' || payload.gender === '') {
-        Swal.fire(
-          'Error!',
-          'Field Can Not Be Empty'
-        )
-      } else {
-        this.updateProfile(payload)
-          .then((res) => {
-            Swal.fire(
-              'Success!',
-              'Your profile has been updated'
-            )
-            this.getCustProfile()
-          })
-      }
-    },
-    handleFileUpload () {
-      this.image = this.$refs.file.files[0]
-      console.log('>>>> 1st element in files array >>>> ', this.image)
-      const formData = new FormData()
-      formData.append('image', this.image)
-      console.log('>> formData >> ', formData)
-      this.$store.dispatch('updateImage', formData)
-    },
-    deleteFileImage () {
-      this.deleteImage()
-        .then((res) => {
-          Swal.fire(
-            'Success!',
-            'Your Image has been deleted'
-          )
-          this.getCustProfile()
-          this.address = ''
-        })
-    },
-    editPassword () {
-      this.$router.push({ path: 'edit-password' })
-    }
-  },
-  computed: {
-    ...mapGetters(['getProfile'])
-  },
-  mounted () {
-    this.getCustProfile()
-  }
+	name: 'Profile',
+	components: {
+		Button,
+		InputProfile
+	},
+	data () {
+		return {
+			editMode: 0,
+			icon: '<img src="../../assets/cust/edit.svg" alt="">',
+			image: '',
+			gender: ''
+		}
+	},
+	methods: {
+		...mapActions({ getCustProfile: 'getCustProfile', updateProfile: 'updateProfile', updateImage: 'updateImage', deleteImage: 'deleteImage' }),
+		changeEditMode () {
+			this.$store.commit('changeEditMode')
+		},
+		changeStaticMode () {
+			this.$store.commit('changeStaticMode')
+		},
+		changeGender (payload) {
+			this.$store.commit('changeGender')
+		},
+		updateprofilecust () {
+			const payload = {
+				address: this.getProfile.address,
+				email: this.getProfile.email,
+				phone: this.getProfile.phone_number,
+				username: this.getProfile.username,
+				firstName: this.getProfile.first_name,
+				lastName: this.getProfile.last_name,
+				bod: this.getProfile.bod,
+				gender: this.gender
+			}
+			if (payload.address === '' || payload.email === '' || payload.phone === '' || payload.username === '' || payload.firstName === '' || payload.lastName === '' || payload.bod === '' || payload.gender === '') {
+				Swal.fire(
+					'Error!',
+					'Field Can Not Be Empty'
+				)
+			} else {
+				this.updateProfile(payload)
+					.then((res) => {
+						Swal.fire(
+							'Success!',
+							'Your profile has been updated'
+						)
+						this.getCustProfile()
+					})
+			}
+		},
+		handleFileUpload () {
+			this.image = this.$refs.file.files[0]
+			console.log('>>>> 1st element in files array >>>> ', this.image)
+			const formData = new FormData()
+			formData.append('image', this.image)
+			console.log('>> formData >> ', formData)
+			this.$store.dispatch('updateImage', formData)
+		},
+		deleteFileImage () {
+			this.deleteImage()
+				.then((res) => {
+					Swal.fire(
+						'Success!',
+						'Your Image has been deleted'
+					)
+					this.getCustProfile()
+					this.address = ''
+				})
+		},
+		editPassword () {
+			this.$router.push({ path: 'edit-password' })
+		}
+	},
+	computed: {
+		...mapGetters(['getProfile'])
+	},
+	mounted () {
+		this.getCustProfile()
+	}
 }
 </script>
 

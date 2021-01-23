@@ -32,8 +32,8 @@
 
 <script>
 export default {
-  name: 'InputTime',
-  props: ['label', 'value', 'id']
+	name: 'InputTime',
+	props: ['label', 'value', 'id']
 }
 </script>
 

@@ -14,8 +14,8 @@
 
 <script>
 export default {
-  name: 'NavbarAuth',
-  props: ['label']
+	name: 'NavbarAuth',
+	props: ['label']
 }
 </script>
 

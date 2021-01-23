@@ -45,135 +45,135 @@ import Button from '../../components/cust/base/Button'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 export default {
-  name: 'ProductDetail',
-  components: {
-    Delivetime,
-    TitleProduct,
-    AmountPrice,
-    SizeProduct,
-    Checkout,
-    Button
-  },
-  data () {
-    return {
-      name: this.$store.state.detailP.name,
-      img: this.$store.state.detailP.img,
-      checkoutDineIn: this.$store.state.checkoutDineIn,
-      checkoutHomeDelivery: this.$store.state.checkoutHomeDelivery,
-      checkoutTakeAway: this.$store.state.checkoutTakeAway
-    }
-  },
-  methods: {
-    helperAllCart () {
-      const qtyR = this.$store.state.detailP.amount
-      const qtyL = this.$store.state.detailP.amount
-      const qtyXL = this.$store.state.detailP.amount
-      const qty250 = this.$store.state.detailP.amount
-      const qty300 = this.$store.state.detailP.amount
-      const qty500 = this.$store.state.detailP.amount
-      const data = {
-        qtyR,
-        qtyL,
-        qtyXL,
-        qty250,
-        qty300,
-        qty500
-      }
-      const productId = this.$store.state.detailP.id
-      if (this.$store.state.sizeProduct === 'R') {
-        this.$store.commit('SET_ALL_CART', { qtyR: data.qtyR, product_id: productId, qtyL: 0, qtyXL: 0 })
-      } else if (this.$store.state.sizeProduct === 'L') {
-        this.$store.commit('SET_ALL_CART', { qtyL: data.qtyL, product_id: productId, qtyXL: 0, qtyR: 0 })
-      } else if (this.$store.state.sizeProduct === 'XL') {
-        this.$store.commit('SET_ALL_CART', { qtyXL: data.qtyXL, product_id: productId, qtyR: 0, qtyL: 0 })
-      } else if (this.$store.state.sizeProduct === '250') {
-        this.$store.commit('SET_ALL_CART', { qty250: data.qty250, product_id: productId, qty300: 0, qty500: 0 })
-      } else if (this.$store.state.sizeProduct === '300') {
-        this.$store.commit('SET_ALL_CART', { qty300: data.qty300, product_id: productId, qty250: 0, qty500: 0 })
-      } else if (this.$store.state.sizeProduct === '500') {
-        this.$store.commit('SET_ALL_CART', { qty500: data.qty500, product_id: productId, qty300: 0, qty250: 0 })
-      }
-    },
-    helperCart (method, setCheckout, setQty, qtyNew, data) {
-      if (method.products.length === 0) {
-        this.$store.commit(setCheckout, data)
-      } else if (method.products.length > 0) {
-        const checkId = method.products.findIndex(item => item.product_id === data.product_id && item.size === data.size)
-        if (checkId === -1) {
-          this.$store.commit(setCheckout, data)
-        } else {
-          this.$store.commit(setQty, { qtyNew, checkId })
-        }
-      }
-    },
-    addToCart () {
-      const productId = this.$store.state.detailP.id
-      const qty = this.$store.state.detailP.amount
-      const size = this.$store.state.sizeProduct
-      const deliverMethod = this.$store.state.detailP.deliver
-      const checkoutDineIn = this.$store.state.checkoutDineIn
-      const checkoutHomeDelivery = this.$store.state.checkoutHomeDelivery
-      const checkoutTakeAway = this.$store.state.checkoutTakeAway
-      const data = { product_id: productId, qty, size }
-      const qtyNew = data.qty
-      if (qty === 0 || size === '') {
-        Swal.fire('Failed', 'You must choose one size and input an amount', 'warning')
-      } else if (deliverMethod === 'dine in') {
-        this.helperCart(checkoutDineIn, 'SET_CHECKOUT_DINE_IN', 'SET_QTY_DINE_IN', qtyNew, data)
-        this.helperAllCart()
-      } else if (deliverMethod === 'home delivery') {
-        this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
-        this.helperAllCart()
-      } else if (deliverMethod === 'pick up') {
-        this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
-        this.helperAllCart()
-      }
-    },
-    getProductById () {
-      const id = this.$route.query.id
-      axios.get(`${process.env.VUE_APP_BASE_URL}products/${id}`) // AXIOS FOR GET PRODUCT BY ID ()
-        .then((res) => {
-          const data = res.data.result[0]
-          const newData = {
-            id: 0,
-            img: '.',
-            name: '.',
-            description: '.',
-            amount: 0,
-            price: 0,
-            priceMid: 0,
-            priceHigh: 0,
-            deliver: '.',
-            now: 'yes',
-            date: '',
-            size: []
-          }
-          newData.id = data.id
-          newData.img = data.images
-          this.img = data.images
-          newData.name = data.name
-          newData.description = data.description
-          newData.price = data.price
-          newData.priceMid = data.price + 5000
-          newData.priceHigh = data.price + 8000
-          newData.deliver = data.is_dine_in ? 'dine in' : (data.is_home_delivery ? 'home delivery' : 'pick up')
-          newData.size = data.size.split(',')
-          // console.log(data)
-          // console.log(newData)
-          this.$store.commit('SET_PRODUCT_DETAIL', newData)
-          // this.$store.commit('SET_ALL_CART', newData)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  },
-  mounted () {
-    this.getProductById()
-  },
-  destroyed () {
-    this.$store.commit('DELETE_PRODUCT_DETAIL')
-  }
+	name: 'ProductDetail',
+	components: {
+		Delivetime,
+		TitleProduct,
+		AmountPrice,
+		SizeProduct,
+		Checkout,
+		Button
+	},
+	data () {
+		return {
+			name: this.$store.state.detailP.name,
+			img: this.$store.state.detailP.img,
+			checkoutDineIn: this.$store.state.checkoutDineIn,
+			checkoutHomeDelivery: this.$store.state.checkoutHomeDelivery,
+			checkoutTakeAway: this.$store.state.checkoutTakeAway
+		}
+	},
+	methods: {
+		helperAllCart () {
+			const qtyR = this.$store.state.detailP.amount
+			const qtyL = this.$store.state.detailP.amount
+			const qtyXL = this.$store.state.detailP.amount
+			const qty250 = this.$store.state.detailP.amount
+			const qty300 = this.$store.state.detailP.amount
+			const qty500 = this.$store.state.detailP.amount
+			const data = {
+				qtyR,
+				qtyL,
+				qtyXL,
+				qty250,
+				qty300,
+				qty500
+			}
+			const productId = this.$store.state.detailP.id
+			if (this.$store.state.sizeProduct === 'R') {
+				this.$store.commit('SET_ALL_CART', { qtyR: data.qtyR, product_id: productId, qtyL: 0, qtyXL: 0 })
+			} else if (this.$store.state.sizeProduct === 'L') {
+				this.$store.commit('SET_ALL_CART', { qtyL: data.qtyL, product_id: productId, qtyXL: 0, qtyR: 0 })
+			} else if (this.$store.state.sizeProduct === 'XL') {
+				this.$store.commit('SET_ALL_CART', { qtyXL: data.qtyXL, product_id: productId, qtyR: 0, qtyL: 0 })
+			} else if (this.$store.state.sizeProduct === '250') {
+				this.$store.commit('SET_ALL_CART', { qty250: data.qty250, product_id: productId, qty300: 0, qty500: 0 })
+			} else if (this.$store.state.sizeProduct === '300') {
+				this.$store.commit('SET_ALL_CART', { qty300: data.qty300, product_id: productId, qty250: 0, qty500: 0 })
+			} else if (this.$store.state.sizeProduct === '500') {
+				this.$store.commit('SET_ALL_CART', { qty500: data.qty500, product_id: productId, qty300: 0, qty250: 0 })
+			}
+		},
+		helperCart (method, setCheckout, setQty, qtyNew, data) {
+			if (method.products.length === 0) {
+				this.$store.commit(setCheckout, data)
+			} else if (method.products.length > 0) {
+				const checkId = method.products.findIndex(item => item.product_id === data.product_id && item.size === data.size)
+				if (checkId === -1) {
+					this.$store.commit(setCheckout, data)
+				} else {
+					this.$store.commit(setQty, { qtyNew, checkId })
+				}
+			}
+		},
+		addToCart () {
+			const productId = this.$store.state.detailP.id
+			const qty = this.$store.state.detailP.amount
+			const size = this.$store.state.sizeProduct
+			const deliverMethod = this.$store.state.detailP.deliver
+			const checkoutDineIn = this.$store.state.checkoutDineIn
+			const checkoutHomeDelivery = this.$store.state.checkoutHomeDelivery
+			const checkoutTakeAway = this.$store.state.checkoutTakeAway
+			const data = { product_id: productId, qty, size }
+			const qtyNew = data.qty
+			if (qty === 0 || size === '') {
+				Swal.fire('Failed', 'You must choose one size and input an amount', 'warning')
+			} else if (deliverMethod === 'dine in') {
+				this.helperCart(checkoutDineIn, 'SET_CHECKOUT_DINE_IN', 'SET_QTY_DINE_IN', qtyNew, data)
+				this.helperAllCart()
+			} else if (deliverMethod === 'home delivery') {
+				this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
+				this.helperAllCart()
+			} else if (deliverMethod === 'pick up') {
+				this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
+				this.helperAllCart()
+			}
+		},
+		getProductById () {
+			const id = this.$route.query.id
+			axios.get(`${process.env.VUE_APP_BASE_URL}products/${id}`) // AXIOS FOR GET PRODUCT BY ID ()
+				.then((res) => {
+					const data = res.data.result[0]
+					const newData = {
+						id: 0,
+						img: '.',
+						name: '.',
+						description: '.',
+						amount: 0,
+						price: 0,
+						priceMid: 0,
+						priceHigh: 0,
+						deliver: '.',
+						now: 'yes',
+						date: '',
+						size: []
+					}
+					newData.id = data.id
+					newData.img = data.images
+					this.img = data.images
+					newData.name = data.name
+					newData.description = data.description
+					newData.price = data.price
+					newData.priceMid = data.price + 5000
+					newData.priceHigh = data.price + 8000
+					newData.deliver = data.is_dine_in ? 'dine in' : (data.is_home_delivery ? 'home delivery' : 'pick up')
+					newData.size = data.size.split(',')
+					// console.log(data)
+					// console.log(newData)
+					this.$store.commit('SET_PRODUCT_DETAIL', newData)
+					// this.$store.commit('SET_ALL_CART', newData)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
+		}
+	},
+	mounted () {
+		this.getProductById()
+	},
+	destroyed () {
+		this.$store.commit('DELETE_PRODUCT_DETAIL')
+	}
 }
 </script>
 

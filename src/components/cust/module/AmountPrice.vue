@@ -15,28 +15,28 @@
 
 <script>
 export default {
-  name: 'AmountPrice',
-  props: [
-    'prices',
-    'stock'
-  ],
-  data () {
-    return {
-    }
-  },
-  methods: {
-    plusAmount () {
-      this.$store.commit('SET_AMOUNT_PLUS')
-    },
-    minusAmount () {
-      this.$store.commit('SET_AMOUNT_MINUS')
-    }
-  },
-  computed: {
-    price () {
-      return this.$store.getters.currentPrice
-    }
-  }
+	name: 'AmountPrice',
+	props: [
+		'prices',
+		'stock'
+	],
+	data () {
+		return {
+		}
+	},
+	methods: {
+		plusAmount () {
+			this.$store.commit('SET_AMOUNT_PLUS')
+		},
+		minusAmount () {
+			this.$store.commit('SET_AMOUNT_MINUS')
+		}
+	},
+	computed: {
+		price () {
+			return this.$store.getters.currentPrice
+		}
+	}
 }
 </script>
 

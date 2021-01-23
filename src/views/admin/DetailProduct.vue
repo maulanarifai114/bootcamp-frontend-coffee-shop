@@ -45,15 +45,15 @@ import Checkout from '../../components/cust/module/Checkout'
 import Button from '../../components/cust/base/Button'
 
 export default {
-  name: 'ProductDetail',
-  components: {
-    Delivetime,
-    TitleProduct,
-    AmountPrice,
-    SizeProduct,
-    Checkout,
-    Button
-  }
+	name: 'ProductDetail',
+	components: {
+		Delivetime,
+		TitleProduct,
+		AmountPrice,
+		SizeProduct,
+		Checkout,
+		Button
+	}
 }
 </script>
 

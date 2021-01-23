@@ -19,10 +19,10 @@
 import Footer from '../../components/auth/module/Footer'
 
 export default {
-  name: 'MainAuth',
-  components: {
-    Footer
-  }
+	name: 'MainAuth',
+	components: {
+		Footer
+	}
 }
 </script>
 

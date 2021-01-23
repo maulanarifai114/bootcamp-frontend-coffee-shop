@@ -44,16 +44,16 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Navbar',
-  methods: {
-    ...mapActions({ getCustProfile: 'getCustProfile' })
-  },
-  computed: {
-    ...mapGetters(['getProfile'])
-  },
-  mounted () {
-    this.getCustProfile()
-  }
+	name: 'Navbar',
+	methods: {
+		...mapActions({ getCustProfile: 'getCustProfile' })
+	},
+	computed: {
+		...mapGetters(['getProfile'])
+	},
+	mounted () {
+		this.getCustProfile()
+	}
 }
 </script>
 

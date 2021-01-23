@@ -20,8 +20,8 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 new Vue({
-  router,
-  store,
-  // Chart,
-  render: h => h(App)
+	router,
+	store,
+	// Chart,
+	render: h => h(App)
 }).$mount('#app')

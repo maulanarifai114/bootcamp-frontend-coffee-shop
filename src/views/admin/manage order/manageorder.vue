@@ -54,44 +54,44 @@ import Address from '../../../components/module/Cart/address'
 import Swal from 'sweetalert2'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'ManageOrder',
-  data () {
-    return {
-      payment: '',
-      products: []
-    }
-  },
-  components: {
-    Summaryproduct,
-    Payment,
-    Calculation,
-    Address
-  },
-  methods: {
-    ...mapActions({ getManageOrderById: 'getManageOrderId', markAsDone: 'markAsDone' }),
-    orderDone () {
-      const payload = {
-        orderId: localStorage.getItem('allorderid')
-      }
-      this.markAsDone(payload)
-        .then((res) => {
-          Swal.fire(
-            'Success!',
-            'The order has been completed'
-          )
-          this.$router.push('bmanage-order')
-        })
-    },
-    pageAllOrder () {
-      this.$router.push('bmanage-order')
-    }
-  },
-  computed: {
-    ...mapGetters(['getManageOrderId'])
-  },
-  mounted () {
-    this.getManageOrderById()
-  }
+	name: 'ManageOrder',
+	data () {
+		return {
+			payment: '',
+			products: []
+		}
+	},
+	components: {
+		Summaryproduct,
+		Payment,
+		Calculation,
+		Address
+	},
+	methods: {
+		...mapActions({ getManageOrderById: 'getManageOrderId', markAsDone: 'markAsDone' }),
+		orderDone () {
+			const payload = {
+				orderId: localStorage.getItem('allorderid')
+			}
+			this.markAsDone(payload)
+				.then((res) => {
+					Swal.fire(
+						'Success!',
+						'The order has been completed'
+					)
+					this.$router.push('bmanage-order')
+				})
+		},
+		pageAllOrder () {
+			this.$router.push('bmanage-order')
+		}
+	},
+	computed: {
+		...mapGetters(['getManageOrderId'])
+	},
+	mounted () {
+		this.getManageOrderById()
+	}
 }
 </script>
 

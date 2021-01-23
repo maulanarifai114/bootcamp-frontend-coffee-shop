@@ -6,26 +6,26 @@
 
 <script>
 export default {
-  name: 'ButtonDelive',
-  data () {
-    return {
-      active: 0,
-      classes: 'nonactive' || 'active'
-    }
-  },
-  props: ['label'],
-  methods: {
-    changeClass () {
-      this.$emit('click')
-      if (this.active === 0) {
-        this.active = 1
-        this.classes = 'active'
-      } else if (this.active === 1) {
-        this.active = 0
-        this.classes = 'nonactive'
-      }
-    }
-  }
+	name: 'ButtonDelive',
+	data () {
+		return {
+			active: 0,
+			classes: 'nonactive' || 'active'
+		}
+	},
+	props: ['label'],
+	methods: {
+		changeClass () {
+			this.$emit('click')
+			if (this.active === 0) {
+				this.active = 1
+				this.classes = 'active'
+			} else if (this.active === 1) {
+				this.active = 0
+				this.classes = 'nonactive'
+			}
+		}
+	}
 }
 </script>
 

@@ -12,11 +12,11 @@
 import Navbar from '../../components/module/navbarCust'
 import Footer from '../../components/module/footer'
 export default {
-  name: 'Customer',
-  components: {
-    Navbar,
-    Footer
-  }
+	name: 'Customer',
+	components: {
+		Navbar,
+		Footer
+	}
 }
 </script>
 

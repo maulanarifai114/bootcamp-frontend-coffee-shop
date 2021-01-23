@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: 'InputProfile',
-  props: ['id', 'label', 'type', 'value', 'placeholder', 'editmode']
+	name: 'InputProfile',
+	props: ['id', 'label', 'type', 'value', 'placeholder', 'editmode']
 }
 </script>
 

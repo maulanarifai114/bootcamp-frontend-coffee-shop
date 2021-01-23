@@ -20,30 +20,30 @@
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 export default {
-  name: 'BeforeManageOrder',
-  data () {
-    return {
-      payment: '',
-      products: []
-    }
-  },
-  methods: {
-    ...mapActions({ getManageOrderAll: 'getAllManageOrder' }),
-    convertTime (date) {
-      return moment(date).format('LLLL')
-    },
-    detailOrder (id) {
-      localStorage.setItem('allorderid', id)
-      this.$router.push('manage-order')
-    //   console.log(id)
-    }
-  },
-  computed: {
-    ...mapGetters(['getAllManageOrder'])
-  },
-  mounted () {
-    this.getManageOrderAll()
-  }
+	name: 'BeforeManageOrder',
+	data () {
+		return {
+			payment: '',
+			products: []
+		}
+	},
+	methods: {
+		...mapActions({ getManageOrderAll: 'getAllManageOrder' }),
+		convertTime (date) {
+			return moment(date).format('LLLL')
+		},
+		detailOrder (id) {
+			localStorage.setItem('allorderid', id)
+			this.$router.push('manage-order')
+			//   console.log(id)
+		}
+	},
+	computed: {
+		...mapGetters(['getAllManageOrder'])
+	},
+	mounted () {
+		this.getManageOrderAll()
+	}
 }
 </script>
 

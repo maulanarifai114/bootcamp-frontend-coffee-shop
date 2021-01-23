@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'Col2'
+	name: 'Col2'
 
 }
 </script>

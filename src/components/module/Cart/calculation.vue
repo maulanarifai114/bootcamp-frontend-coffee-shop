@@ -21,8 +21,8 @@
 
 <script>
 export default {
-  name: 'Calculation',
-  props: ['subtotal', 'taxfees', 'shipping', 'total']
+	name: 'Calculation',
+	props: ['subtotal', 'taxfees', 'shipping', 'total']
 
 }
 </script>

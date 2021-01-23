@@ -3,7 +3,7 @@
     <div class="row" style="margin:0px;">
       <aside class="col-lg-6 side-image-2 d-none d-lg-block"></aside>
       <aside class="col-12 col-lg-6 side-main">
-         <nav class="navbar-auth d-flex flex-row justify-content-center align-items-center">
+          <nav class="navbar-auth d-flex flex-row justify-content-center align-items-center">
       <div class="coffee-logo d-flex flex-row align-items-center">
         <img src="../../assets/auth/coffee-icon.png" alt="">
         <p class="coffee-shop">Coffee Shop</p>
@@ -40,105 +40,105 @@ import Button from '../../components/auth/base/Button'
 import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Forgot',
-  components: {
-    Input,
-    Button
-  },
-  data () {
-    return {
-      type: 'password',
-      checkOldPassword: '',
-      oldPassword: '',
-      newPassword: '',
-      repeatPassword: '',
-      alert: '',
-      alertRepeat: ''
-    }
-  },
-  computed: {
-    ...mapGetters(['getProfile'])
-  },
-  mounted () {
-    this.getCustProfile()
-  },
-  methods: {
-    ...mapActions(['getCustProfile', 'updateProfile']),
-    showPW () {
-      if (this.type === 'password') {
-        this.type = 'text'
-      } else {
-        this.type = 'password'
-      }
-    },
-    OldPassword (e) {
-      const user = {
-        email: this.$store.state.profile.email,
-        password: this.oldPassword
-      }
-      axios.post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
-        .then((res) => {
-          this.checkOldPassword = '1'
-          this.alert = ''
-          console.log('benar')
-        }).catch(() => {
-          this.alert = 'Password Lama Salah'
-        })
-    },
-    repeat (e) {
-      if (this.repeatPassword !== this.newPassword) {
-        this.alertRepeat = 'harus sama dengan new password'
-      } else {
-        this.alertRepeat = ''
-      }
-    },
-    save () {
-      if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
-        return this.$swal.fire({
-          icon: 'error',
-          title: 'Your password is too short!',
-          text: 'Use minimal 8 character'
-          // text: 'Use minimal 8 character'
-        })
-        // return alert('Password is to short')
-      } else if (this.checkOldPassword === '1' && this.newPassword === this.repeatPassword) {
-        if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
-          console.log('new', this.newPassword, 'repeat', this.repeatPassword)
-          return this.$swal.fire({
-            icon: 'error',
-            title: 'Your password is too short!',
-            text: 'Use minimal 8 character'
-          })
-        } else {
-          const payload = {
-            prev_password: this.oldPassword,
-            password: this.newPassword,
-            repeat_password: this.repeatPassword
-          }
-          axios.patch(`${process.env.VUE_APP_BASE_URL}/auth/edit-password`, payload)
-            .then((res) => {
-              this.$swal.fire({
-                title: 'success!',
-                text: 'password changed successfully',
-                icon: 'success',
-                confirmButtonText: 'Ok'
-              })
-              this.$router.push({ path: 'profile' })
-            })
-        }
-      } else {
-        this.$swal.fire({
-          title: 'Warning!',
-          text: 'error changing password',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-      }
-    },
-    cancel () {
-      this.$router.push({ path: 'profile' })
-    }
-  }
+	name: 'Forgot',
+	components: {
+		Input,
+		Button
+	},
+	data () {
+		return {
+			type: 'password',
+			checkOldPassword: '',
+			oldPassword: '',
+			newPassword: '',
+			repeatPassword: '',
+			alert: '',
+			alertRepeat: ''
+		}
+	},
+	computed: {
+		...mapGetters(['getProfile'])
+	},
+	mounted () {
+		this.getCustProfile()
+	},
+	methods: {
+		...mapActions(['getCustProfile', 'updateProfile']),
+		showPW () {
+			if (this.type === 'password') {
+				this.type = 'text'
+			} else {
+				this.type = 'password'
+			}
+		},
+		OldPassword (e) {
+			const user = {
+				email: this.$store.state.profile.email,
+				password: this.oldPassword
+			}
+			axios.post(`${process.env.VUE_APP_BASE_URL}auth/login`, user)
+				.then((res) => {
+					this.checkOldPassword = '1'
+					this.alert = ''
+					console.log('benar')
+				}).catch(() => {
+					this.alert = 'Password Lama Salah'
+				})
+		},
+		repeat (e) {
+			if (this.repeatPassword !== this.newPassword) {
+				this.alertRepeat = 'harus sama dengan new password'
+			} else {
+				this.alertRepeat = ''
+			}
+		},
+		save () {
+			if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
+				return this.$swal.fire({
+					icon: 'error',
+					title: 'Your password is too short!',
+					text: 'Use minimal 8 character'
+					// text: 'Use minimal 8 character'
+				})
+				// return alert('Password is to short')
+			} else if (this.checkOldPassword === '1' && this.newPassword === this.repeatPassword) {
+				if (this.newPassword.length < 8 && this.repeatPassword.length < 8) {
+					console.log('new', this.newPassword, 'repeat', this.repeatPassword)
+					return this.$swal.fire({
+						icon: 'error',
+						title: 'Your password is too short!',
+						text: 'Use minimal 8 character'
+					})
+				} else {
+					const payload = {
+						prev_password: this.oldPassword,
+						password: this.newPassword,
+						repeat_password: this.repeatPassword
+					}
+					axios.patch(`${process.env.VUE_APP_BASE_URL}/auth/edit-password`, payload)
+						.then((res) => {
+							this.$swal.fire({
+								title: 'success!',
+								text: 'password changed successfully',
+								icon: 'success',
+								confirmButtonText: 'Ok'
+							})
+							this.$router.push({ path: 'profile' })
+						})
+				}
+			} else {
+				this.$swal.fire({
+					title: 'Warning!',
+					text: 'error changing password',
+					icon: 'warning',
+					confirmButtonText: 'Ok'
+				})
+			}
+		},
+		cancel () {
+			this.$router.push({ path: 'profile' })
+		}
+	}
 }
 </script>
 

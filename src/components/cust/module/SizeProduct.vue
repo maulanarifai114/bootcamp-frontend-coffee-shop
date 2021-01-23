@@ -54,66 +54,66 @@
 // import Size from '../base/Size'
 
 export default {
-  name: 'SizeProduct',
-  components: {
-    // Size
-  },
-  data () {
-    return {
-      size: this.$store.state.sizeProduct,
-      availableSize: this.$store.state.detailP.size
-    }
-  },
-  methods: {
-    changeSize (el) {
-      const value = el
-      this.$store.commit('SET_SIZE', value)
-    },
-    defaultSize () {
-      if (this.availableSize.includes('R')) {
-        this.size = this.$store.state.sizeProduct
-      } else if (this.availableSize.includes('L')) {
-        this.size = this.$store.state.sizeProduct
-      } else if (this.availableSize.includes('XL')) {
-        this.size = this
-      } else if (this.availableSize.includes('250')) {
-        this.size = this.$store.state.sizeProduct
-      } else if (this.availableSize.includes('300')) {
-        this.size = this.$store.state.sizeProduct
-      } else if (this.availableSize.includes('500')) {
-        this.size = this.$store.state.sizeProduct
-      }
-    }
-  },
-  // mounted () {
-  //   this.defaultSize()
-  // },
-  created () {
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.sizeProduct
-      },
-      (newValue, oldValue) => {
-        this.sizeProduct = newValue
-        this.defaultSize()
-      },
-      {
-        deep: true
-      }
-    )
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.detailP.size
-      },
-      (newValue, oldValue) => {
-        this.availableSize = newValue
-        this.defaultSize()
-      },
-      {
-        deep: true
-      }
-    )
-  }
+	name: 'SizeProduct',
+	components: {
+		// Size
+	},
+	data () {
+		return {
+			size: this.$store.state.sizeProduct,
+			availableSize: this.$store.state.detailP.size
+		}
+	},
+	methods: {
+		changeSize (el) {
+			const value = el
+			this.$store.commit('SET_SIZE', value)
+		},
+		defaultSize () {
+			if (this.availableSize.includes('R')) {
+				this.size = this.$store.state.sizeProduct
+			} else if (this.availableSize.includes('L')) {
+				this.size = this.$store.state.sizeProduct
+			} else if (this.availableSize.includes('XL')) {
+				this.size = this
+			} else if (this.availableSize.includes('250')) {
+				this.size = this.$store.state.sizeProduct
+			} else if (this.availableSize.includes('300')) {
+				this.size = this.$store.state.sizeProduct
+			} else if (this.availableSize.includes('500')) {
+				this.size = this.$store.state.sizeProduct
+			}
+		}
+	},
+	// mounted () {
+	//   this.defaultSize()
+	// },
+	created () {
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.sizeProduct
+			},
+			(newValue, oldValue) => {
+				this.sizeProduct = newValue
+				this.defaultSize()
+			},
+			{
+				deep: true
+			}
+		)
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.detailP.size
+			},
+			(newValue, oldValue) => {
+				this.availableSize = newValue
+				this.defaultSize()
+			},
+			{
+				deep: true
+			}
+		)
+	}
 }
 </script>
 

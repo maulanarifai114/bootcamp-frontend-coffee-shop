@@ -12,8 +12,8 @@
 
 <script>
 export default {
-  name: 'InputCat',
-  props: ['label', 'value', 'id']
+	name: 'InputCat',
+	props: ['label', 'value', 'id']
 }
 </script>
 

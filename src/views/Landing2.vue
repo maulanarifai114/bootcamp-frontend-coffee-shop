@@ -10,12 +10,12 @@
 import Main from './Home/Customer/customer'
 
 export default {
-  name: 'Landing2',
-  components: {
-    // Navbar,
-    // Footer,
-    Main
-  }
+	name: 'Landing2',
+	components: {
+		// Navbar,
+		// Footer,
+		Main
+	}
 }
 </script>
 

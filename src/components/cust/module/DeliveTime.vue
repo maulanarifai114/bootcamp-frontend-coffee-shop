@@ -41,62 +41,62 @@ import Input from '../base/Input'
 import moment from 'moment'
 
 export default {
-  name: 'DeliveTime',
-  components: {
-    Input
-  },
-  // props: [
-  //   'dine',
-  //   'door',
-  //   'pick'
-  // ],
-  data () {
-    return {
-      deliver: this.$store.state.detailP.deliver,
-      now: 'yes',
-      date: '',
-      allow: 0
-    }
-  },
-  methods: {
-    changeValue (e) {
-      this.date = e
-    },
-    allowed () {
-      if (this.now === 'no') {
-        this.allow = 1
-        return this.allow
-      } else {
-        this.allow = 0
-        const datetime = moment().format()
-        const currentDate = datetime.split('+07:00')
-        this.date = currentDate[0]
-        return this.allow
-      }
-    }
-  },
-  computed: {
+	name: 'DeliveTime',
+	components: {
+		Input
+	},
+	// props: [
+	//   'dine',
+	//   'door',
+	//   'pick'
+	// ],
+	data () {
+		return {
+			deliver: this.$store.state.detailP.deliver,
+			now: 'yes',
+			date: '',
+			allow: 0
+		}
+	},
+	methods: {
+		changeValue (e) {
+			this.date = e
+		},
+		allowed () {
+			if (this.now === 'no') {
+				this.allow = 1
+				return this.allow
+			} else {
+				this.allow = 0
+				const datetime = moment().format()
+				const currentDate = datetime.split('+07:00')
+				this.date = currentDate[0]
+				return this.allow
+			}
+		}
+	},
+	computed: {
 
-  },
-  beforeUpdate () {
-    const deliver = this.deliver
-    const now = this.now
-    const date = this.date
-    this.$store.commit('SET_DELIVERY', { deliver, now, date })
-  },
-  created () {
-    this.$store.watch(
-      (state) => {
-        return this.$store.state.detailP.deliver
-      },
-      (newValue, oldValue) => {
-        this.deliver = newValue
-      },
-      {
-        deep: true
-      }
-    )
-  }
+	},
+	beforeUpdate () {
+		const deliver = this.deliver
+		const now = this.now
+		const date = this.date
+		this.$store.commit('SET_DELIVERY', { deliver, now, date })
+	},
+	created () {
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.detailP.deliver
+			},
+			(newValue, oldValue) => {
+				this.deliver = newValue
+			},
+			{
+				deep: true
+			}
+		)
+	}
 }
 </script>
 

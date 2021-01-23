@@ -25,7 +25,7 @@
                   <Button label="Cancel" color="btn-yellow btn-profile-2" @trigger="changeStaticMode"></Button>
                 </div>
               </div>
-              <Button label="Log out" color="btn-profile-white "></Button>
+              <Button label="Log out" color="btn-profile-white " @trigger="logout"></Button>
             </div>
           </aside>
           <aside class="col-lg-8 col-12 d-flex flex-column">
@@ -106,6 +106,13 @@ export default {
 	},
 	methods: {
 		...mapActions({ getCustProfile: 'getCustProfile', updateProfile: 'updateProfile', updateImage: 'updateImage', deleteImage: 'deleteImage' }),
+		logout () {
+			localStorage.removeItem('role_id')
+			localStorage.removeItem('token')
+			localStorage.removeItem('id')
+			this.$router.push('/auth/login')
+			Swal.fire('Success', 'Comeback anytime you want', 'success')
+		},
 		changeEditMode () {
 			this.$store.commit('changeEditMode')
 		},

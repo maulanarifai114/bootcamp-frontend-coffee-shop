@@ -7,8 +7,45 @@
 			<div class="row">
 				<!-- Left Side -->
 				<div class="box col-md-5 mb-5 mb-md-0 d-flex flex-column align-items-center">
+					<!-- Title Order -->
 					<div class="order-summary">Order Summary</div>
-					<div class="order-summary">Order Summary</div>
+					<!-- Order List -->
+					<div class=" d-flex flex-row w-100">
+						<div>
+							<div class="wrap-order-img">
+								<img :src="img" alt="img">
+							</div>
+						</div>
+					</div>
+					<!-- Total Etc. -->
+					<div class="line w-100"></div>
+					<div class="wrap-total d-flex flex-column align-items-start w-100">
+						<!-- Subtotal -->
+						<div class="sub-total d-flex w-100">
+							<div class="sub-total-idr flex-grow-1 d-flex justify-content-between flex-column">
+								<div>SUBTOTAL</div>
+								<div>TAX & FEES</div>
+								<div>SHIPPING</div>
+							</div>
+							<div class="idr">
+								<div>IDR</div>
+								<div>IDR</div>
+								<div>IDR</div>
+							</div>
+							<div>
+								<div class="price">12000</div>
+								<div class="price">12000000</div>
+								<div class="price">12000</div>
+							</div>
+						</div>
+						<!-- Total -->
+						<div class="wrap-total d-flex w-100">
+							<div class="total flex-grow-1">TOTAL</div>
+							<div class="total total-idr">IDR</div>
+							<div class="total">120.000</div>
+						</div>
+						<!-- End -->
+					</div>
 				</div>
 				<!-- Empty Size -->
 				<div class="col-md-2"></div>
@@ -25,14 +62,17 @@
 						<div class=" d-flex">
 							<div class="subtitle-delivery">Delivery to</div>
 						</div>
-						<div @input="addressChange" :contenteditable="editMode === 1 ? 'true':'false'" :class="editMode === 0 ? 'disabled-address':' w-100' ">{{address}}</div>
+						<input v-if="editMode === 1" type="text" v-model="name" class="input-address w-100" placeholder="Enter Your Address...">
+						<input v-else type="text" v-model="name" class="input-address disabled-address w-100" placeholder="Enter Your Address..." disabled>
 						<!-- Full Address -->
 						<div class="wrap-full-address">
-							<div @input="fullAddressChange" class="full-add" :contenteditable="editMode === 1 ? 'true':'false'" :class="editMode === 0 ? 'disabled-address':'' ">{{fulladdress}}</div>
+							<textarea v-if="editMode === 1" v-model="fulladdress" name="fullAdd" id="fullAdd" cols="2" class="input-address-thin w-100" placeholder="Enter Your Full Address..."></textarea>
+							<textarea v-else v-model="fulladdress" name="fullAdd" id="fullAdd" cols="2" class="input-address-thin disabled-address-thin w-100" disabled placeholder="Enter Your Full Address..."></textarea>
 						</div>
 						<!-- Phone -->
 						<div>
-							<div @input="phoneChange" class="full-add" :contenteditable="editMode === 1 ? 'true':'false'" :class="editMode === 0 ? 'disabled-address':'' ">{{phone}}</div>
+							<input v-if="editMode === 1" type="text" v-model="phone" class="input-address-thin w-100" placeholder="Enter Your Address...">
+							<input v-else type="text" v-model="phone" class="input-address-thin disabled-address-thin w-100" placeholder="Enter Your Address..." disabled>
 						</div>
 					</div>
 					<!-- Payment -->
@@ -42,9 +82,9 @@
 					<div class="box mb-box font-poppins">
 						<!-- Card -->
 						<div class=" d-flex">
-							<input type="radio" v-model="method" value="card" id="card" class=" d-none">
+							<input type="radio" v-model="payment_method_id" value="1" id="card" class=" d-none">
 							<label for="card" class="d-flex align-items-center mt-0">
-								<div v-if="method === 'card'" class="active-method">
+								<div v-if="payment_method_id === '1'" class="active-method">
 									<div class="active-little"></div>
 								</div>
 								<div v-else class="inactive-method"></div>
@@ -56,9 +96,9 @@
 						</div>
 						<!-- Bank -->
 						<div class="wrap-mid-payment">
-							<input type="radio" v-model="method" value="bank" id="bank" class=" d-none">
+							<input type="radio" v-model="payment_method_id" value="2" id="bank" class=" d-none">
 							<label for="bank" class="d-flex align-items-center">
-								<div v-if="method === 'bank'">
+								<div v-if="payment_method_id === '2'">
 									<div class="active-method">
 										<div class="active-little"></div>
 									</div>
@@ -76,9 +116,9 @@
 						</div>
 						<!-- Cash On Delivery -->
 						<div class=" d-flex">
-							<input type="radio" v-model="method" value="cod" id="cod" class=" d-none">
+							<input type="radio" v-model="payment_method_id" value="3" id="cod" class=" d-none">
 							<label for="cod" class="d-flex align-items-center mb-0">
-								<div v-if="method === 'cod'">
+								<div v-if="payment_method_id === '3'">
 									<div class="active-method">
 										<div class="active-little"></div>
 									</div>
@@ -151,12 +191,13 @@ export default {
 	name: 'Cart',
 	data () {
 		return {
-			payment: '',
-			products: [],
-			address: 'Cimanggu',
+			img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+			data: {
+			},
+			name: 'Raden',
 			fulladdress: 'Jl. Cimanggu Gg. H. Enung No. 59, RT 01/02',
-			phone: '+62 85771926851',
-			method: 'card',
+			phone: '085771926851',
+			payment_method_id: '1',
 			editMode: 0
 		}
 	},
@@ -187,6 +228,89 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.total {
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 45px;
+	color: #362115;
+}
+
+.total-idr {
+	margin: 0 10px 0 0;
+}
+
+.sub-total {
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 30px;
+	color: #362115;
+	margin: 0 0 45px 0;
+	.idr {
+		margin: 0 10px 0 0;
+	}
+}
+
+.line {
+	margin: 28px 0 18px 0;
+	height: 0.5px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.wrap-order-img {
+	width: 82px;
+	height: 90px;
+	background-color: #dadada;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+textarea {
+	border: 0;
+	resize: none;
+}
+
+textarea::-webkit-scrollbar {
+	width: 5px
+}
+
+textarea::-webkit-scrollbar-thumb {
+	background-color: #dadada;
+}
+
+textarea:focus {
+	border: 0;
+	outline: 0
+}
+
+.input-address {
+	font-weight: 500;
+}
+
+.input-address-thin {
+	font-weight: 400;
+}
+
+.disabled-address, .disabled-address-thin {
+	background-color: rgba(255, 255, 255, 0);
+	color: #777;
+}
+
+.disabled-address-thin {
+	font-weight: 400;
+}
 
 .order-summary {
 	font-family: Poppins;
@@ -335,12 +459,6 @@ h4 {
 
 .subtitle-delivery {
 	font-weight: 700;
-}
-
-.disabled-address {
-	background-color: rgba(255, 255, 255, 0);
-	color: #888;
-	// color: #6A4029;
 }
 
 .wrap-full-address {

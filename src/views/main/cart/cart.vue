@@ -272,47 +272,42 @@ export default {
 						}
 						const qty = item.qty
 						const size = item.size
-						const name = item.products[0].name
-						const price = item.products[0].price
-						const img = item.products[0].images
+						const name = item.product.name
+						const price = item.product.price
+						const img = item.product.images
 						list.name = name
 						list.img = img
 						list.qty = qty
 						if (size === 'R') {
 							list.size = 'Regular'
 							list.price = price * qty
-							this.data_total.subtotal += list.price
 						}
 						if (size === 'L') {
 							list.size = 'Large'
-							list.price = (price + 5000) * qty
-							this.data_total.subtotal += list.price
+							list.price = price * qty
 						}
 						if (size === 'XL') {
 							list.size = 'Extra Large'
-							list.price = (price + 8000) * qty
-							this.data_total.subtotal += list.price
+							list.price = price * qty
 						}
 						if (size === '250') {
 							list.size = '250 Gram'
 							list.price = price * qty
-							this.data_total.subtotal += list.price
 						}
 						if (size === '300') {
 							list.size = '300 Gram'
-							list.price = (price + 5000) * qty
-							this.data_total.subtotal += list.price
+							list.price = price * qty
 						}
 						if (size === '500') {
 							list.size = '500 Gram'
-							list.price = (price + 8000) * qty
-							this.data_total.subtotal += list.price
+							list.price = price * qty
 						}
 						this.data_list.push(list)
 					})
+					this.data_total.subtotal = data.subtotal
 					this.data_total.tax_fees = data.tax_fee
 					this.data_total.shipping = data.shipping
-					this.data_total.total = this.data_total.subtotal + this.data_total.tax_fees + this.data_total.shipping
+					this.data_total.total = data.total
 				})
 				.catch((err) => {
 					console.log(err.response)

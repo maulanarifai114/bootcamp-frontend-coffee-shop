@@ -40,6 +40,7 @@ export default new Vuex.Store({
 		sizeProduct: '',
 		nameproduct: '',
 		product: 0,
+		order_id: 31,
 
 		// Customer Profile
 		editmode: 0,
@@ -59,6 +60,12 @@ export default new Vuex.Store({
 		allmanageorder: []
 	},
 	mutations: {
+		SET_ORDER_ID (state, payload) {
+			state.order_id = payload
+		},
+		RESET_ORDER_ID (state) {
+			state.order_id = 0
+		},
 		RESET_CART_DINE_IN (state) {
 			state.checkoutDineIn.products = []
 			state.checkoutDineIn.delivery_method = 'dine in'
@@ -402,6 +409,15 @@ export default new Vuex.Store({
 		}
 	},
 	getters: {
+		getName (state) {
+			return state.profile.first_name
+		},
+		getAddress (state) {
+			return state.profile.address
+		},
+		getPhone (state) {
+			return state.profile.phone_number
+		},
 		getProductDine (state) {
 			return state.checkoutDineIn
 		},

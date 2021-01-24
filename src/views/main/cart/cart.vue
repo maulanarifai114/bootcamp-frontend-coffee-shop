@@ -6,15 +6,23 @@
 			</div>
 			<div class="row">
 				<!-- Left Side -->
-				<div class="box col-md-5 mb-5 mb-md-0 d-flex flex-column align-items-center">
+				<div class="box box-sm col-lg mb-5 mb-lg-0 d-flex flex-column align-items-center">
 					<!-- Title Order -->
 					<div class="order-summary">Order Summary</div>
 					<!-- Order List -->
-					<div class=" d-flex flex-row w-100">
+					<div class=" all-order d-flex flex-row w-100" v-for="(item, index) in data_list" :key="index">
 						<div>
 							<div class="wrap-order-img">
-								<img :src="img" alt="img">
+								<img :src="item.img" alt="img">
 							</div>
+						</div>
+						<div class=" d-flex flex-column justify-content-between order-list">
+							<div class="item-name">{{item.name}}</div>
+							<div>X {{item.qty}}</div>
+							<div class="item-size">{{item.size}}</div>
+						</div>
+						<div class=" d-flex flex-fill align-items-center justify-content-end order-list">
+							<div>IDR {{item.price.toLocaleString('id-ID')}}</div>
 						</div>
 					</div>
 					<!-- Total Etc. -->
@@ -33,24 +41,24 @@
 								<div>IDR</div>
 							</div>
 							<div>
-								<div class="price">12000</div>
-								<div class="price">12000000</div>
-								<div class="price">12000</div>
+								<div class="price">{{data_total.subtotal.toLocaleString('id-ID')}}</div>
+								<div class="price">{{data_total.tax_fees.toLocaleString('id-ID')}}</div>
+								<div class="price">{{data_total.shipping.toLocaleString('id-ID')}}</div>
 							</div>
 						</div>
 						<!-- Total -->
 						<div class="wrap-total d-flex w-100">
 							<div class="total flex-grow-1">TOTAL</div>
 							<div class="total total-idr">IDR</div>
-							<div class="total">120.000</div>
+							<div class="total">{{data_total.total.toLocaleString('id-ID')}}</div>
 						</div>
 						<!-- End -->
 					</div>
 				</div>
 				<!-- Empty Size -->
-				<div class="col-md-2"></div>
+				<div class="col-lg-1 col-xl-2"></div>
 				<!-- Right Side -->
-				<div class="col-md-5">
+				<div class="col-lg-5">
 					<!-- Address -->
 					<div class=" d-flex justify-content-between wrap-subtitle">
 						<h3>Address Detail</h3>
@@ -62,8 +70,8 @@
 						<div class=" d-flex">
 							<div class="subtitle-delivery">Delivery to</div>
 						</div>
-						<input v-if="editMode === 1" type="text" v-model="name" class="input-address w-100" placeholder="Enter Your Address...">
-						<input v-else type="text" v-model="name" class="input-address disabled-address w-100" placeholder="Enter Your Address..." disabled>
+						<input v-if="editMode === 1" type="text" v-model="name" class="input-address w-100" placeholder="Enter Your Name...">
+						<input v-else type="text" v-model="name" class="input-address disabled-address w-100" placeholder="Enter Your Name..." disabled>
 						<!-- Full Address -->
 						<div class="wrap-full-address">
 							<textarea v-if="editMode === 1" v-model="fulladdress" name="fullAdd" id="fullAdd" cols="2" class="input-address-thin w-100" placeholder="Enter Your Full Address..."></textarea>
@@ -71,8 +79,8 @@
 						</div>
 						<!-- Phone -->
 						<div>
-							<input v-if="editMode === 1" type="text" v-model="phone" class="input-address-thin w-100" placeholder="Enter Your Address...">
-							<input v-else type="text" v-model="phone" class="input-address-thin disabled-address-thin w-100" placeholder="Enter Your Address..." disabled>
+							<input v-if="editMode === 1" type="text" v-model="phone" class="input-address-thin w-100" placeholder="Enter Your Phone Number...">
+							<input v-else type="text" v-model="phone" class="input-address-thin disabled-address-thin w-100" placeholder="Enter Your Phone Number..." disabled>
 						</div>
 					</div>
 					<!-- Payment -->
@@ -186,27 +194,47 @@
 // import Payment from '../../../components/module/Cart/paymentmethod'
 // import Calculation from '../../../components/module/Cart/calculation'
 // import Address from '../../../components/module/Cart/address'
+import axios from 'axios'
 
 export default {
 	name: 'Cart',
 	data () {
 		return {
-			img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-			data: {
+			data_total: {
+				subtotal: 0,
+				tax_fees: 0,
+				shipping: 0,
+				total: 0
 			},
-			name: 'Raden',
-			fulladdress: 'Jl. Cimanggu Gg. H. Enung No. 59, RT 01/02',
-			phone: '085771926851',
+			data_list: [
+				// {
+				// 	img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+				// 	name: 'Patty Sky',
+				// 	qty: 3,
+				// 	size: 'Regular',
+				// 	price: 25000
+				// },
+				// {
+				// 	img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+				// 	name: 'Patty Sky',
+				// 	qty: 3,
+				// 	size: 'Regular',
+				// 	price: 25000
+				// }
+			],
+			name: '',
+			fulladdress: '',
+			phone: '',
 			payment_method_id: '1',
 			editMode: 0
 		}
 	},
-	components: {
-		// Summaryproduct,
-		// Payment,
-		// Calculation,
-		// Address
-	},
+	// components: {
+	// 	// Summaryproduct,
+	// 	// Payment,
+	// 	// Calculation,
+	// 	// Address
+	// },
 	methods: {
 		changeEdit () {
 			this.editMode === 0 ? this.editMode++ : this.editMode--
@@ -214,20 +242,111 @@ export default {
 		paymentConfirm () {
 			console.log('Payment')
 		},
-		addressChange (e) {
-			this.address = e.target.innerHTML
-		},
-		fullAddressChange (e) {
-			this.fulladdress = e.target.innerHTML
-		},
-		phoneChange (e) {
-			this.phone = e.target.innerHTML
+		getOrderId () {
+			axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${this.$store.state.order_id}`)
+				.then((res) => {
+					const data = res.data.data
+					console.log(data)
+					data.order_details.forEach((item, index) => {
+						const list = {
+							name: '',
+							img: '',
+							price: 0,
+							qty: 0,
+							size: ''
+						}
+						const qty = item.qty
+						const size = item.size
+						const name = item.products[0].name
+						const price = item.products[0].price
+						const img = item.products[0].images
+						list.name = name
+						list.img = img
+						list.qty = qty
+						if (size === 'R') {
+							list.size = 'Regular'
+							list.price = price * qty
+							this.data_total.subtotal += list.price
+						}
+						if (size === 'L') {
+							list.size = 'Large'
+							list.price = (price + 5000) * qty
+							this.data_total.subtotal += list.price
+						}
+						if (size === 'XL') {
+							list.size = 'Extra Large'
+							list.price = (price + 8000) * qty
+							this.data_total.subtotal += list.price
+						}
+						if (size === '250') {
+							list.size = '250 Gram'
+							list.price = price * qty
+							this.data_total.subtotal += list.price
+						}
+						if (size === '300') {
+							list.size = '300 Gram'
+							list.price = (price + 5000) * qty
+							this.data_total.subtotal += list.price
+						}
+						if (size === '500') {
+							list.size = '500 Gram'
+							list.price = (price + 8000) * qty
+							this.data_total.subtotal += list.price
+						}
+						this.data_list.push(list)
+					})
+					this.data_total.tax_fees = data.tax_fee
+					this.data_total.shipping = data.shipping
+					this.data_total.total = this.data_total.subtotal + this.data_total.tax_fees + this.data_total.shipping
+				})
+				.catch((err) => {
+					console.log(err.response)
+				})
 		}
+	},
+	mounted () {
+		this.getOrderId()
+	},
+	created () {
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.profile
+			},
+			(newValue, oldValue) => {
+				this.name = newValue.first_name
+				this.fulladdress = newValue.address
+				this.phone = newValue.phone_number
+			},
+			{
+				deep: true
+			}
+		)
 	}
 }
 </script>
 
 <style lang="scss" scoped>
+
+.item-name {
+	font-weight: 700;
+}
+
+// .item-size {
+// 	text
+// }
+
+.all-order {
+	margin: 0 0 18px 0
+}
+
+.order-list {
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 30px;
+	color: #362115;
+}
 
 .total {
 	font-family: Poppins;
@@ -256,12 +375,13 @@ export default {
 }
 
 .line {
-	margin: 28px 0 18px 0;
+	margin: 8px 0 18px 0;
 	height: 0.5px;
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .wrap-order-img {
+	margin: 0 32px 0 0;
 	width: 82px;
 	height: 90px;
 	background-color: #dadada;
@@ -348,7 +468,7 @@ button:focus {
 	outline: 0
 }
 
-.col-md-5 {
+.col-lg-5 {
 	padding: 0;
 }
 
@@ -545,6 +665,21 @@ h5:focus, .full-add:focus, div {
 	}
 	button {
 		height: 74px;
+		font-size: 18px;
+	}
+	.box-sm {
+		padding: 30px;
+	}
+}
+
+@media (max-width: 425px) {
+	.order-list {
+		font-size: 16px;
+	}
+	.total {
+		font-size: 26px;
+	}
+	.sub-total {
 		font-size: 18px;
 	}
 }

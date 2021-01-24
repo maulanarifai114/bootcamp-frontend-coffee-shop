@@ -58,28 +58,45 @@ export default {
 				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getDineIn)
 					.then((res) => {
 						const msg = res.data.messages
+						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_DINE_IN')
+						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$router.push('/cust/cart')
 						console.log(res.data)
+					})
+					.catch((err) => {
+						console.log(err.response)
 					})
 			} else if (this.deliver === 'home delivery') {
 				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getHomeDev)
 					.then((res) => {
 						const msg = res.data.messages
+						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_HOME_DELIVERY')
+						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$router.push('/cust/cart')
 						console.log(res.data)
+					})
+					.catch((err) => {
+						console.log(err.response)
 					})
 			} else if (this.deliver === 'pick up') {
 				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getPickUp)
 					.then((res) => {
 						const msg = res.data.messages
+						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_PICK_UP')
+						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$router.push('/cust/cart')
 						console.log(res.data)
+					})
+					.catch((err) => {
+						console.log(err.response)
+						const msg = err.response.data.messages
+						Swal.fire('Failed', msg, 'error')
 					})
 			}
 		}

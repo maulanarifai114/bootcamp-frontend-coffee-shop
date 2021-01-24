@@ -20,7 +20,7 @@ export default new Vuex.Store({
 		},
 		checkoutTakeAway: {
 			products: [],
-			delivery_method: 'pick up',
+			delivery_method: 'take away',
 			delivery_time: ''
 		},
 		detailP: {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
 		sizeProduct: '',
 		nameproduct: '',
 		product: 0,
-		order_id: 31,
+		order_id: 3,
 
 		// Customer Profile
 		editmode: 0,
@@ -66,6 +66,31 @@ export default new Vuex.Store({
 		RESET_ORDER_ID (state) {
 			state.order_id = 0
 		},
+		RESET_ALL_CHECKOUT (state, payload) {
+			state.allCheckout.forEach((item, index) => {
+				if (item.qtyR || item.qtyL || item.qtyXL) {
+					if (item.delivery_method === payload) {
+						item.delivery_method = ''
+						item.img = ''
+						item.name = ''
+						item.product_id = 0
+						item.qtyR = 0
+						item.qtyL = 0
+						item.qtyXL = 0
+					}
+				} else if (item.qty250 || item.qty300 || item.qty500) {
+					if (item.delivery_method === payload) {
+						item.delivery_method = ''
+						item.img = ''
+						item.name = ''
+						item.product_id = 0
+						item.qty250 = 0
+						item.qty300 = 0
+						item.qty500 = 0
+					}
+				}
+			})
+		},
 		RESET_CART_DINE_IN (state) {
 			state.checkoutDineIn.products = []
 			state.checkoutDineIn.delivery_method = 'dine in'
@@ -78,7 +103,7 @@ export default new Vuex.Store({
 		},
 		RESET_CART_PICK_UP (state) {
 			state.checkoutTakeAway.products = []
-			state.checkoutTakeAway.delivery_method = 'pick up'
+			state.checkoutTakeAway.delivery_method = 'take away'
 			state.checkoutTakeAway.delivery_time = ''
 		},
 		SET_ALL_CART (state, payload) {
@@ -409,6 +434,9 @@ export default new Vuex.Store({
 		}
 	},
 	getters: {
+		getOrderId (state) {
+			return state.order_id
+		},
 		getName (state) {
 			return state.profile.first_name
 		},

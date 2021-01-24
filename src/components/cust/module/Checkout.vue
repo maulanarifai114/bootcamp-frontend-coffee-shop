@@ -52,7 +52,9 @@ export default {
 	},
 	methods: {
 		postCheckout () {
-			if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
+			if (this.$store.getters.getOrderId > 0) {
+				Swal.fire('Failed', 'Your must pay your checkout first', 'warning')
+			} else if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
 				Swal.fire('Failed', 'Your cart is empty', 'warning')
 			} else if (this.deliver === 'dine in') {
 				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getDineIn)
@@ -62,6 +64,7 @@ export default {
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_DINE_IN')
 						this.$store.commit('SET_ORDER_ID', orderId)
+						this.$store.commit('RESET_ALL_CHECKOUT', 'dine in')
 						this.$router.push('/cust/cart')
 						console.log(res.data)
 					})
@@ -76,13 +79,14 @@ export default {
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_HOME_DELIVERY')
 						this.$store.commit('SET_ORDER_ID', orderId)
+						this.$store.commit('RESET_ALL_CHECKOUT', 'home delivery')
 						this.$router.push('/cust/cart')
 						console.log(res.data)
 					})
 					.catch((err) => {
 						console.log(err.response)
 					})
-			} else if (this.deliver === 'pick up') {
+			} else if (this.deliver === 'take away') {
 				axios.post(`${process.env.VUE_APP_BASE_URL}order/checkout`, this.getPickUp)
 					.then((res) => {
 						const msg = res.data.messages
@@ -90,6 +94,7 @@ export default {
 						Swal.fire('Success', msg, 'success')
 						this.$store.commit('RESET_CART_PICK_UP')
 						this.$store.commit('SET_ORDER_ID', orderId)
+						this.$store.commit('RESET_ALL_CHECKOUT', 'take away')
 						this.$router.push('/cust/cart')
 						console.log(res.data)
 					})

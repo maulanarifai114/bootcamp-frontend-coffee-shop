@@ -195,6 +195,7 @@
 // import Calculation from '../../../components/module/Cart/calculation'
 // import Address from '../../../components/module/Cart/address'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
 	name: 'Cart',
@@ -222,9 +223,9 @@ export default {
 				// 	price: 25000
 				// }
 			],
-			name: '',
-			fulladdress: '',
-			phone: '',
+			name: this.$store.state.profile.first_name,
+			fulladdress: this.$store.state.profile.address,
+			phone: this.$store.state.profile.phone_number,
 			payment_method_id: '1',
 			editMode: 0
 		}
@@ -240,10 +241,24 @@ export default {
 			this.editMode === 0 ? this.editMode++ : this.editMode--
 		},
 		paymentConfirm () {
-			console.log('Payment')
+			const data = {
+				address: this.fulladdress,
+				customer_phone: this.phone,
+				payment_method_id: this.payment_method_id,
+				order_id: this.$store.getters.getOrderId
+			}
+			console.log(data)
+			axios.patch(`${process.env.VUE_APP_BASE_URL}order/confirm-payment`, data)
+				.then((res) => {
+					const result = res.data
+					console.log(result.messages)
+					Swal.fire('Success', result.messages, 'success')
+					this.$store.commit('RESET_ORDER_ID')
+					this.$router.push('/cust/history')
+				})
 		},
 		getOrderId () {
-			axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${this.$store.state.order_id}`)
+			axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${this.$store.getters.getOrderId}`)
 				.then((res) => {
 					const data = res.data.data
 					console.log(data)
@@ -302,10 +317,16 @@ export default {
 				.catch((err) => {
 					console.log(err.response)
 				})
+		},
+		getProfile () {
+			this.name = this.$store.state.profile.first_name
+			this.fulladdress = this.$store.state.profile.address
+			this.phone = this.$store.state.profile.phone_number
 		}
 	},
 	mounted () {
 		this.getOrderId()
+		this.getProfile()
 	},
 	created () {
 		this.$store.watch(

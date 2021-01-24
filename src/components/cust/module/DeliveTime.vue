@@ -10,7 +10,7 @@
           <label class="btn mr-3" for="door" :class="deliver === 'home delivery'? 'selected':'unselected'">
             <input disabled type="radio" name="deliver" id="door" v-model="deliver"> Home Delivery
           </label>
-          <label class="btn mr-3" for="pick" :class="deliver === 'pick up'? 'selected':'unselected'">
+          <label class="btn mr-3" for="pick" :class="deliver === 'take away'? 'selected':'unselected'">
             <input disabled type="radio" name="deliver" id="pick" v-model="deliver"> Pick Up
           </label>
         </div>

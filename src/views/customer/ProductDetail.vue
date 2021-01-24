@@ -124,7 +124,7 @@ export default {
 			} else if (deliverMethod === 'home delivery') {
 				this.helperCart(checkoutHomeDelivery, 'SET_CHECKOUT_HOME_DEL', 'SET_QTY_HOME_DEL', qtyNew, data)
 				this.helperAllCart()
-			} else if (deliverMethod === 'pick up') {
+			} else if (deliverMethod === 'take away') {
 				this.helperCart(checkoutTakeAway, 'SET_CHECKOUT_PICK_UP', 'SET_QTY_PICK_UP', qtyNew, data)
 				this.helperAllCart()
 			}
@@ -156,7 +156,7 @@ export default {
 					newData.price = data.price
 					newData.priceMid = data.price + 5000
 					newData.priceHigh = data.price + 8000
-					newData.deliver = data.is_dine_in ? 'dine in' : (data.is_home_delivery ? 'home delivery' : 'pick up')
+					newData.deliver = data.is_dine_in ? 'dine in' : (data.is_home_delivery ? 'home delivery' : 'take away')
 					newData.size = data.size.split(',')
 					// console.log(data)
 					// console.log(newData)

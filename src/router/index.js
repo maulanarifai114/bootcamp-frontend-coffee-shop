@@ -126,6 +126,12 @@ const routes = [
 		meta: { requiresAuth: true },
 		children: [
 			{
+				path: 'profile',
+				name: 'AdminProfile',
+				component: Profile,
+				meta: { requiresAuth: true }
+			},
+			{
 				path: 'add-product',
 				name: 'NewProduct',
 				component: NewProduct,
@@ -199,7 +205,12 @@ router.beforeEach((to, from, next) => {
 			next()
 		}
 	} else if (to.matched.some(record => record.meta.requiresVisitor)) {
-		if (localStorage.getItem('token')) {
+		const roleId = localStorage.getItem('role_id')
+		if (localStorage.getItem('token') && roleId === '1') {
+			next({
+				path: '/admin/dashboard'
+			})
+		} else if (localStorage.getItem('token') && roleId === '2') {
 			next({
 				path: '/cust/product'
 			})

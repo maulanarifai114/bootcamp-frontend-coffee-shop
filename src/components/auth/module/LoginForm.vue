@@ -121,7 +121,8 @@ export default {
 					localStorage.setItem('token', res.data.token)
 					localStorage.setItem('id', res.data.data.id)
 					localStorage.setItem('role_id', res.data.data.role_id)
-					this.$router.push('/cust/product')
+					console.log(res.data.data.role_id)
+					res.data.data.role_id === 1 ? this.$router.push('/admin/dashboard') : this.$router.push('/cust/product')
 				})
 				.catch((err) => {
 					Swal.fire({

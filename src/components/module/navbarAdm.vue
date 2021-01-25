@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav option-box">
                 <li class="nav-item option">
-                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
+                    <router-link to="" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="/admin/manage-order" exact tag="li"><a class="nav-link" href="#">Orders</a></router-link>
+                    <router-link to="/admin/bmanage-order" exact tag="li"><a class="nav-link" href="#">Orders</a></router-link>
                 </li>
                 <li class="nav-item option">
                     <router-link to="/admin/dashboard" exact tag="li"><a class="nav-link" href="#">Dashboard</a></router-link>
@@ -31,7 +31,7 @@
                 <li class="nav-item d-flex option2">
                     <img src="../../assets/img/chat (1) 1.png" alt="" style="" @click.prevent="" type="button">
                 </li>
-                <li class="nav-item d-flex option2" @click.prevent="" type="button">
+                <li class="nav-item d-flex option2" @click.prevent="goProfile" type="button">
                     <div class="user-photo">
                         <img :src="getProfile.image" alt="">
                     </div>
@@ -46,7 +46,10 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
 	name: 'Navbar',
 	methods: {
-		...mapActions({ getCustProfile: 'getCustProfile' })
+		...mapActions({ getCustProfile: 'getCustProfile' }),
+		goProfile () {
+			this.$router.push('/admin/profile')
+		}
 	},
 	computed: {
 		...mapGetters(['getProfile'])

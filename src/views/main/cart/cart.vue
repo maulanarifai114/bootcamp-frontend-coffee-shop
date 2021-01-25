@@ -147,53 +147,11 @@
 					<button @click.prevent="paymentConfirm">Confirm and Pay</button>
 				</div>
 			</div>
-			<!-- <div class="left-col">
-				<p class="title">Checkout your <br> item now!</p>
-				<div class="summary">
-					<h1>Order Summary</h1>
-					<div class="products">
-						<Summaryproduct
-							p1="Latte"
-							p2="2"
-							p3="120000"
-							photos= "https://cdn0-production-images-kly.akamaized.net/6aobiw31CdBPDzvOD8_0L7h6Aek=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1607544/original/085652700_1496035163-Jus-Mangga1.jpg"
-						/>
-					</div>
-					<div>
-						<Calculation
-							subtotal="120000"
-							taxfees="120000"
-							shipping= "120000"
-							total= "120000"
-						/>
-					</div>
-				</div>
-			</div> -->
-			<!-- <div class="col-right">
-				<p class="address-title">Address Details</p>
-				<div class="address">
-					<Address
-						mainAddress="Jalan Bunga"
-						detailAddress="Bunga Melati No 6"
-						phoneaddress= "83562572532"
-					/>
-				</div>
-				<p class="payment-title">Payment Methods</p>
-				<Payment v-model="payment"/>
-				<span>Picked: {{ payment }}</span>
-				<button class="button">
-					Confirm & Pay
-				</button>
-			</div> -->
 		</div>
 	</div>
 </template>
 
 <script>
-// import Summaryproduct from '../../../components/module/Cart/summaryProduct'
-// import Payment from '../../../components/module/Cart/paymentmethod'
-// import Calculation from '../../../components/module/Cart/calculation'
-// import Address from '../../../components/module/Cart/address'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -207,22 +165,7 @@ export default {
 				shipping: 0,
 				total: 0
 			},
-			data_list: [
-				// {
-				// 	img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-				// 	name: 'Patty Sky',
-				// 	qty: 3,
-				// 	size: 'Regular',
-				// 	price: 25000
-				// },
-				// {
-				// 	img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-				// 	name: 'Patty Sky',
-				// 	qty: 3,
-				// 	size: 'Regular',
-				// 	price: 25000
-				// }
-			],
+			data_list: [],
 			name: this.$store.state.profile.first_name,
 			fulladdress: this.$store.state.profile.address,
 			phone: this.$store.state.profile.phone_number,
@@ -230,12 +173,6 @@ export default {
 			editMode: 0
 		}
 	},
-	// components: {
-	// 	// Summaryproduct,
-	// 	// Payment,
-	// 	// Calculation,
-	// 	// Address
-	// },
 	methods: {
 		changeEdit () {
 			this.editMode === 0 ? this.editMode++ : this.editMode--
@@ -346,10 +283,6 @@ export default {
 .item-name {
 	font-weight: 700;
 }
-
-// .item-size {
-// 	text
-// }
 
 .all-order {
 	margin: 0 0 18px 0

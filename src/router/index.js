@@ -11,25 +11,22 @@ import Login from '../views/auth/Login.vue'
 import Forgot from '../views/auth/Forgot.vue'
 import newPassword from '../views/auth/newPassword.vue'
 // Customer
-// import Customer from '../views/customer/MainCust.vue'\
 import Customer from '../views/main/index.vue'
-import ProductDetail from '../views/customer/ProductDetail.vue'
-import Profile from '../views/customer/Profile.vue'
-import editPassword from '../views/customer/editPassword.vue'
-// Admin
-// import Admin from '../views/admin/MainAdmin.vue'
-import Admin from '../views/admin/index.vue'
-import NewProduct from '../views/admin/NewProduct.vue'
 import Product from '../views/main/product/product.vue'
 import Cart from '../views/main/cart/cart.vue'
 import History from '../views/main/History/history.vue'
+import ProductDetail from '../views/customer/ProductDetail.vue'
+import Profile from '../views/customer/Profile.vue'
+import editPassword from '../views/customer/editPassword.vue'
+import HomeCust from '../views/Home/Customer/customer.vue'
+// Admin
+import Admin from '../views/admin/index.vue'
+import NewProduct from '../views/admin/NewProduct.vue'
 import ManageOrder from '../views/admin/manage order/manageorder.vue'
 import BeforeManageOrder from '../views/admin/manage order/beforemanageorder.vue'
 import ProductAdmin from '../views/admin/product/index.vue'
 import Dashboard from '../views/admin/dashboard/dashboard.vue'
 import HomeAdm from '../views/Home/Admin/admin.vue'
-import HomeCust from '../views/Home/Customer/customer.vue'
-import DetailProduct from '../views/admin/DetailProduct.vue'
 import EditProduct from '../views/admin/EditProduct.vue'
 
 Vue.use(VueRouter)
@@ -115,6 +112,12 @@ const routes = [
 				name: 'editPassword',
 				component: editPassword,
 				meta: { requiresAuth: true }
+			},
+			{
+				path: 'home',
+				name: 'HomeCust',
+				component: HomeCust,
+				meta: { requiresAuth: true }
 			}
 		]
 	},
@@ -150,7 +153,7 @@ const routes = [
 				meta: { requiresAuth: true }
 			},
 			{
-				path: 'product',
+				path: 'product-admin',
 				name: 'ProductAdmin',
 				component: ProductAdmin,
 				meta: { requiresAuth: true }
@@ -162,30 +165,18 @@ const routes = [
 				meta: { requiresAuth: true }
 			},
 			{
-				path: 'detail-product',
-				name: 'DetailProduct',
-				component: DetailProduct,
-				meta: { requiresAuth: true }
-			},
-			{
 				path: 'edit-product',
 				name: 'EditProduct',
 				component: EditProduct,
 				meta: { requiresAuth: true }
+			},
+			{
+				path: 'home',
+				name: 'HomeAdm',
+				component: HomeAdm,
+				meta: { requiresAuth: true }
 			}
 		]
-	},
-	{
-		path: '/admin/home',
-		name: 'HomeAdm',
-		component: HomeAdm,
-		meta: { requiresAuth: true }
-	},
-	{
-		path: '/cust/home',
-		name: 'HomeCust',
-		component: HomeCust,
-		meta: { requiresAuth: true }
 	}
 ]
 

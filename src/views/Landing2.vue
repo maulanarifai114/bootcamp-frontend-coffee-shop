@@ -5,15 +5,11 @@
 </template>
 
 <script>
-// import Navbar from '../components/module/navbarAdm'
-// import Footer from '../components/module/footer'
 import Main from './Home/Customer/customer'
 
 export default {
 	name: 'Landing2',
 	components: {
-		// Navbar,
-		// Footer,
 		Main
 	}
 }

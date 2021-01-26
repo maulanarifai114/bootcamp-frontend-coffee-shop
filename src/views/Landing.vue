@@ -2,7 +2,8 @@
     <div class="content">
         <Navbar/>
         <div class="container-fluid">
-            <router-view/>
+          <h1>AAA</h1>
+            <!-- <router-view/> -->
         </div>
         <Footer/>
     </div>

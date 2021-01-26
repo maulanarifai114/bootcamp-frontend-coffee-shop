@@ -1,11 +1,11 @@
 <template>
-    <div class="content">
-        <Navbar/>
-        <div class="container-fluid">
-            <router-view/>
-        </div>
-        <Footer/>
+  <div class="content">
+    <Navbar/>
+    <div class="container-fluid">
+      <router-view/>
     </div>
+    <Footer/>
+  </div>
 </template>
 
 <script>

@@ -1,22 +1,22 @@
 <template>
-    <div class="content">
-        <Navbar/>
-        <div class="container-fluid">
-            <Content/>
-        </div>
-        <Footer/>
+  <div class="content">
+    <!-- <Navbar/> -->
+    <div class="container-fluid">
+      <Content/>
     </div>
+    <!-- <Footer/> -->
+  </div>
 </template>
 
 <script>
-import Navbar from '../../../components/module/Home/navbarAdmHome'
-import Footer from '../../../components/module/footer'
+// import Navbar from '../../../components/module/navbarAdm'
+// import Footer from '../../../components/module/footer'
 import Content from '../../../components/module/Home/content'
 export default {
 	name: 'Customer',
 	components: {
-		Navbar,
-		Footer,
+		// Navbar,
+		// Footer,
 		Content
 	}
 }

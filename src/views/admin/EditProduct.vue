@@ -2,13 +2,15 @@
   <div class="container big-box">
     <!-- Category -->
     <p class="head-category pt-5">
-      Favorite & Promo <span class="detail"> > Cold Brew</span>
+      <span class="detail">{{name}}</span>
     </p>
     <main class="row">
       <!-- Delivery and Time -->
       <aside class="col-md-6 d-flex flex-column align-items-center">
-        <div class="img-wrap">
-          <img :src="avatar || dataProduct.images" alt="product" height="300px"/>
+        <div>
+          <div class="img-wrap">
+            <img :src="avatar || dataProduct.images" alt="product" height="300px"/>
+          </div>
         </div>
         <label class="edit" for="uploadImage" style="cursor: pointer"><i class="fas fa-pencil-alt" style="margin-top:18px"></i></label>
         <input class="d-none" id="uploadImage" type="file" @change="getImage"/>
@@ -31,12 +33,12 @@
                 </label>
               </div>
             </div>
-            <div :class="deliver.includes('door') ? '' : 'd-none'">
+            <div v-if="deliver === 'door' || deliver === 'pick'">
               <div class=" align-items-center mb-3">
                 <Input label="Start Delivery" type="datetime-local" v-model="start" />
               </div>
               <div class="align-items-center">
-              <Input label="End Delivery" type="datetime-local" v-model="end" />
+                <Input label="End Delivery" type="datetime-local" v-model="end" />
               </div>
             </div>
           </div>
@@ -49,7 +51,6 @@
               <input type="checkbox" id="r" v-model="allSize" value="R" class="d-none"/>
               R
             </label>
-
             <label class="btn btn-size d-flex align-items-center justify-content-center" for="l" :class="allSize.includes('L') ? 'selectedSize' : 'unselectedSize'">
               <input type="checkbox" id="l" v-model="allSize" value="L" class="d-none"/>
               L
@@ -59,14 +60,12 @@
               XL
             </label>
           </div>
-
           <!-- Gram -->
           <div class="d-flex justify-content-around flex-row btn-group-toggle" v-if="dataProduct.category_id === 3">
             <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="250" :class="allSize.includes('250') ? 'selectedSize' : 'unselectedSize'">
               <input type="checkbox" id="250" v-model="allSize" value="250" class="d-none"/>
               250g
             </label>
-
             <label class="btn gram btn-size d-flex align-items-center justify-content-center" for="300" :class="allSize.includes('300') ? 'selectedSize' : 'unselectedSize'">
               <input type="checkbox" id="300" v-model="allSize" value="300" class="d-none"/>
               350g
@@ -88,7 +87,7 @@
         <br><br>
         <Input v-model="description" id="desc" label="Description :" placeholder="Describe your product min. 150 characters" :max="150" type="text" class="w-100"/>
         <br><br>
-       <Input v-model="stock" id="stock" label="Stock" placeholder="stock" type="number" class="w-100"/>
+        <Input v-model="stock" id="stock" label="Stock" placeholder="stock" type="number" class="w-100"/>
         <br><br>
         <Button color="btn-brown btn-detail" label="Save Change" @trigger="save()"></Button>
         <Button color="btn-detail btn-danger" label="Delete Product" @trigger="destroy()"></Button>
@@ -217,12 +216,12 @@ export default {
 			axios.patch(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
 				.then((res) => {
 					this.$swal.fire({
-						title: 'success!',
+						title: 'Success!',
 						text: 'Update Successfully',
 						icon: 'success',
 						confirmButtonText: 'Ok'
 					})
-					this.$router.push('/admin/product')
+					this.$router.push('/admin/product-admin')
 				})
 				.catch((err) => {
 					this.$swal.fire({
@@ -398,9 +397,17 @@ select::placeholder {
 .img-wrap {
   height: 300px;
   width: 300px;
-  border-radius: 100%;
+  border-radius: 50%;
   overflow: hidden;
-  margin: 0 0 102px 0;
+  margin: 0 0 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 .hide {
   display: none;

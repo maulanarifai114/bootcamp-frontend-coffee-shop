@@ -3,8 +3,10 @@
     <br><br><br><br>
     <aside class="row wrapper">
       <section class="col-12 col-lg-5">
-        <div class="photo d-flex justify-content-center align-items-center rounded-circle mb-5">
-          <img :src="avatar" alt="" height="300px">
+        <div>
+          <div class="photo d-flex justify-content-center align-items-center rounded-circle mb-5">
+            <img :src="avatar" alt="" height="300px">
+          </div>
         </div>
         <Button color="btn-navy btn-admin-1" label="Take a picture"></Button>
         <label style="cursor:pointer;" for="uploadImage" class="btn-yellow btn-admin-1 d-flex justify-content-center align-items-center">
@@ -18,7 +20,6 @@
           <InputCat id="cat" label="Select category" value="category" @change="lihatVal"></InputCat>
         </div>
         <br><br>
-
         <!-- Delivery Hour -->
         <div class=" d-flex flex-column ">
           <!-- <h5 class="label">Delivery Hour :</h5> -->
@@ -82,12 +83,10 @@
               <input type="radio" name="deliver" id="dine" v-model="deliver" value="dine" class="d-none">
               Dine In
               </label>
-
               <label class="btn-admin-3 mr-3 d-flex justify-content-center align-items-center" for="door" :class="deliver.includes('door') ? 'btn-yellow-admin' : 'btn-cancel'">
               <input type="radio" name="deliver" id="door" v-model="deliver" value="door" class="d-none">
               Delivery Home
               </label>
-
               <label class="btn-admin-3 mr-3 d-flex justify-content-center align-items-center" for="pick" :class="deliver.includes('pick') ? 'btn-yellow-admin' : 'btn-cancel'" >
                 <input type="radio" name="deliver" id="pick" v-model="deliver" value="pick" class="d-none">
               Pick Up
@@ -177,7 +176,7 @@ export default {
 			var inputGambar = document.getElementById('uploadImage')
 			var dataFile = inputGambar.files[0]
 			const sizes = this.allSize.join(',')
-			if (this.deliver === 'din') {
+			if (this.deliver === 'dine') {
 				this.din = 1
 			} else if (this.deliver === 'door') {
 				this.door = 1
@@ -199,7 +198,7 @@ export default {
 			data.append('size', sizes)
 			data.append('image', dataFile)
 
-			axios.post(`${process.env.VUE_APP_BASE_URL}/products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
+			axios.post(`${process.env.VUE_APP_BASE_URL}products`, data, { headers: { 'Content-Type': 'multipart/form-data' } })
 				.then(res => {
 					this.$swal.fire({
 						title: 'Success!',
@@ -207,13 +206,13 @@ export default {
 						icon: 'success',
 						confirmButtonText: 'Ok'
 					})
-					this.$router.push('/admin/product')
+					this.$router.push('/admin/product-admin')
 					console.log(res)
 				})
 				.catch(err => {
 					this.$swal.fire({
 						title: 'Warning!',
-						text: err.response.data,
+						text: err.response.data.message,
 						icon: 'warning',
 						confirmButtonText: 'Ok'
 					})
@@ -340,6 +339,11 @@ export default {
   margin: 0 auto;
   border-radius: 100%;
   overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .photo:hover {

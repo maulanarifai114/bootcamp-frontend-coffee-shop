@@ -1,21 +1,16 @@
 <template>
-    <div class="content">
-        <div class="leftside">
-            <Promo/>
-        </div>
-        <div class="rightside">
-            <Products/>
-        </div>
-    </div>
+	<div class="content">
+		<div class="rightside">
+			<Products/>
+		</div>
+	</div>
 </template>
 
 <script>
-import Promo from '../../../components/module/Product/promoAdm'
 import Products from '../../../components/module/Product/productsAdm'
 export default {
 	name: 'ProductAdm',
 	components: {
-		Promo,
 		Products
 	}
 }
@@ -26,7 +21,7 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color:  #ececec;
+    background-color:  #fff;
     margin: 0;
     padding: 0;
 }

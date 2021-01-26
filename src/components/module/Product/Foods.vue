@@ -60,7 +60,7 @@ export default {
 				})
 		},
 		detailProducts (val) {
-			if (localStorage.getItem('id') === `${process.env.VUE_APP_ROLE_ADMIN}`) {
+			if (localStorage.getItem('role_id') === '1') {
 				this.$router.push(`/admin/edit-product?id=${val}`)
 			} else {
 				this.$router.push({ path: 'product-d', query: { id: val } })

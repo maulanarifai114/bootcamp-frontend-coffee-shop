@@ -9,6 +9,7 @@
 <script>
 import Products from '../../../components/module/Product/productsAdm'
 export default {
+	title: 'Products',
 	name: 'ProductAdm',
 	components: {
 		Products

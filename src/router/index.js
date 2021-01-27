@@ -28,6 +28,7 @@ import ProductAdmin from '../views/admin/product/index.vue'
 import Dashboard from '../views/admin/dashboard/dashboard.vue'
 import HomeAdm from '../views/Home/Admin/admin.vue'
 import EditProduct from '../views/admin/EditProduct.vue'
+// import EditPasswordAdmin from '../views/customer/editPassword.vue'
 
 Vue.use(VueRouter)
 
@@ -128,6 +129,12 @@ const routes = [
 		redirect: '/admin/dashboard',
 		meta: { requiresAuth: true },
 		children: [
+			{
+				path: 'edit-password',
+				name: 'EditPasswordAdmin',
+				component: editPassword,
+				meta: { requiresAuth: true }
+			},
 			{
 				path: 'profile',
 				name: 'AdminProfile',

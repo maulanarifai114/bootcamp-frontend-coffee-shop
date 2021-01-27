@@ -53,6 +53,7 @@
 import ApexCharts from 'apexcharts/dist/apexcharts.js'
 
 export default {
+	title: 'Dashboard',
 	name: 'Dashboard',
 	mounted () {
 		var options = {

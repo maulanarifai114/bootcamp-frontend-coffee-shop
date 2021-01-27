@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav option-box">
                 <li class="nav-item option">
-                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" href="#">Home</a></router-link>
+                    <router-link to="/admin/home" exact tag="li"><a class="nav-link" :class="this.$route.path === '/admin/home' ? 'active-tab-navbar':'inactive-tab-navbar'" href="#">Home</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="/admin/product-admin" exact tag="li"><a class="nav-link" href="#">Products</a></router-link>
+                    <router-link to="/admin/product-admin" exact tag="li"><a class="nav-link" :class="this.$route.path === '/admin/product-admin' ? 'active-tab-navbar':'inactive-tab-navbar'" href="#">Products</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="/admin/bmanage-order" exact tag="li"><a class="nav-link" href="#">Orders</a></router-link>
+                    <router-link to="/admin/bmanage-order" exact tag="li"><a class="nav-link" :class="this.$route.path === '/admin/bmanage-order' ? 'active-tab-navbar':'inactive-tab-navbar'" href="#">Orders</a></router-link>
                 </li>
                 <li class="nav-item option">
-                    <router-link to="/admin/dashboard" exact tag="li"><a class="nav-link" href="#">Dashboard</a></router-link>
+                    <router-link to="/admin/dashboard" exact tag="li"><a class="nav-link" :class="this.$route.path === '/admin/dashboard' ? 'active-tab-navbar':'inactive-tab-navbar'" href="#">Dashboard</a></router-link>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto option-box2" >
@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item d-flex option2" @click.prevent="goProfile" type="button">
                     <div class="user-photo">
-                        <img :src="getProfile.image" alt="">
+                        <img :src="!getProfile.image ? image : getProfile.image" alt="">
                     </div>
                 </li>
             </ul>
@@ -51,6 +51,11 @@ export default {
 			this.$router.push('/admin/profile')
 		}
 	},
+	data () {
+		return {
+			image: 'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png'
+		}
+	},
 	computed: {
 		...mapGetters(['getProfile'])
 	},
@@ -64,6 +69,25 @@ export default {
 #navbarNav {
     background-color: white;
 }
+
+.active-tab-navbar {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: #6A4029!important;
+}
+
+.inactive-tab-navbar {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4F5665;
+}
+
 .navbar-toggler {
     border: none;
     outline: none;
@@ -116,9 +140,11 @@ img {
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
-}
-.user-photo img {
-    width: 100%;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 @media screen and (max-width: 991px) {
     .option-box {

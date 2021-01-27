@@ -13,7 +13,8 @@
 // import Footer from '../../../components/module/footer'
 import Content from '../../../components/module/Home/content'
 export default {
-	name: 'Customer',
+	title: 'Home',
+	name: 'Home',
 	components: {
 		// Navbar,
 		// Footer,

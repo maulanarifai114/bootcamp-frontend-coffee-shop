@@ -52,8 +52,10 @@ export default {
 	},
 	methods: {
 		postCheckout () {
-			if (this.$store.getters.getOrderId > 0) {
+			if (localStorage.getItem('order_id')) {
+			// if (this.$store.getters.getOrderId > 0) {
 				Swal.fire('Failed', 'Your must pay your checkout first', 'warning')
+			// } else if (!localStorage.getItem('order_id')) {
 			} else if (this.getDineIn.products.length === 0 && this.getHomeDev.products.length === 0 && this.getPickUp.products.length === 0) {
 				Swal.fire('Failed', 'Your cart is empty', 'warning')
 			} else if (this.deliver === 'dine in') {
@@ -62,6 +64,7 @@ export default {
 						const msg = res.data.messages
 						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
+						localStorage.setItem('order_id', orderId)
 						this.$store.commit('RESET_CART_DINE_IN')
 						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$store.commit('RESET_ALL_CHECKOUT', 'dine in')
@@ -77,6 +80,7 @@ export default {
 						const msg = res.data.messages
 						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
+						localStorage.setItem('order_id', orderId)
 						this.$store.commit('RESET_CART_HOME_DELIVERY')
 						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$store.commit('RESET_ALL_CHECKOUT', 'home delivery')
@@ -92,6 +96,7 @@ export default {
 						const msg = res.data.messages
 						const orderId = res.data.data.order_id
 						Swal.fire('Success', msg, 'success')
+						localStorage.setItem('order_id', orderId)
 						this.$store.commit('RESET_CART_PICK_UP')
 						this.$store.commit('SET_ORDER_ID', orderId)
 						this.$store.commit('RESET_ALL_CHECKOUT', 'take away')

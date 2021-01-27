@@ -191,11 +191,13 @@ export default {
 					console.log(result.messages)
 					Swal.fire('Success', result.messages, 'success')
 					this.$store.commit('RESET_ORDER_ID')
+					localStorage.removeItem('order_id')
 					this.$router.push('/cust/history')
 				})
 		},
 		getOrderId () {
-			axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${this.$store.getters.getOrderId}`)
+			// axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${this.$store.getters.getOrderId}`)
+			axios.get(`${process.env.VUE_APP_BASE_URL}order/detail-order/${localStorage.getItem('order_id')}`)
 				.then((res) => {
 					const data = res.data.data
 					console.log(data)
@@ -218,33 +220,39 @@ export default {
 						if (size === 'R') {
 							list.size = 'Regular'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						if (size === 'L') {
 							list.size = 'Large'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						if (size === 'XL') {
 							list.size = 'Extra Large'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						if (size === '250') {
 							list.size = '250 Gram'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						if (size === '300') {
 							list.size = '300 Gram'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						if (size === '500') {
 							list.size = '500 Gram'
 							list.price = price * qty
+							this.data_total.subtotal += price * qty
 						}
 						this.data_list.push(list)
 					})
-					this.data_total.subtotal = data.subtotal
+					// this.data_total.subtotal = data.subtotal
 					this.data_total.tax_fees = data.tax_fee
 					this.data_total.shipping = data.shipping
-					this.data_total.total = data.total
+					this.data_total.total = this.data_total.subtotal + this.data_total.tax_fees + this.data_total.shipping
 				})
 				.catch((err) => {
 					console.log(err.response)

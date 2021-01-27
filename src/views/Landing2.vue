@@ -1,16 +1,22 @@
 <template>
-    <div class="content">
-      <Main></Main>
-    </div>
+  <div class="content">
+    <Navbar/>
+    <Main></Main>
+    <Footer/>
+  </div>
 </template>
 
 <script>
-import Main from './Home/Customer/customer'
+import Main from '../components/module/Home/content'
+import Navbar from '../components/module/Home/navbarCustHome'
+import Footer from '../components/module/footer'
 
 export default {
 	name: 'Landing2',
 	components: {
-		Main
+		Main,
+		Navbar,
+		Footer
 	}
 }
 </script>

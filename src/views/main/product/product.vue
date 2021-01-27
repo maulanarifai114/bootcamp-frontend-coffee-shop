@@ -17,7 +17,8 @@ export default {
 	components: {
 		// Promo,
 		Products
-	}
+	},
+	title: 'Products'
 }
 </script>
 

@@ -34,6 +34,10 @@ export default {
 //   // margin-top: 2%;
 // }
 
+.nav-tabs {
+  border: 0!important
+}
+
 .tab-detail {
   height: max-content !important;
   overflow: visible !important;

@@ -55,7 +55,9 @@ export default new Vuex.Store({
 		history: [],
 
 		// Profile
-		profile: {},
+		profile: {
+			gender: 'male'
+		},
 		manageorderid: {},
 		allmanageorder: []
 	},

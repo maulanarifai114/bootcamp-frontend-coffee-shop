@@ -6,8 +6,10 @@
         <div class="row flex-grow-1">
           <aside class="col-lg-4 col-12 d-flex flex-column mb-5">
             <div class="side-left mx-auto flex-grow-1 d-flex flex-column align-items-center">
-              <div class="img mb-4">
-                <img :src="getProfile.image" alt="">
+              <div>
+                <div class="img mb-4">
+                  <img :src="!getProfile.image ? image : getProfile.image" alt="">
+                </div>
               </div>
               <h2>{{getProfile.first_name}} {{getProfile.last_name}}</h2>
               <h4 class="mb-4">{{getProfile.email}}</h4>
@@ -63,15 +65,21 @@
               <br><br>
               <div class="row ">
                 <div class="col-6 ">
-                  <label class="container d-flex justify-content-center align-items-center">
-                    <input type="radio" name="gender" :checked="changeGender" :value="'male'" v-model="gender">
-                    <p :class="getProfile.gender === 'male' ? 'gender-active' : 'gender-nonactive'" >Male</p>
+                  <label class="label-gender container d-flex justify-content-center align-items-center">
+                    <input class="d-none" type="radio" name="gender" :checked="changeGender" :value="'male'" v-model="gender">
+                    <div :class="gender === 'male' ? 'active-gender' : 'inactive-gender' ">
+                      <div class="child"></div>
+                    </div>
+                    <p :class="gender === 'male' ? 'gender-active' : 'gender-nonactive'" >Male</p>
                   </label>
                 </div>
                 <div class="col-6 ">
-                  <label class="container d-flex justify-content-center align-items-center" >
-                    <input type="radio" name="gender" :checked="changeGender" :value="'female'" v-model="gender">
-                    <p :class="getProfile.gender === 'female' ? 'gender-active' : 'gender-nonactive'">Female</p>
+                  <label class="label-gender container d-flex justify-content-center align-items-center" >
+                    <input class="d-none" type="radio" name="gender" :checked="changeGender" :value="'female'" v-model="gender">
+                    <div :class="gender === 'female' ? 'active-gender' : 'inactive-gender' ">
+                      <div class="child"></div>
+                    </div>
+                    <p :class="gender === 'female' ? 'gender-active' : 'gender-nonactive'">Female</p>
                   </label>
                 </div>
               </div>
@@ -91,6 +99,7 @@ import InputProfile from '../../components/cust/base/InputProfile'
 import Swal from 'sweetalert2'
 
 export default {
+	title: 'Profile',
 	name: 'Profile',
 	components: {
 		Button,
@@ -99,9 +108,8 @@ export default {
 	data () {
 		return {
 			editMode: 0,
-			icon: '<img src="../../assets/cust/edit.svg" alt="">',
-			image: '',
-			gender: ''
+			image: 'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png',
+			gender: this.$store.state.profile.gender
 		}
 	},
 	methods: {
@@ -114,7 +122,11 @@ export default {
 			Swal.fire('Success', 'Comeback anytime you want', 'success')
 		},
 		changeEditMode () {
-			this.$store.commit('changeEditMode')
+			if (this.$store.state.editmode === 0) {
+				this.$store.commit('changeEditMode')
+			} else {
+				this.$store.commit('changeStaticMode')
+			}
 		},
 		changeStaticMode () {
 			this.$store.commit('changeStaticMode')
@@ -145,17 +157,20 @@ export default {
 							'Success!',
 							'Your profile has been updated'
 						)
+						this.$store.commit('changeStaticMode')
 						this.getCustProfile()
 					})
 			}
 		},
 		handleFileUpload () {
-			this.image = this.$refs.file.files[0]
-			console.log('>>>> 1st element in files array >>>> ', this.image)
+			// this.image = this.$refs.file.files[0]
+			const image = this.$refs.file.files[0]
+			console.log('>>>> 1st element in files array >>>> ', this.$refs.file.files[0])
 			const formData = new FormData()
-			formData.append('image', this.image)
+			formData.append('image', image)
 			console.log('>> formData >> ', formData)
 			this.$store.dispatch('updateImage', formData)
+			this.getCustProfile()
 		},
 		deleteFileImage () {
 			this.deleteImage()
@@ -182,6 +197,47 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.label-gender {
+  cursor: pointer;
+  transition: .3s;
+}
+
+.label-gender:hover {
+  opacity: .8;
+}
+
+.active-gender {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #6A4029;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .child {
+    width: 20px;
+    height: 20px;
+    background: #FFBA33;
+    border-radius: 50%;
+  }
+}
+
+.inactive-gender {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #9f9f9f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .child {
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+}
 
 .gender-active {
   font-family: Poppins;
@@ -306,11 +362,14 @@ h4 {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background-color: #c9c9c9;
+  background-color: #ffffff;
+  // background-color: #B1B1B1;
   overflow: hidden;
-}
-.img img {
-  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 @media (max-width: 991px) {

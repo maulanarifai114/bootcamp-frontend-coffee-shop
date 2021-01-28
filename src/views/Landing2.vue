@@ -12,6 +12,7 @@ import Navbar from '../components/module/Home/navbarCustHome'
 import Footer from '../components/module/footer'
 
 export default {
+	title: 'Coffee Shop - Skyline',
 	name: 'Landing2',
 	components: {
 		Main,

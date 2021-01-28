@@ -239,12 +239,12 @@ export default new Vuex.Store({
 		},
 		changeEditMode (state) {
 			if (state.editmode === 0) {
-				state.editmode++
+				state.editmode = 1
 			}
 		},
 		changeStaticMode (state) {
 			if (state.editmode === 1) {
-				state.editmode--
+				state.editmode = 0
 			}
 		},
 		addProduct (state, payload) {

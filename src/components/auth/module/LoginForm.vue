@@ -8,6 +8,7 @@
         label="Email Adress :"
         @keyup="checkEmail"
       />
+			<div v-if="isEmail" class="mb-3 text-danger validation">Your email format is incorrect</div>
       <Inputed
         id="password"
         type="password"
@@ -15,6 +16,7 @@
         label="Password :"
         @keyup="checkPassword"
       />
+			<div v-if="isPass" class=" mb-3 text-danger validation">Your password must be 8 character</div>
       <router-link to="/auth/forgot" class="forgot"
         >Forgot Password?</router-link
       >
@@ -61,7 +63,9 @@ export default {
 		return {
 			pass: '',
 			email: '',
-			messages: ''
+			messages: '',
+			isEmail: 0,
+			isPass: 0
 		}
 	},
 	methods: {
@@ -70,20 +74,30 @@ export default {
 		},
 		checkPassword (e) {
 			const inputPass = e.target.value
-			console.log('pass', inputPass)
 			if (inputPass.length >= 1) {
 				this.pass = inputPass
+				if (inputPass.length < 8) {
+					this.isPass = 1
+				} else {
+					this.isPass = 0
+				}
 			} else if (inputPass.length <= 0) {
 				this.pass = ''
+				this.isPass = 0
 			}
 		},
 		checkEmail (e) {
 			const inputEmail = e.target.value
-			console.log('email', inputEmail)
 			if (inputEmail.length >= 1) {
 				this.email = inputEmail
+				if (!inputEmail.includes('@')) {
+					this.isEmail = 1
+				} else {
+					this.isEmail = 0
+				}
 			} else if (inputEmail.length < 1) {
 				this.email = ''
+				this.isEmail = 0
 			}
 		},
 		login () {
@@ -93,7 +107,6 @@ export default {
 				email,
 				password
 			}
-			console.log(user)
 			if (user.email.length < 1) {
 				return Swal.fire({
 					icon: 'error',
@@ -117,11 +130,9 @@ export default {
 						icon: 'success',
 						title: 'Success Login'
 					})
-					console.log(res.data.data)
 					localStorage.setItem('token', res.data.token)
 					localStorage.setItem('id', res.data.data.id)
 					localStorage.setItem('role_id', res.data.data.role_id)
-					console.log(res.data.data.role_id)
 					res.data.data.role_id === 1 ? this.$router.push('/admin/dashboard') : this.$router.push('/cust/product')
 				})
 				.catch((err) => {
@@ -130,7 +141,6 @@ export default {
 						title: err.response.data.messages
 					})
 					this.messages = err.response.data.messages
-					console.log('message', this.messages)
 				})
 		}
 	}
@@ -138,6 +148,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.validation {
+	font-family: Rubik;
+}
+
 .group-form {
   width: 505px;
 }

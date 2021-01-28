@@ -66,7 +66,7 @@
               <div class="row ">
                 <div class="col-6 ">
                   <label class="label-gender container d-flex justify-content-center align-items-center">
-                    <input class="d-none" type="radio" name="gender" :checked="changeGender" :value="'male'" v-model="gender">
+                    <input @change="changeEdit" class="d-none" type="radio" name="gender" :checked="changeGender" :value="'male'" v-model="gender">
                     <div :class="gender === 'male' ? 'active-gender' : 'inactive-gender' ">
                       <div class="child"></div>
                     </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-6 ">
                   <label class="label-gender container d-flex justify-content-center align-items-center" >
-                    <input class="d-none" type="radio" name="gender" :checked="changeGender" :value="'female'" v-model="gender">
+                    <input @change="changeEdit" class="d-none" type="radio" name="gender" :checked="changeGender" :value="'female'" v-model="gender">
                     <div :class="gender === 'female' ? 'active-gender' : 'inactive-gender' ">
                       <div class="child"></div>
                     </div>
@@ -120,6 +120,9 @@ export default {
 			localStorage.removeItem('id')
 			this.$router.push('/auth/login')
 			Swal.fire('Success', 'Comeback anytime you want', 'success')
+		},
+		changeEdit () {
+			this.$store.commit('changeEditMode')
 		},
 		changeEditMode () {
 			if (this.$store.state.editmode === 0) {
@@ -189,6 +192,19 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getProfile'])
+	},
+	created () {
+		this.$store.watch(
+			(state) => {
+				return this.$store.state.profile
+			},
+			(newValue, oldValue) => {
+				this.gender = newValue.gender
+			},
+			{
+				deep: true
+			}
+		)
 	},
 	mounted () {
 		this.getCustProfile()

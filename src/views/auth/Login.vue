@@ -12,7 +12,8 @@ import Navbar from '../../components/auth/module/Navbar'
 import LoginForm from '../../components/auth/module/LoginForm'
 
 export default {
-	name: 'SignUp',
+	title: 'Login',
+	name: 'Login',
 	components: {
 		Navbar,
 		LoginForm

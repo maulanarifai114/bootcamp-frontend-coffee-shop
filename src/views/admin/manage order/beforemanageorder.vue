@@ -20,6 +20,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 export default {
+	title: 'Orders',
 	name: 'BeforeManageOrder',
 	data () {
 		return {

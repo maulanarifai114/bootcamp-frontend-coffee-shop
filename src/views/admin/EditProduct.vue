@@ -133,15 +133,14 @@ export default {
 			axios.get(`${process.env.VUE_APP_BASE_URL}/products/${this.$route.query.id}`)
 				.then((res) => {
 					this.dataProduct = res.data.result[0]
-
-					const start = res.data.result[0].start_delivery.split(':')
-					const startFormat = start[0] + ':' + start[1]
-					this.start = startFormat
-
-					const end = res.data.result[0].end_delivery.split(':')
-					const endFormat = end[0] + ':' + end[1]
-					this.end = endFormat
-
+					if (res.data.result[0].is_home_delivery || res.data.result[0].is_pick_up) {
+						const start = res.data.result[0].start_delivery.split(':')
+						const startFormat = start[0] + ':' + start[1]
+						this.start = startFormat
+						const end = res.data.result[0].end_delivery.split(':')
+						const endFormat = end[0] + ':' + end[1]
+						this.end = endFormat
+					}
 					this.name = res.data.result[0].name
 					this.price = res.data.result[0].price
 					this.description = res.data.result[0].description
@@ -151,7 +150,7 @@ export default {
 					this.door = res.data.result[0].is_home_delivery === true ? 1 : 0
 					this.pick = res.data.result[0].is_pick_up === true ? 1 : 0
 					if (res.data.result[0].is_dine_in === true) {
-						this.deliver = 'din'
+						this.deliver = 'dine'
 					} else if (res.data.result[0].is_home_delivery === true) {
 						this.deliver = 'door'
 					} else if (res.data.result[0].is_pick_up === true) {
@@ -192,7 +191,7 @@ export default {
 			var inputGambar = document.getElementById('uploadImage')
 			var dataFile = inputGambar.files[0]
 			const sizes = this.allSize.join(',')
-			if (this.deliver === 'din') {
+			if (this.deliver === 'dine') {
 				this.din = 1
 			} else if (this.deliver === 'door') {
 				this.door = 1

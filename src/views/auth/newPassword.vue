@@ -15,9 +15,9 @@
           <Input id="newPassword" :type="type" placeholder="Enter new password" @keyup="newPass"/>
           <Input id="password" :type="type" placeholder="Repeat your new password" @keyup="repeatPass"/>
           <div class="custom-control custom-checkbox checkbox-lg">
-  <input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
-  <label class="custom-control-label" for="showPassword">Show Password</label>
-</div>
+				<input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
+				<label class="custom-control-label" for="showPassword">Show Password</label>
+			</div>
           <Button color="btn-yellow btn-auth" label="Login Now" :nonActiveImg=1 @click="changePassword"></Button>
         </form>
       </div>
@@ -33,7 +33,8 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
-	name: 'Forgot',
+	title: 'New Password',
+	name: 'NewPassword',
 	components: {
 		Input,
 		Button

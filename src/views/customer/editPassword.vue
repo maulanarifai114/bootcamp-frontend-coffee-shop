@@ -16,14 +16,14 @@
       <div class="group-form">
         <form @submit.prevent="">
           <Input id="oldPassword" :type="type" placeholder="Enter old password" v-model="oldPassword" @input="OldPassword"/>
-          <span>{{alert}}</span>
+          <span class=" text-danger validation">{{alert}}</span>
           <Input id="newPassword" :type="type" placeholder="Enter new password" v-model="newPassword"/>
           <Input id="repeatPassword" :type="type" placeholder="Repeat your new password" v-model="repeatPassword"  @input="repeat"/>
-          <span>{{alertRepeat}}</span>
+          <span class=" text-danger validation">{{alertRepeat}}</span>
           <div class="custom-control custom-checkbox checkbox-lg">
-  <input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
-  <label class="custom-control-label" for="showPassword">Show Password</label>
-</div>
+						<input @click="showPW" type="checkbox" class="custom-control-input" id="showPassword">
+						<label class="custom-control-label validation" for="showPassword">Show Password</label>
+					</div>
           <Button color="btn-yellow btn-auth" label="Save" :nonActiveImg=1 @click="save"></Button>
           <Button color="btn-secondary btn-auth" label="Cancel" :nonActiveImg=1 @click="cancel"></Button>
         </form>
@@ -40,7 +40,8 @@ import Button from '../../components/auth/base/Button'
 import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-	name: 'Forgot',
+	title: 'Edit Password',
+	name: 'EditPassword',
 	components: {
 		Input,
 		Button
@@ -143,6 +144,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.validation {
+	font-family: Rubik;
+}
+
 .side-image-2  {
   background-image: url('../../assets/auth/side-img-2.png');
   background-size: cover;

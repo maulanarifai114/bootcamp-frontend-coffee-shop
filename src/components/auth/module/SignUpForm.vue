@@ -2,11 +2,12 @@
   <div class="group-form">
     <form @submit.prevent="">
       <Inputed id="email" type="email" placeholder="Enter your email adress" label="Email Adress :" @keyup="checkEmail" />
-      <!-- <p class=" text-danger" v-if="!email.includes('@')">Please enter your email</p> -->
-      <Inputed id="password" type="password" placeholder="Enter your password" label="Password :"  @keyup="checkPassword" />
-      <!-- <p class=" text-danger" v-if="pass.length < 8">Password is to short</p> -->
-      <Inputed id="phone" type="number" placeholder="Enter your phone number" label="Phone Number :" @keyup="checkNum" />
-      <div class="mb-3"></div>
+      <div v-if="isEmail" class=" mb-3 text-danger validation">Your email format is incorrect</div>
+			<Inputed id="password" type="password" placeholder="Enter your password" label="Password :"  @keyup="checkPassword" />
+      <div v-if="isPass" class=" mb-3 text-danger validation">Your password must be 8 character</div>
+			<Inputed id="phone" type="number" placeholder="Enter your phone number" label="Phone Number :" @keyup="checkNum" />
+      <!-- <div v-if="isPhone" class=" mb-3 text-danger validation">Your phone number is incorrect</div> -->
+			<div class="mb-3"></div>
       <Button color="btn-yellow btn-auth" label="Sign Up" :nonActiveImg="1" @click="register" ></Button>
     </form>
     <Button color="btn-white-auth" label="Sign Up With Google" :nonActiveImg="0"  ></Button>
@@ -35,7 +36,10 @@ export default {
 		return {
 			pass: '',
 			email: '',
-			number: ''
+			number: '',
+			isEmail: 0,
+			isPass: 0,
+			isPhone: 0
 		}
 	},
 	methods: {
@@ -44,30 +48,50 @@ export default {
 		},
 		checkPassword (e) {
 			const inputPass = e.target.value
-			console.log(inputPass)
-			if (inputPass.length >= 8) {
+			if (inputPass.length >= 1) {
 				this.pass = inputPass
-			} else if (inputPass.length < 8) {
+				if (inputPass.length < 8) {
+					this.isPass = 1
+				} else {
+					this.isPass = 0
+				}
+			} else if (inputPass.length <= 0) {
 				this.pass = ''
+				this.isPass = 0
 			}
 		},
 		checkEmail (e) {
 			const inputEmail = e.target.value
-			console.log(inputEmail)
-			if (inputEmail.includes('@')) {
+			if (inputEmail.length >= 1) {
 				this.email = inputEmail
-			} else if (!inputEmail.includes('@')) {
+				if (!inputEmail.includes('@')) {
+					this.isEmail = 1
+				} else {
+					this.isEmail = 0
+				}
+			} else if (inputEmail.length < 1) {
 				this.email = ''
+				this.isEmail = 0
 			}
 		},
 		checkNum (e) {
 			const inputNum = e.target.value
-			console.log(inputNum)
 			if (inputNum.length > 0) {
 				this.number = inputNum
 			} else if (!inputNum.length <= 0) {
 				this.number = ''
 			}
+			// if (inputNum.length > 0) {
+			// 	this.number = inputNum
+			// 	if (inputNum.length < 8) {
+			// 		this.isPhone = 1
+			// 	} else {
+			// 		this.isPhone = 0
+			// 	}
+			// } else if (!inputNum.length <= 0) {
+			// 	this.number = ''
+			// 	this.isPhone = 0
+			// }
 		},
 		register () {
 			const email = this.email
@@ -79,7 +103,6 @@ export default {
 				password,
 				phone_number: parseNum
 			}
-			console.log(user)
 			if (user.email.length < 1) {
 				return Swal.fire({
 					icon: 'error',
@@ -117,6 +140,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.validation {
+	font-family: Rubik;
+}
+
 .group-form {
   width: 505px;
 }

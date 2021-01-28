@@ -14,6 +14,7 @@
       <div class="group-form">
         <form>
           <Input id="email" type="email" placeholder="Enter your email adress" @keyup="checkEmail" />
+					<div v-if="isEmail" class=" mb-3 text-danger validation">Your email format is incorrect</div>
           <Button color="btn-yellow btn-auth" label="Send" :nonActiveImg=1 @click="sendLink"></Button>
           <!-- <Button color="btn-brown btn-auth" label="Resend Link" :nonActiveImg=1 @click="sendLink"></Button> -->
         </form>
@@ -30,6 +31,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export default {
+	title: 'Forgot Password',
 	name: 'Forgot',
 	components: {
 		Input,
@@ -37,18 +39,27 @@ export default {
 	},
 	data () {
 		return {
-			email: ''
+			email: '',
+			isEmail: 0
 		}
 	},
 	methods: {
 		checkEmail (e) {
 			const inputEmail = e.target.value
-			console.log('email', inputEmail)
 			if (inputEmail.length >= 1) {
 				this.email = inputEmail
+				if (!inputEmail.includes('@')) {
+					this.isEmail = 1
+				} else {
+					this.isEmail = 0
+				}
 			} else if (inputEmail.length < 1) {
 				this.email = ''
+				this.isEmail = 0
 			}
+		},
+		emptyEmail () {
+			this.email = ''
 		},
 		sendLink () {
 			if (this.email.length < 1) {
@@ -76,10 +87,9 @@ export default {
 					// return alert('Check your email now')
 				})
 				.catch((err) => {
-					console.log(err.response.data)
 					Swal.fire({
 						icon: 'error',
-						title: 'Error send email'
+						title: err.response.data.messages
 						// text: 'Use minimal 8 character'
 					})
 					// return alert('Check your email now')
@@ -90,6 +100,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.validation {
+	font-family: Rubik;
+}
 
 .group-form {
   width: 505px;
